@@ -1,14 +1,11 @@
-import customtkinter as tk
-from tkinter import ttk
-from tkinter import filedialog
-from tkinter import messagebox
-from CTkMenuBar import CTkTitleMenu
+import tkinter as tk
+import tkinter.ttk as ttk
 import os
 import sys
 import shutil
 
 
-class gui(tk.CTk):
+class gui(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Text Editor")
@@ -20,7 +17,7 @@ class gui(tk.CTk):
         self.main_programm()
     
     def on_closing(self):
-        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+        if ttk.askokcancel("Quit", "Do you want to quit?"):
             self.destroy()
             exit(0)    
             
@@ -32,7 +29,7 @@ class gui(tk.CTk):
     
     def main_programm(self):
         self.reset()
-        self.CTkMenubar(self).add_menu("File")
+        
         
     def reset(self):
         for widget in self.winfo_children():
