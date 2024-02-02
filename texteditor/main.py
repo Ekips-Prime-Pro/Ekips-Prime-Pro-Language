@@ -23,7 +23,7 @@ class gui(tk.Tk):
             self.destroy()
             exit(0)
             
-    def save(self, event=None):
+    def save(self):
         pass
     
     def open(self):
@@ -38,6 +38,24 @@ class gui(tk.Tk):
         menu_bar.add_command(label="Exit", command=self.on_closing)
         menu_bar.add_cascade(label="File", menu=menu_bar)
         self.config(menu=menu_bar)
+        
+    def toolbar(self, mode=None):
+        if event == "File":
+            self.left_frame = tk.Frame(self, bg="white")
+            self.left_frame.pack(side="left", fill="y")
+            tk.Button(self.left_frame, text="Open", command=self.open).pack()
+            tk.Button(self.left_frame, text="Save", command=self.save).pack()
+            tk.Button(self.left_frame, text="Save as", command=self.save).pack()
+            tk.Button(self.left_frame, text="Exit", command=self.on_closing).pack()
+        elif event == "tools":
+            self.left_frame.destroy()
+            self.left_frame = tk.Frame(self, bg="white")
+            self.left_frame.pack(side="left", fill="y")
+            tk.Button(self.left_frame, text="Open", command=self.open).pack()
+        else:
+            self.left_frame.destroy()
+        
+        
         
     def reset(self):
         for widget in self.winfo_children():
