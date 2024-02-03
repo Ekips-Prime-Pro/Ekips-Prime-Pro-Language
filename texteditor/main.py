@@ -26,16 +26,17 @@ class gui:
             exit(0)
             
     def save(self):
-        pass
+        text = self.file_content.get()
+        file = filedialog.asksaveasfile(mode="w", defaultextension=".txt")
     
     def open(self):
         pass
     
     def main_programm(self):
         self.file = "N/A"
-        tk.Label(self.root, text="File: ").place(x=150, y=10)
-        tk.Label(self.root, text=self.file).place(x=170, y=10)
-        tk.Text(self.root).place(x=150, y=20, relwidth=1, relheight=1)
+        tk.Label(self.root, text="File: ").place(x=150, y=0)
+        tk.Label(self.root, text=self.file).place(x=170, y=0)
+        self.file_content = tk.Text(self.root).place(x=150, y=20, relwidth=1, relheight=1)
         self.menu_top()
         self.toolbar()
         
