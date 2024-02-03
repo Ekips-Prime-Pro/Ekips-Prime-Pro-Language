@@ -32,7 +32,10 @@ class gui:
         pass
     
     def main_programm(self):
-        tk.EntryField(self.root, text="Hallo Welt").pack()
+        self.file = "N/A"
+        tk.Label(self.root, text="File: ").place(x=150, y=10)
+        tk.Label(self.root, text=self.file).place(x=170, y=10)
+        tk.Text(self.root).place(x=150, y=20, relwidth=1, relheight=1)
         self.menu_top()
         self.toolbar()
         
@@ -42,10 +45,10 @@ class gui:
     def toolbar(self, mode=None):
         self.left_frame = tk.Frame(self.root, bg="white")
         self.left_frame.pack(side="left", fill="y")
-        tk.Button(self.left_frame, text="Push", command=self.open).pack()
-        tk.Button(self.left_frame, text="Update", command=self.save).pack()
-        tk.Button(self.left_frame, text="help", command=self.save).pack()
-        tk.Button(self.left_frame, text="Exit", command=self.on_closing).pack()
+        tk.Button(self.left_frame, text="Push", command=self.open, height=7, width=20).pack()
+        tk.Button(self.left_frame, text="Update", command=self.save, height=7, width=20).pack()
+        tk.Button(self.left_frame, text="help", command=self.save, height=7, width=20).pack()
+        tk.Button(self.left_frame, text="Exit", command=self.on_closing, height=7, width=20).pack()
         
     def menu_top(self):
         self.menu = tk.Menu(self.root)
