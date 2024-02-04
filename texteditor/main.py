@@ -10,12 +10,13 @@ import webbrowser as website
 
 class gui:
     def __init__(self):
+        self.file = "N/A"
         self.root = tk.Tk()
         self.root.title("SCSaP") # Spike Custom System and Programming
         self.root.geometry("800x600")
         self.root.resizable(True, True)
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.root.bind("<Control-s>", self.save)
+        self.root.bind("<Control-s>", self.save())
         self.root.iconbitmap("icon.ico")
         self.main_programm()
         self.root.mainloop()
@@ -26,11 +27,18 @@ class gui:
             exit(0)
             
     def save(self):
-        text = self.file_content.get()
-        file = filedialog.asksaveasfile(mode="w", defaultextension=".txt")
+        try:
+            file = filedialog.asksaveasfile(mode="w", defaultextension=".txt")
+            text = self.file_content.get()
+            file.write(text)
+            file.close()
+        except:
+            messagebox.showerror("Error", "Error while saving file")
     
     def open(self):
-        pass
+        content = logik.open()
+        self.file_content.insert(tk.END, content)
+        self.file = 
     
     def main_programm(self):
         if self.file == "N/A":
@@ -105,7 +113,10 @@ class gui:
 class logik():
     def __init__(self):
         pass
-
+    
+    def open(self):
+        file_name = filedialog.askopenfilename()
+        return open(file_name, "r").read()
 
 if __name__ == "__main__":
     gui()
