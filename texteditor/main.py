@@ -7,6 +7,10 @@ import sys
 import shutil
 import webbrowser as website
 
+global file_name
+global file_content
+file_name = "N/A"
+file_content = "N/A"
 
 class gui:
     def __init__(self):
@@ -39,8 +43,9 @@ class gui:
             messagebox.showerror("Error", "Error while saving file")
     
     def open(self):
-        content, self.file = logik.open()
-        self.file_content.insert(tk.END, content)
+        logik.open()
+        self.file = file_name
+        self.file_content.insert(tk.END, file_content)
     
     def main_programm(self):
         if self.file == "N/A":
@@ -119,7 +124,7 @@ class logik():
     def open():
         try:
             file_name = filedialog.askopenfilename(mode="r", filetypes=[("Text Files", "*.txt")])
-            return open(file_name, "r").read() , file_name
+            file_content = open(file_name, "r").read()
         except:
             messagebox.showerror("Error", "Error while opening file")
 
