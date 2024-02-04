@@ -11,12 +11,12 @@ import webbrowser as website
 class gui:
     def __init__(self):
         self.file = "N/A"
+        self.file_content = "N/A"
         self.root = tk.Tk()
         self.root.title("SCSaP") # Spike Custom System and Programming
         self.root.geometry("800x600")
         self.root.resizable(True, True)
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.root.bind("<Control-s>", self.save())
         self.root.iconbitmap("icon.ico")
         self.main_programm()
         self.root.mainloop()
@@ -28,17 +28,19 @@ class gui:
             
     def save(self):
         try:
-            file = filedialog.asksaveasfile(mode="w", defaultextension=".txt")
-            text = self.file_content.get()
-            file.write(text)
-            file.close()
+            if self.file_content != "N/A":
+                file = filedialog.asksaveasfile(mode="w", defaultextension=".txt")
+                text = self.file_content.get()
+                file.write(text)
+                file.close()
+            else:
+                messagebox.showerror("Error", "No content to save")
         except:
             messagebox.showerror("Error", "Error while saving file")
     
     def open(self):
-        content = logik.open()
+        content, self.file = logik.open()
         self.file_content.insert(tk.END, content)
-        self.file = 
     
     def main_programm(self):
         if self.file == "N/A":
@@ -111,12 +113,16 @@ class gui:
     
         
 class logik():
-    def __init__(self):
+    def __init__():
         pass
     
-    def open(self):
-        file_name = filedialog.askopenfilename()
-        return open(file_name, "r").read()
+    def open():
+        try:
+            file_name = filedialog.askopenfilename(mode="r", filetypes=[("Text Files", "*.txt")])
+            return open(file_name, "r").read() , file_name
+        except:
+            messagebox.showerror("Error", "Error while opening file")
+
 
 if __name__ == "__main__":
     gui()
