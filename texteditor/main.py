@@ -45,7 +45,7 @@ class gui:
     def open(self):
         logik.open()
         self.file = file_name
-        self.file_content.insert(tk.END, file_content)
+        self.file_content = file_content
     
     def main_programm(self):
         if self.file == "N/A":
@@ -123,7 +123,7 @@ class logik():
     
     def open():
         try:
-            file_name = filedialog.askopenfilename(mode="r", filetypes=[("Text Files", "*.txt")])
+            file_name = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
             file_content = open(file_name, "r").read()
         except:
             messagebox.showerror("Error", "Error while opening file")
