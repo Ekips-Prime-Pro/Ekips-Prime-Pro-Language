@@ -33,7 +33,10 @@ class gui:
         pass
     
     def main_programm(self):
-        self.file = "N/A"
+        if self.file == "N/A":
+            self.file = "N/A"
+        else:
+            self.file = self.file
         tk.Label(self.root, text="File: ").place(x=150, y=0)
         tk.Label(self.root, text=self.file).place(x=170, y=0)
         self.file_content = tk.Text(self.root).place(x=150, y=20, relwidth=1, relheight=1)
