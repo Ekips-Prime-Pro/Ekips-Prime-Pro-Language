@@ -86,8 +86,8 @@ class gui:
     def toolbar(self, mode=None):
         self.left_frame = tk.Frame(self.root, bg="white")
         self.left_frame.pack(side="left", fill="y")
-        tk.Button(self.left_frame, text="Push", command=self.open, height=7, width=20).pack()
-        tk.Button(self.left_frame, text="Update", command=self.save, height=7, width=20).pack()
+        tk.Button(self.left_frame, text="Push", command=self.push, height=7, width=20).pack()
+        tk.Button(self.left_frame, text="Update", command=self.update, height=7, width=20).pack()
         tk.Button(self.left_frame, text="help", command=self.help, height=7, width=20).pack()
         tk.Button(self.left_frame, text="Exit", command=self.on_closing, height=7, width=20).pack()
         
@@ -102,7 +102,7 @@ class gui:
         
         self.tools = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Tools", menu=self.tools)
-        self.tools.add_command(label="Edit", command=self.open)
+        self.tools.add_command(label="Compile", command=self.compile)
         self.tools.add_command(label="", command=self.save)
         self.tools.add_command(label="Save as", command=self.save)
         
@@ -138,6 +138,8 @@ class gui:
         for widget in self.winfo_children():
             widget.destroy()
     
+    def compile(self):
+        pass
     
         
 class logik():
