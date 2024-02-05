@@ -103,8 +103,8 @@ class gui:
         self.tools = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Tools", menu=self.tools)
         self.tools.add_command(label="Compile", command=self.compile)
-        self.tools.add_command(label="", command=self.save)
-        self.tools.add_command(label="Save as", command=self.save)
+        self.tools.add_command(label="Update", command=self.update)
+        self.tools.add_command(label="Pull", command=self.pull)
         
         self.spike = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Spike", menu=self.spike)
