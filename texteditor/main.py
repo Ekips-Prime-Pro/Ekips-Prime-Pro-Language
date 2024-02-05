@@ -7,6 +7,10 @@ import sys
 import shutil
 import webbrowser as website
 
+global file_name
+global file_content
+file_name = "N/A"
+file_content = "N/A"
 
 class gui:
     def __init__(self):
@@ -27,20 +31,43 @@ class gui:
             exit(0)
             
     def save(self):
-        try:
-            if self.file_content != "N/A":
-                file = filedialog.asksaveasfile(mode="w", defaultextension=".txt")
-                text = self.file_content.get()
-                file.write(text)
-                file.close()
-            else:
-                messagebox.showerror("Error", "No content to save")
-        except:
-            messagebox.showerror("Error", "Error while saving file")
+        #try:
+        file_path = filedialog.askdirectory()
+        file_name = self.askfilename()
+        file_path = file_path + "/" + file_name + ".txt"
+        with open(file_path, "w") as file:
+            file.write(self.file_content)
+        #except:
+        #    messagebox.showerror("Error", "Error while saving file")
+    
+    def askfilename(self):
+        window1 = tk.Tk()
+        window1.title("File name")
+        window1.geometry("200x100")
+        window1.resizable(False, False)
+        window1.iconbitmap("icon.ico")
+        tk.Label(window1, text="Enter file name: ").pack()
+        file_name = tk.Entry(window1).pack()
+        tk.Button(window1, text="Save", command=self.reutrn).pack()
+        window1.mainloop()
+        
+    def reutrn(self):
+        self.file_name = file_name
+        window1.destroy()
+    
+    def push(self):
+        pass
+    
+    def pull(self):
+        pass
+    
+    def update(self):
+        pass
     
     def open(self):
-        content, self.file = logik.open()
-        self.file_content.insert(tk.END, content)
+        logik.open()
+        self.file = file_name
+        self.file_content = file_content
     
     def main_programm(self):
         if self.file == "N/A":
@@ -61,7 +88,7 @@ class gui:
         self.left_frame.pack(side="left", fill="y")
         tk.Button(self.left_frame, text="Push", command=self.open, height=7, width=20).pack()
         tk.Button(self.left_frame, text="Update", command=self.save, height=7, width=20).pack()
-        tk.Button(self.left_frame, text="help", command=self.save, height=7, width=20).pack()
+        tk.Button(self.left_frame, text="help", command=self.help, height=7, width=20).pack()
         tk.Button(self.left_frame, text="Exit", command=self.on_closing, height=7, width=20).pack()
         
     def menu_top(self):
@@ -104,6 +131,7 @@ class gui:
         website.open("https://github.com/Iron-witch/Coding_lang_spike_PaRaMeRoS")
         
     def help(self):
+        messagebox.showinfo("Help", "For help and documentation please visit the GitHub page of the project")
         website.open("help.html")
         
     def reset(self):
@@ -115,11 +143,11 @@ class gui:
 class logik():
     def __init__():
         pass
-    
+                    
     def open():
         try:
-            file_name = filedialog.askopenfilename(mode="r", filetypes=[("Text Files", "*.txt")])
-            return open(file_name, "r").read() , file_name
+            file_name = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
+            file_content = open(file_name, "r").read()
         except:
             messagebox.showerror("Error", "Error while opening file")
 
