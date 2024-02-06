@@ -17,7 +17,7 @@ class gui:
         self.file = "N/A"
         self.file_content = "N/A"
         self.root = tk.Tk()
-        self.root.title("SCSaP") # Spike Custom System and Programming
+        self.root.title("Spike Custom System Programming") # File extension .scsp
         self.root.geometry("800x600")
         self.root.resizable(True, True)
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -113,6 +113,13 @@ class gui:
         self.spike.add_command(label="Pull", command=self.pull)
         self.spike.add_command(label="Update", command=self.update)
         
+        self.usb = tk.Menu(self.menu, tearoff=0)
+        self.wireless = tk.Menu
+        self.menu.add_cascade(label="Connect", menu=self.usb)
+        self.usb.add_command(label="USB", command=self.usb_connection)
+        self.usb.add_command(label="Wireless", command=self.usb_connection)
+        
+        
         self.help = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Help", menu=self.help)
         self.help.add_command(label="Credit", command=self.credit)
@@ -139,6 +146,9 @@ class gui:
             widget.destroy()
     
     def compile(self):
+        pass
+    
+    def usb_connection(self):
         pass
     
         
