@@ -109,9 +109,9 @@ class gui:
         self.spike = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Spike", menu=self.spike)
         self.spike.add_command(label="Run", command=self.open)
-        self.spike.add_command(label="Push", command=self.save)
-        self.spike.add_command(label="Pull", command=self.save)
-        self.spike.add_command(label="Update", command=self.save)
+        self.spike.add_command(label="Push", command=self.push)
+        self.spike.add_command(label="Pull", command=self.pull)
+        self.spike.add_command(label="Update", command=self.update)
         
         self.help = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Help", menu=self.help)
