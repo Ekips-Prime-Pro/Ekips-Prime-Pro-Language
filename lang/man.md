@@ -36,6 +36,7 @@ There are four build in functions.
 - The `Module` function is for controling a single motor.
 - The `AI` function is for controling the artificial inteligence which is build in for evry module if there are datasets to build from.
 - The `Sensor` function is for controling the Input for the artificial inteligence.
+- The `Parallel` function will run multible thing simultanius.
 
 ## Examples
 
