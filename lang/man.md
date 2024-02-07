@@ -17,7 +17,7 @@ To use the Spike custom Programming Language, you need to install the compiler a
 
 1. Download the latest version of the My Programming Language compiler from the official website.
 2. Install the compiler on your system by running the installer.
-3. Verify the installation by opening a terminal and running the `mypl --version` command.
+3. Verify the installation by opening a terminal and running the programm in cli mode command.
 
 ## Syntax
 

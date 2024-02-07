@@ -22,7 +22,13 @@ class compiler:
 
 class cli: #TODO: implement a command line interface
     def __init__(self):
-        pass
+        input = ">>>"
+        try:
+            command, var = input.split(">")
+        except:
+            command = input
+        if command == "exit":
+            self.exit()
     
     def main(self):
         pass
@@ -43,10 +49,13 @@ class cli: #TODO: implement a command line interface
         pass
     
     def exit(self):
-        pass
+        sys.exit()
     
     def ask_file_path(self):
         pass
+    
+    def version(self):
+        print("Version: 0.0.1")
     
     
 class api: #TODO: implement an api for the main GUI
