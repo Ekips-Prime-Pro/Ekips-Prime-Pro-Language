@@ -30,7 +30,7 @@ class gui:
             self.root.destroy()
             exit(0)
             
-    def save(self):
+    def save(self): #TODO: David mach die richtige logic
         #try:
         file_path = filedialog.askdirectory()
         file_name = self.askfilename()
@@ -145,10 +145,10 @@ class gui:
         for widget in self.winfo_children():
             widget.destroy()
     
-    def compile(self):
+    def compile(self): # TODO: add the compiler install and run command
         pass
     
-    def usb_connection(self):
+    def usb_connection(self): #TODO: add the usb_connection system
         pass
     
         
@@ -156,7 +156,7 @@ class logik():
     def __init__():
         pass
                     
-    def open():
+    def open(): #TODO: rework the opening system
         try:
             file_name = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
             file_content = open(file_name, "r").read()
