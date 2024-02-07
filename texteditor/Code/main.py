@@ -1,3 +1,4 @@
+#TODO: add customtkinter
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
@@ -7,6 +8,7 @@ import sys
 import shutil
 import webbrowser as website
 
+#TODO: remove global variables
 global file_name
 global file_content
 file_name = "N/A"
@@ -132,14 +134,14 @@ class gui:
         messagebox.showinfo("Credit", "Maximilian Gründinger\nFirst Lego League Team PaRaMeRoS")
         
     def about(self):
-        messagebox.showinfo("About", "SCSaP\nVersion 1.0\nMaximilian Gründinger\nFirst Lego League Team PaRaMeRoS")
+        messagebox.showinfo("About", "SCSaP\nVersion 0.0.1\nMaximilian Gründinger\nFirst Lego League Team PaRaMeRoS")
     
     def github(self):
         website.open("https://github.com/Iron-witch/Coding_lang_spike_PaRaMeRoS")
         
     def help(self):
         messagebox.showinfo("Help", "For help and documentation please visit the GitHub page of the project")
-        website.open("help.html")
+        website.open("https://github.com/Iron-witch/Coding_lang_spike_PaRaMeRoS/wiki")
         
     def reset(self):
         for widget in self.winfo_children():
