@@ -25,6 +25,7 @@ My Programming Language has a simple and intuitive syntax that is easy to read a
 
 - Statements are terminated with a semicolon (`;`).
 - Blocks of code are enclosed in curly braces (`{}`).
+- If you want to run two functions in parallel you have to add an colon (`:`)
 - Comments can be added using the `//` or `/* */` syntax.
 
 ## Functions
@@ -34,9 +35,15 @@ There are four build in functions.
 
 - The `Drive` function is for driving a motorpair forward and backward.
 - The `Module` function is for controling a single motor.
-- The `AI` function is for controling the artificial inteligence which is build in for evry module if there are datasets to build from.
+- The `AI` function is for controling the artificial inteligence which is build in for every module if there are datasets to build from, for this there will be an extra Guide.
 - The `Sensor` function is for controling the Input for the artificial inteligence.
 - The `Parallel` function will run multible thing simultanius.
+- The `print` function will print any value you give it.
 
 ## Examples
 
+1. `drive{10};` or `ai.drive{10};`
+2. `module{100};` or `ai.module{100};`
+3. `parallel{ai.drive{10}:module{100}};`
+4. `sensor{color};`
+5. `ai_train_data_save{data_file};` or `ai_train_data_load{data_file};` or `ai_model_chose{supervised_learning}`
