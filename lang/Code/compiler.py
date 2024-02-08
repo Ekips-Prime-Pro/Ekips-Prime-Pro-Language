@@ -22,25 +22,27 @@ class compiler:
 
 class cli: #TODO: implement a command line interface
     def __init__(self):
-        input = ">>>"
-        try:
-            command, var = input.split(">")
-        except:
-            command = input
-        if command == "exit":
-            self.exit()
-        elif command == "open":
-            self.open()
-        elif command == "save":
-            self.save()
-        elif command == "compile":
-            self.compile()
-        elif command == "help":
-            self.help()
-        elif command == "credits":
-            self.credits()
-        elif command == "version":
-            self.version()
+        while True:
+            print("enter a command:")
+            input = ">>>"
+            try:
+                command, var = input.split(">")
+            except:
+                command = input
+            if command == "exit":
+                self.exit()
+            elif command == "open":
+                self.open()
+            elif command == "save":
+                self.save()
+            elif command == "compile":
+                self.compile()
+            elif command == "help":
+                self.help()
+            elif command == "credits":
+                self.credits()
+            elif command == "version":
+                self.version()
 
     
     def help(self):
