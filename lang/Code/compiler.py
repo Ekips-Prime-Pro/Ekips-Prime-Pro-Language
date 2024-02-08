@@ -29,12 +29,22 @@ class cli: #TODO: implement a command line interface
             command = input
         if command == "exit":
             self.exit()
-    
-    def main(self):
-        pass
+        elif command == "open":
+            self.open()
+        elif command == "save":
+            self.save()
+        elif command == "compile":
+            self.compile()
+        elif command == "help":
+            self.help()
+        elif command == "credits":
+            self.credits()
+        elif command == "version":
+            self.version()
+
     
     def help(self):
-        pass
+        print("Commands: ")
     
     def compile(self):
         pass
@@ -46,7 +56,9 @@ class cli: #TODO: implement a command line interface
         pass
     
     def credits(self):
-        pass
+        print("Credits: Maximilian Gründinger")
+        print("@AIIrondev, 2024")
+        print("All rights reserved")
     
     def exit(self):
         sys.exit()
@@ -56,8 +68,8 @@ class cli: #TODO: implement a command line interface
     
     def version(self):
         print("Version: 0.0.1")
-    
-    
+
+
 class api: #TODO: implement an api for the main GUI
     def __init__(self):
         pass
@@ -77,13 +89,22 @@ class writable_content:#TODO: add the content of the functions in python
     def __init__(self):
         pass
     
-    def ai(self): 
+    def ai_supervised(self): 
+        pass
+    
+    def ai_unsupervised(self):
         pass
     
     def drive(self):
         pass
     
+    def ai_drive(self):
+        pass
+    
     def tank(self):
+        pass
+    
+    def ai_tank(self):
         pass
     
     def module(self):
@@ -102,3 +123,5 @@ class writable_content:#TODO: add the content of the functions in python
         pass
 
 
+if __name__ == "__main__":
+    cli()
