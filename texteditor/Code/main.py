@@ -33,8 +33,11 @@ class gui:
             exit(0)
             
     def save(self):
-        Files = [('Python Files', '*.scsp'), ('Text Document', '*.txt')]
-	    file = asksaveasfile(filetypes = Files, defaultextension = Files)
+        Files = [('Spike Custom System Programming', '*.scsp'), ('Text Document', '*.txt')]
+        file = filedialog.asksaveasfile(filetypes = Files, defaultextension = Files)
+        if file is not None:
+            file.write(self.file_content.get("1.0", "end-1c"))
+            file.close()
     
     def push(self):
         pass
@@ -57,7 +60,8 @@ class gui:
             self.file = self.file
         tk.Label(self.root, text="File: ").place(x=150, y=0)
         tk.Label(self.root, text=self.file).place(x=170, y=0)
-        self.file_content = tk.Text(self.root).place(x=150, y=20, relwidth=1, relheight=1)
+        self.file_content = tk.Text(self.root)
+        self.file_content.place(x=150, y=20, relwidth=1, relheight=1)
         self.menu_top()
         self.toolbar()
         
@@ -78,7 +82,7 @@ class gui:
         self.file = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="File", menu=self.file)
         self.file.add_command(label="Open", command=self.open)
-        self.file.add_command(label="Save", command=self.save)
+        self.file.add_command(label="Save", command=lambda: self.save())
         self.file.add_command(label="Save as", command=self.save)
         
         self.tools = tk.Menu(self.menu, tearoff=0)
