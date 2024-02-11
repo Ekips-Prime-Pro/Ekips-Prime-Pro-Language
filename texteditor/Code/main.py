@@ -38,6 +38,7 @@ class gui:
         if file is not None:
             file.write(self.file_content.get("1.0", "end-1c"))
             file.close()
+        self.file = file.name
     
     def push(self):
         pass
@@ -46,7 +47,8 @@ class gui:
         pass
     
     def update(self):
-        pass
+        os.system("update-gui.py")
+        os.system("update-compiler.py")
     
     def open(self):
         logik.open()
