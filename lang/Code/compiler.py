@@ -5,7 +5,7 @@ import webbrowser as website
 
 class compiler:
     def __init__(self):
-        pass
+        self.compile_register = []
     
     def compile(self, file_path): #TODO: implement a compiler that compiles the .scsp file to a .py file and then to a .c file
         pass
@@ -14,10 +14,9 @@ class compiler:
         with open(file_scsp, "r") as file:
             content = file.read()
             for elment in content:
-                element.replace("\n", "")
-                element.replace("\t", "")
-                element.split(";")
-                self.compile(elment) #TODO: implement a reading that is linear -> line by line
+                elment = elment.readline()
+                self.compile_register.append(elment)
+            self.compile(elment) #TODO: implement a reading that is linear -> line by line
                 
 
 class cli: #TODO: implement a command line interface
