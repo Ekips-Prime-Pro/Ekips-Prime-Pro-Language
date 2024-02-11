@@ -142,8 +142,8 @@ class logik():
                     
     def open(): #TODO: rework the opening system
         try:
-            file_name = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
-            file_content = open(file_name, "r").read()
+            file = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("Spike Custom System Programming", "*.scsp")])
+            return file
         except:
             messagebox.showerror("Error", "Error while opening file")
 
