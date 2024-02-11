@@ -32,30 +32,9 @@ class gui:
             self.root.destroy()
             exit(0)
             
-    def save(self): #TODO: David mach die richtige logic
-        #try:
-        file_path = filedialog.askdirectory()
-        file_name = self.askfilename()
-        file_path = file_path + "/" + file_name + ".txt"
-        with open(file_path, "w") as file:
-            file.write(self.file_content)
-        #except:
-        #    messagebox.showerror("Error", "Error while saving file")
-    
-    def askfilename(self):
-        window1 = tk.Tk()
-        window1.title("File name")
-        window1.geometry("200x100")
-        window1.resizable(False, False)
-        window1.iconbitmap("icon.ico")
-        tk.Label(window1, text="Enter file name: ").pack()
-        file_name = tk.Entry(window1).pack()
-        tk.Button(window1, text="Save", command=self.reutrn).pack()
-        window1.mainloop()
-        
-    def reutrn(self):
-        self.file_name = file_name
-        window1.destroy()
+    def save(self):
+        Files = [('Python Files', '*.scsp'), ('Text Document', '*.txt')]
+	    file = asksaveasfile(filetypes = Files, defaultextension = Files)
     
     def push(self):
         pass
