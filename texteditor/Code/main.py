@@ -52,9 +52,20 @@ class gui:
         os.system("update-compiler.py")
     
     def open(self):
-        logik.open()
-        self.file = file_name
-        self.file_content = file_content
+        try:
+            if self.file_content.get("1.0", "end-1c") != "": #TODO: add a messagebox to ask if the user want to save the file
+                msg = messagebox.askyesno("Save", "Do you want to save the file?")
+                if msg:
+                    self.save()
+                else:
+                    pass
+            file = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("Spike Custom System Programming", "*.scsp")])
+            self.file_label.config(text=f"File: {file}")
+            with open(file, "r") as f:
+                self.file_content.delete("1.0", "end")
+                self.file_content.insert("1.0", f.read())
+        except:
+            messagebox.showerror("Error", "Error while opening file")
     
     def main_programm(self):
         self.file_label = tk.Label(self.root, text="File: ")
@@ -139,13 +150,7 @@ class gui:
 class logik():
     def __init__():
         pass
-                    
-    def open(): #TODO: rework the opening system
-        try:
-            file = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("Spike Custom System Programming", "*.scsp")])
-            return file
-        except:
-            messagebox.showerror("Error", "Error while opening file")
+        
 
 
 if __name__ == "__main__":
