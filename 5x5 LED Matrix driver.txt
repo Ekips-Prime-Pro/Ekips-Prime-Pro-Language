@@ -1,0 +1,17 @@
+V0.1
+5x5 LED Matrix driver:
+Decoder:
+Input 1 = höhe   -> 001(1),010(2),011(3),100(4),101(5)
+Input 2 = breite -> 001(1),010(2),011(3),100(4),101(5)
+Input 3 = an/aus -> 0(an),1(aus)
+Driver:
+add I1, I2 and set status to I3
+
+V0.2
+5x5 LED Matrix driver:
+Decoder:
+Höhe,breite fünf bit system 00000
+Inputlane -> 00000(1,1),00001(1,2),00010(1,3),00011(1,4),00100(1,5),00101(2,1),00110(2,2),00111(2,3),01000(2,4),
+01001(2,5),01010(3,1),01011(3,2),01100(3,3),01101(3,4),01110(3,5),01111(4,1),10000(4,2),10001(4,3),10010(4,4),
+10011(4,5),10100(5,1),10101(5,2),10110(5,3),10111(5,4),11000(5,5)
+Wenn Pin angesteuert dann invert und umkehren des Status. NOT

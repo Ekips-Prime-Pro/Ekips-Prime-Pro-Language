@@ -25,7 +25,7 @@ The Spike Custom System Programming Language has a simple and intuitive syntax t
 
 - After every Function you have to place a semicolon (`;`).
 - The curly brackets define function uneque variables like `wait{1}` (`{}`).
-- If you want to run two functions in parallel you have to add an colon (`:`)
+- If you want to have to varables in curly brackets you have to add an colon (`:`)
 - Comments can be added using the `//` or `/* */` syntax.
 
 ## Functions
@@ -51,4 +51,7 @@ The best way to learn the language you have to remeber the syntax and the functi
 2. `module{100};` or `ai.module{100};`
 3. `parallel{ai.drive{10}:module{100}};`
 4. `sensor{color};`
-5. `ai_train_data_save{data_file};` or `ai_train_data_load{data_file};` or `ai_model_chose{supervised_learning}`
+5. `ai_train_data_save{data_file};` or `ai_train_data_load{data_file};` or `ai_model_chose{supervised_learning};`
+6. `print{Hello World};`
+7. `calibrate{10};` this will define the distance that will be driven.
+8. `tank{90:30};`
