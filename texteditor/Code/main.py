@@ -48,8 +48,7 @@ class gui:
         pass
     
     def update(self):
-        os.system("update-gui.py")
-        os.system("update-compiler.py")
+        os.system("update.bat")
     
     def open(self):
         try:
