@@ -1,3 +1,4 @@
+REM TODO: Update the FTP server details and the local folder path and check if it works
 @echo off
 
 REM FTP server details
@@ -17,7 +18,7 @@ if exist "%VERSION_FILE%" (
     set CURRENT_VERSION=0
 )
 
-REM Download the latest version
+REM Download the latest version 
 echo Downloading latest version...
 ftp -n -i -s:"%LOCAL_FOLDER%ftp_commands.txt" %FTP_SERVER%
 
