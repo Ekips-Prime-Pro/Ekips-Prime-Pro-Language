@@ -37,6 +37,8 @@ class gui:
             Files = [('Spike Custom System Programming', '*.scsp'), ('Text Document', '*.txt')]
             file = filedialog.asksaveasfile(filetypes = Files, defaultextension = Files)
             if file is not None:
+                if self.file_author == "N/A":
+                    self.file_author = os.system("whoami")
                 file.write("<Author>" + self.file_author + "</Author>")
                 file.write(self.file_content.get("1.0", "end-1c"))
                 file.close()
