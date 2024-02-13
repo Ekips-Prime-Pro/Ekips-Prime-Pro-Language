@@ -77,6 +77,7 @@ class gui:
                 # TODO:Delete the Author tag from the str and just let the file_content be the content of the str
                 self.file_content.delete("1.0", "end")
                 self.file_content.insert("1.0", f.read())
+                self.file_content.delete("1.0", "2.0")
         except:
             messagebox.showerror("Error", "Error while opening file")
     
@@ -140,7 +141,7 @@ class gui:
         self.help.add_command(label="Help/Dokumentation", command=self.help_web)
         
     def name_author(self):
-        self.author = tk.Toplevel(self.root)
+        self.author = tk.Tk()
         self.author.title("Rename Author")
         self.author.geometry("300x100")
         self.author.resizable(False, False)
