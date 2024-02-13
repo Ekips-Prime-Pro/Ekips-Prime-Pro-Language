@@ -1,0 +1,15 @@
+(librepcb_schematic 17b3fe57-5b14-436d-b72b-c08639ac252d
+ (name "Main")
+ (grid (interval 2.54) (unit millimeters))
+ (symbol 2a504f8d-f58c-4dee-9534-79a54f446ecc
+  (component 9c9d1ee1-a3bd-4b16-b392-f7de3c6f880e)
+  (lib_gate 9bcd5975-d1e6-40ca-9fec-2f1adfd9406a)
+  (position 38.1 -35.56) (rotation 0.0) (mirror false)
+  (text 17f5c52e-e269-4448-9614-d6d3c22f9f5c (layer sym_values) (value "{{VALUE}}")
+   (align left top) (height 2.54) (position 27.94 -50.8) (rotation 0.0)
+  )
+  (text 489fa466-a5cf-4f37-a797-0f80b2a371ac (layer sym_names) (value "{{NAME}}")
+   (align left bottom) (height 2.54) (position 27.94 -20.32) (rotation 0.0)
+  )
+ )
+)
