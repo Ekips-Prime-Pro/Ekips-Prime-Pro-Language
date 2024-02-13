@@ -5,7 +5,7 @@ import webbrowser as website
 
 class compiler:
     def __init__(self):
-        self.compile_register = []
+        self.compile_register = [] # TODO: implement a register that stores the right order of the commands to compile
     
     def compile(self, file_path): #TODO: implement a compiler that compiles the .scsp file to a .py file and then to a .c file
         pass
@@ -17,6 +17,12 @@ class compiler:
                 elment = elment.readline()
                 self.compile_register.append(elment)
             self.compile(elment) #TODO: implement a reading that is linear -> line by line
+            
+    def compile_to_py(self, file_path):
+        pass
+    
+    def compile_to_c(self, file_path):
+        pass
                 
 
 class cli: #TODO: implement a command line interface
