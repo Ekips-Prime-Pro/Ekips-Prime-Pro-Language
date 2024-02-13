@@ -33,13 +33,19 @@ class gui:
             exit(0)
             
     def save(self):
-        Files = [('Spike Custom System Programming', '*.scsp'), ('Text Document', '*.txt')]
-        file = filedialog.asksaveasfile(filetypes = Files, defaultextension = Files)
-        if file is not None:
-            file.write(self.file_content.get("1.0", "end-1c"))
-            file.close()
-        file = file.name
-        self.file_label.config(text=f"File: {file}")
+        if self.file == "N/A":
+            Files = [('Spike Custom System Programming', '*.scsp'), ('Text Document', '*.txt')]
+            file = filedialog.asksaveasfile(filetypes = Files, defaultextension = Files)
+            if file is not None:
+                file.write("<Author>" + self.file_author + "</Author>")
+                file.write(self.file_content.get("1.0", "end-1c"))
+                file.close()
+            file = file.name
+            self.file_label.config(text=f"File: {file}")
+        else:
+            with open(self.file, "w") as f:
+                f.write("<Author>" + self.file_author + "</Author>")
+                f.write(self.file_content.get("1.0", "end-1c"))
     
     def push(self):
         # TODO: add the push system.py file API
@@ -62,6 +68,11 @@ class gui:
             file = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("Spike Custom System Programming", "*.scsp")])
             self.file_label.config(text=f"File: {file}")
             with open(file, "r") as f:
+                Author = f.readline(1)
+                Author = Author.replace("<Author>", "")
+                Author = Author.replace("</Author>", "")
+                self.file_author.config(text=f"Author: {Author}")
+                # TODO:Delete the Author tag from the str and just let the file_content be the content of the str
                 self.file_content.delete("1.0", "end")
                 self.file_content.insert("1.0", f.read())
         except:
@@ -69,7 +80,9 @@ class gui:
     
     def main_programm(self):
         self.file_label = tk.Label(self.root, text="File: N/A")
+        self.file_author = tk.Label(self.root, text="Author: N/A")
         self.file_label.place(x=150, y=0)
+        self.file_author.place(x=220, y=0)
         self.file_content = tk.Text(self.root)
         self.file_content.place(x=150, y=20, relwidth=1, relheight=1)
         self.menu_top()
@@ -94,6 +107,7 @@ class gui:
         self.file.add_command(label="Open", command=self.open)
         self.file.add_command(label="Save", command=lambda: self.save())
         self.file.add_command(label="Save as", command=self.save)
+        self.file.add_command(label="Rename Author", command=self.name_author)
         
         self.tools = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Tools", menu=self.tools)
@@ -123,6 +137,24 @@ class gui:
         self.help.add_command(label="GitHub", command=self.github)
         self.help.add_command(label="Help/Dokumentation", command=self.help_web)
         
+    def name_author(self):
+        self.author = tk.Toplevel(self.root)
+        self.author.title("Rename Author")
+        self.author.geometry("300x100")
+        self.author.resizable(False, False)
+        self.author.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.label = tk.Label(self.author, text="Enter your name:")
+        self.label.pack()
+        self.entry = tk.Entry(self.author)
+        self.entry.pack()
+        self.button = tk.Button(self.author, text="Rename", command=self.rename)
+        self.button.pack()
+    
+    def rename(self):
+        self.author_name = self.entry.get()
+        self.file_author.config(text=f"Author: {self.author_name}")
+        self.author.destroy()
+    
     def credit(self):
         messagebox.showinfo("Credit", "Maximilian Gründinger\nFirst Lego League Team PaRaMeRoS")
         
