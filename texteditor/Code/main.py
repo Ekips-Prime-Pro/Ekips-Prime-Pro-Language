@@ -42,6 +42,7 @@ class gui:
         self.file_label.config(text=f"File: {file}")
     
     def push(self):
+        # TODO: add the push system.py file API
         pass
     
     def pull(self):
@@ -67,7 +68,7 @@ class gui:
             messagebox.showerror("Error", "Error while opening file")
     
     def main_programm(self):
-        self.file_label = tk.Label(self.root, text="File: ")
+        self.file_label = tk.Label(self.root, text="File: N/A")
         self.file_label.place(x=150, y=0)
         self.file_content = tk.Text(self.root)
         self.file_content.place(x=150, y=20, relwidth=1, relheight=1)
