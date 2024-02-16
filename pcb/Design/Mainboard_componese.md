@@ -26,4 +26,6 @@ Sie hat außerdem eine eigene KI Engine mit integrierten Chip für KI
 
 ### Operating System
 
+Das Operating System ist 
+
 ## Recap
