@@ -116,10 +116,14 @@ class gui:
         self.left_frame = tk.Frame(self.root, bg="white")
         self.left_frame.pack(side="left", fill="y")
         tk.Button(self.left_frame, text="Push", command=self.push, height=7, width=20).pack()
-        tk.Button(self.left_frame, text="Update", command=self.update, height=7, width=20).pack()
+        tk.Button(self.left_frame, text="Update", command=self.update_spike, height=7, width=20).pack()
         tk.Button(self.left_frame, text="help", command=self.help_web, height=7, width=20).pack()
         tk.Button(self.left_frame, text="Exit", command=self.on_closing, height=7, width=20).pack()
         
+    def debug(self):
+        messagebox.showinfo("Debug", "Debugging is not available in this version this will be added in a later version.")    
+        #TODO: add the debug system with the API of the Spike Custom Programming
+    
     def menu_top(self):
         self.menu = tk.Menu(self.root)
         self.root.config(menu=self.menu)
@@ -132,8 +136,8 @@ class gui:
         
         self.tools = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Tools", menu=self.tools)
+        self.menu.add_command(label="Debug", command=self.debug)
         self.tools.add_command(label="Compile", command=self.compile)
-        self.tools.add_command(label="Update", command=self.update)
         self.tools.add_command(label="Pull", command=self.pull)
         
         self.spike = tk.Menu(self.menu, tearoff=0)
