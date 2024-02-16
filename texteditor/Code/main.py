@@ -56,8 +56,20 @@ class gui:
     def pull(self):
         pass
     
-    def update(self):
-        os.system("update.bat")
+    def update_gui(self):
+        yes = messagebox.askyesno("Update", "Do you want to update the programm?")
+        if yes:
+            os.system("update_gui.bat")
+            exit(0)
+        else:
+            messagebox.showinfo("Update", "The programm will not be updated")
+        
+    def update_spike(self):
+        yes = messagebox.askyesno("Update", "Do you want to update the Spike Operating System?")
+        if yes:
+            os.system("update_spike.bat")
+        else:
+            messagebox.showinfo("Update", "The Spike Operating System will not be updated")
     
     def open(self):
         try:
@@ -129,7 +141,7 @@ class gui:
         self.spike.add_command(label="Run", command=self.open)
         self.spike.add_command(label="Push", command=self.push)
         self.spike.add_command(label="Pull", command=self.pull)
-        self.spike.add_command(label="Update", command=self.update)
+        self.spike.add_command(label="Update", command=self.update_spike)
         
         self.usb = tk.Menu(self.menu, tearoff=0)
         self.wireless = tk.Menu
@@ -145,6 +157,7 @@ class gui:
         self.help.add_command(label="About", command=self.about)
         self.help.add_command(label="GitHub", command=self.github)
         self.help.add_command(label="Help/Dokumentation", command=self.help_web)
+        self.help.add_command(label="Update", command=self.update_gui)
         
     def name_author(self):
         self.author = tk.Tk()
