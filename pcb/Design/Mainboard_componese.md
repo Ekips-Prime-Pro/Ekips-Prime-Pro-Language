@@ -27,6 +27,6 @@ Sie hat außerdem eine eigene KI Engine mit integrierten Chip für KI
 ### Operating System
 
 Das Operating System ist für einen Chipsatzt ausgelegt und wird mit einer integrierten KI Engine,
-verbessert. 
+verbessert.
 
 ## Recap
