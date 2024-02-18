@@ -6,6 +6,7 @@ import webbrowser as website
 class compiler:
     def __init__(self):
         self.compile_register = [] # TODO: implement a register that stores the right order of the commands to compile
+        self.compile_variables = [] # TODO: implement a register that stores the variables of the code
     
     def compile(self, file_path): #TODO: implement a compiler that compiles the .scsp file to a .py file and then to a .c file
         pass
@@ -19,7 +20,34 @@ class compiler:
             self.compile(elment) #TODO: implement a reading that is linear -> line by line
             
     def compile_to_py(self, file_path):
-        pass
+        # TODO: implement a the Text compiler that uses the compiler register to use the writable_content class
+        if self.compile_register == []:
+            self.reade_file(file_path)
+        else:
+            for element in self.compile_register:
+                match element:
+                    case "ai_supervised":
+                        writable_content.ai_supervised()
+                    case "ai_unsupervised":
+                        writable_content.ai_unsupervised()
+                    case "drive":
+                        writable_content.drive()
+                    case "ai_drive":
+                        writable_content.ai_drive()
+                    case "tank":
+                        writable_content.tank()
+                    case "ai_tank":
+                        writable_content.ai_tank()
+                    case "module":
+                        writable_content.module()
+                    case "wait":
+                        writable_content.wait()
+                    case "sensor":
+                        writable_content.sensor()
+                    case "calibrate":
+                        writable_content.calibrate()
+                    case "parallel":
+                        writable_content.parallel()
     
     def compile_to_c(self, file_path):
         pass

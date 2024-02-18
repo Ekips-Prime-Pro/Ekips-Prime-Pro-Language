@@ -3,7 +3,7 @@
 ## Hardware
 
 1. Sensorik([Rotation, Tilt](https://www.amazon.de/gp/product/B00PL70P7K?ie=UTF8&linkCode=as2&camp=1634&creative=6738&tag=754-21&creativeASIN=B00PL70P7K))
-2. Akku driver / charger chip
+2. [Akku driver / charger chip](https://alexnld.com/product/hx-2s-01-2s-5a-7-4v-8-4v-18650-lithium-lipo-cell-battery-charger-board-li-ion-battery-charging-pcb-bms-protection-module/)
 3. Port driver chip(Ports von donorboard nehmen)
 4. LED Matrix 5x5 driver chip
 5. [Pi Pico W](https://www.rasppishop.de/raspberry-pi-pico-w?src=raspberrypi) chip board (ohne Micro usb + einlötbar in Platine/steckbar)

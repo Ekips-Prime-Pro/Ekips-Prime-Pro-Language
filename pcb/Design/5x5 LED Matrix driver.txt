@@ -42,4 +42,4 @@ Wenn Pin angesteuert dann invert und umkehren des Status. NOT
                    |                   |         |                   |
                    |                   |         |                   |
                    |                   |         |                   |
-                   +-------------------+         +-------------------+
+                   +-------------------+         +-------------------+               
