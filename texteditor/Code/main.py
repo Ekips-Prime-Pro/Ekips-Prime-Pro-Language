@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+#Test from Idea
+>>>>>>> parent of ed63053 (Test)
 #TODO: add customtkinter
 import tkinter as tk
 from tkinter import ttk
