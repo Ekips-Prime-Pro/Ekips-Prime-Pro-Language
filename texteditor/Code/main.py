@@ -1,9 +1,9 @@
-
 #TODO: add customtkinter
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
+from customtkinter import *
 import os
 import sys
 import shutil
@@ -17,20 +17,50 @@ file_content = "N/A"
 
 class gui:
     def __init__(self):
+        self.langs = ["English", "German"]
+        self.lang = "N/A"
         self.file = "N/A"
         self.file_content = "N/A"
-        self.root = tk.Tk()
-        self.root.title("Spike Custom System Programming") # File extension .scsp
-        self.root.geometry("800x600")
-        self.root.resizable(True, True)
-        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.root.iconbitmap("icon.ico")
+        self.app = CTk()
+        self.app.title("Spike Prime Custom System Programming") # File extension .scsp
+        self.app.geometry("800x600")
+        self.app.resizable(True, True)
+        self.app.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.app.iconbitmap("icon.ico")
+        self.setup()
         self.main_programm()
-        self.root.mainloop()
-    
+        self.app.mainloop()
+
+    def setup(self):
+        self.app.withdraw()
+
+        self.setup = CTkToplevel(self.app)
+        self.setup.title("Spike Prime Custom System Programming Setup")
+        self.setup.geometry("300x400")
+        self.setup.resizable(False, False)
+        self.setup.iconbitmap("icon.ico")
+        self.app.protocol("WM_DELETE_WINDOW", self.on_closing)
+
+        self.setup_Title1 = CTkLabel(self.setup, text="Setup", font=("Arial", 60))
+        self.setup_Title2 = CTkLabel(self.setup, text="Program", font=("Arial", 60))
+        self.setup_lang_lable = CTkLabel(self.setup, text="Language:", font=("Arial", 25))
+        self.setup_lang = CTkComboBox(self.setup, values=self.langs, font=("Arial", 20), corner_radius=20, border_width=0, dropdown_font=("Arial", 20))
+        self.setup_submit = CTkButton(self.setup, text="Submit Settings", command=self.submit, font=("Arial", 30), corner_radius=20, border_width=0)
+
+        self.setup_Title1.place(relx=0.5, rely=0.15, anchor="center")
+        self.setup_Title2.place(relx=0.5, rely=0.3, anchor="center")
+        self.setup_lang_lable.place(relx=0.5, rely=0.55, anchor="center")
+        self.setup_lang.place(relx=0.5, rely=0.65, anchor="center")
+        self.setup_submit.place(relx=0.5, rely=0.9, anchor="center")
+
+    def submit(self):
+        self.lang = self.setup_lang.get()
+        self.setup.destroy()
+        self.app.deiconify()
+
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
-            self.root.destroy()
+            self.app.destroy()
             exit(0)
             
     def save(self):
@@ -101,68 +131,70 @@ class gui:
             messagebox.showerror("Error", "Error while opening file")
     
     def main_programm(self):
-        self.file_label = tk.Label(self.root, text="File: N/A")
-        self.file_author = tk.Label(self.root, text="Author: N/A")
+        self.file_label = CTkLabel(self.app, text="File: N/A")
+        self.file_author = CTkLabel(self.app, text="Author: N/A")
         self.file_label.place(x=150, y=0)
         self.file_author.place(x=220, y=0)
-        self.file_content = tk.Text(self.root)
+        self.file_content = tk.Text(self.app)
         self.file_content.place(x=150, y=20, relwidth=1, relheight=1)
         self.menu_top()
-        self.toolbar()  
-    
+        self.toolbar()
+
     def licence(self):
         messagebox.showinfo("License", f"Spike Custom System Programming License Agreement\nThis License Agreement (the 'Agreement') is entered into by and between Maximilian Gründinger ('Licensor') and the First Lego League Team known as PaRaMeRoS ('Licensee').\n1. License Grant.\nLicensor hereby grants Licensee a non-exclusive, non-transferable license to use and modify the software program known as Spike Custom System Programming (the 'Program') solely for educational and non-commercial purposes. This license is granted exclusively to the members of the First Lego League Team identified as PaRaMeRoS.\n2. Restrictions.\nLicensee shall not, and shall not permit others to:\na. Use the Program for any purpose other than educational and non-commercial activities within the First Lego League Team.\nb. Allow non-members of the First Lego League Team to use or access the Program.\nc. Commercialize or distribute the Program for financial gain.\nd. Remove or alter any copyright, trademark, or other proprietary notices contained in the Program.\n3. Security.\nLicensor makes no warranties regarding the security of the Program. Licensee acknowledges and agrees that any use of the Program is at their own risk. Licensor shall not be responsible for any security bugs or issues that may arise in connection with the Program.\n4. Term and Termination.\nThis Agreement shall remain in effect until terminated by either party. Licensor reserves the right to terminate this Agreement immediately if Licensee breaches any of its terms. Upon termination, Licensee shall cease all use of the Program and destroy all copies in their possession.\n5. Disclaimer of Warranty.\nTHE PROGRAM IS PROVIDED 'AS IS' WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. LICENSOR DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.\n6. Limitation of Liability.\nIN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY SPECIAL, INCIDENTAL, INDIRECT, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.\n7. Governing Law.\nThis Agreement shall be governed by and construed in accordance with the laws of Germany, Bavaria, Munic.\n8. Entire Agreement.\nThis Agreement constitutes the entire agreement between the parties and supersedes all prior agreements, whether oral or written, with respect to the Program.\nIN WITNESS WHEREOF, the parties hereto have executed this License Agreement as of the effective date.\nLicensor:\nMaximilian Gründinger\nLicensee:\nPaRaMeRoS\nDate: 1.1.2024")
     
     def toolbar(self, mode=None):
-        self.left_frame = tk.Frame(self.root, bg="white")
+        self.left_frame = CTkFrame(self.app)
         self.left_frame.pack(side="left", fill="y")
-        tk.Button(self.left_frame, text="Push", command=self.push, height=7, width=20).pack()
-        tk.Button(self.left_frame, text="Update", command=self.update_spike, height=7, width=20).pack()
-        tk.Button(self.left_frame, text="help", command=self.help_web, height=7, width=20).pack()
-        tk.Button(self.left_frame, text="Exit", command=self.on_closing, height=7, width=20).pack()
+        CTkButton(self.left_frame, text="Push", command=self.push, height=7, width=20).pack()
+        CTkButton(self.left_frame, text="Update", command=self.update_spike, height=7, width=20).pack()
+        CTkButton(self.left_frame, text="help", command=self.help_web, height=7, width=20).pack()
+        CTkButton(self.left_frame, text="Exit", command=self.on_closing, height=7, width=20).pack()
         
     def debug(self):
         messagebox.showinfo("Debug", "Debugging is not available in this version this will be added in a later version.")    
         #TODO: add the debug system with the API of the Spike Custom Programming
-    
+
+    #TODO: Make Custom Menu
     def menu_top(self):
-        self.menu = tk.Menu(self.root)
-        self.root.config(menu=self.menu)
-        self.file = tk.Menu(self.menu, tearoff=0)
-        self.menu.add_cascade(label="File", menu=self.file)
-        self.file.add_command(label="Open", command=self.open)
-        self.file.add_command(label="Save", command=lambda: self.save())
-        self.file.add_command(label="Save as", command=self.save)
-        self.file.add_command(label="Rename Author", command=self.name_author)
-        
-        self.tools = tk.Menu(self.menu, tearoff=0)
-        self.menu.add_cascade(label="Tools", menu=self.tools)
-        self.menu.add_command(label="Debug", command=self.debug)
-        self.tools.add_command(label="Compile", command=self.compile)
-        self.tools.add_command(label="Pull", command=self.pull)
-        
-        self.spike = tk.Menu(self.menu, tearoff=0)
-        self.menu.add_cascade(label="Spike", menu=self.spike)
-        self.spike.add_command(label="Run", command=self.open)
-        self.spike.add_command(label="Push", command=self.push)
-        self.spike.add_command(label="Pull", command=self.pull)
-        self.spike.add_command(label="Update", command=self.update_spike)
-        
-        self.usb = tk.Menu(self.menu, tearoff=0)
-        self.wireless = tk.Menu
-        self.menu.add_cascade(label="Connect", menu=self.usb)
-        self.usb.add_command(label="USB", command=self.usb_connection)
-        self.usb.add_command(label="Wireless", command=self.usb_connection)
-        
-        
-        self.help = tk.Menu(self.menu, tearoff=0)
-        self.menu.add_cascade(label="Help", menu=self.help)
-        self.help.add_command(label="Credit", command=self.credit)
-        self.help.add_command(label="License", command=self.licence)
-        self.help.add_command(label="About", command=self.about)
-        self.help.add_command(label="GitHub", command=self.github)
-        self.help.add_command(label="Help/Dokumentation", command=self.help_web)
-        self.help.add_command(label="Update", command=self.update_gui)
+        pass
+        #self.menu = tk.Menu(self.app)
+        #self.app.config(menu=self.menu)
+        #self.file = tk.Menu(self.menu, tearoff=0)
+        #self.menu.add_cascade(label="File", menu=self.file)
+        #self.file.add_command(label="Open", command=self.open)
+        #self.file.add_command(label="Save", command=lambda: self.save())
+        #self.file.add_command(label="Save as", command=self.save)
+        #self.file.add_command(label="Rename Author", command=self.name_author)
+        #
+        #self.tools = tk.Menu(self.menu, tearoff=0)
+        #self.menu.add_cascade(label="Tools", menu=self.tools)
+        #self.menu.add_command(label="Debug", command=self.debug)
+        #self.tools.add_command(label="Compile", command=self.compile)
+        #self.tools.add_command(label="Pull", command=self.pull)
+        #
+        #self.spike = tk.Menu(self.menu, tearoff=0)
+        #self.menu.add_cascade(label="Spike", menu=self.spike)
+        #self.spike.add_command(label="Run", command=self.open)
+        #self.spike.add_command(label="Push", command=self.push)
+        #self.spike.add_command(label="Pull", command=self.pull)
+        #self.spike.add_command(label="Update", command=self.update_spike)
+        #
+        #self.usb = tk.Menu(self.menu, tearoff=0)
+        #self.wireless = tk.Menu
+        #self.menu.add_cascade(label="Connect", menu=self.usb)
+        #self.usb.add_command(label="USB", command=self.usb_connection)
+        #self.usb.add_command(label="Wireless", command=self.usb_connection)
+        #
+        #
+        #self.help = tk.Menu(self.menu, tearoff=0)
+        #self.menu.add_cascade(label="Help", menu=self.help)
+        #self.help.add_command(label="Credit", command=self.credit)
+        #self.help.add_command(label="License", command=self.licence)
+        #self.help.add_command(label="About", command=self.about)
+        #self.help.add_command(label="GitHub", command=self.github)
+        #self.help.add_command(label="Help/Dokumentation", command=self.help_web)
+        #self.help.add_command(label="Update", command=self.update_gui)
         
     def name_author(self):
         self.author = tk.Tk()
@@ -170,11 +202,11 @@ class gui:
         self.author.geometry("300x100")
         self.author.resizable(False, False)
         self.author.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.label = tk.Label(self.author, text="Enter your name:")
+        self.label = CTkLabel(self.author, text="Enter your name:")
         self.label.pack()
-        self.entry = tk.Entry(self.author)
+        self.entry = CTkEntry(self.author)
         self.entry.pack()
-        self.button = tk.Button(self.author, text="Rename", command=self.rename)
+        self.button = CTkButton(self.author, text="Rename", command=self.rename)
         self.button.pack()
     
     def rename(self):
@@ -204,10 +236,11 @@ class gui:
     
     def usb_connection(self): #TODO: add the usb_connection system
         pass
-    
-        
+
+
+
 class logik():
-    def __init__():
+    def __init__(self):
         pass
         
 
