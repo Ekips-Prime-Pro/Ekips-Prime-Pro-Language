@@ -53,4 +53,3 @@ If you encounter any issues with the Charging Station, try the following steps:
 ## Conclusion
 
 The Charging Station for Robot provides a reliable and convenient solution for charging your robot. With its compact design and intelligent charging system, it ensures that your robot is always ready for action. Enjoy uninterrupted robot performance with the Charging Station.
-
