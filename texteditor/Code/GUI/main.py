@@ -81,13 +81,14 @@ class gui:
                 f.write(self.file_content.get("1.0", "end-1c"))
     
     def push(self):
-        # TODO: add the push system.py file API
+        # TODO: add the push.py file API
         pass
     
     def pull(self):
         pass
     
     def update_gui(self):
+        # TODO: add the update.py class
         yes = messagebox.askyesno("Update", "Do you want to update the programm?")
         if yes:
             os.system("update_gui.bat")
@@ -239,10 +240,48 @@ class gui:
 
 
 
-class logik():
+class update(mode):
     def __init__(self):
         pass
-        
+    
+    def update_gui(self):
+        pass
+    
+    def update_spike(self):
+        pass
+
+
+class connect(mode):
+    def __init__(self):
+        pass
+    
+    def usb_connection(self):
+        pass
+    
+    def wireless_connection(self):
+        pass
+
+
+class compiler(mode):
+    def __init__(self):
+        pass
+    
+    def compile(self):
+        pass
+    
+    def debug(self):
+        pass
+    
+    
+class tools(mode, projekt):
+    def __init__(self):
+        pass
+    
+    def pull(self):
+        pass
+    
+    def push(self):
+        pass
 
 
 if __name__ == "__main__":
