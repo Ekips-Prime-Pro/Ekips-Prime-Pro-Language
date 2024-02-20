@@ -80,18 +80,11 @@ class gui:
                 f.write("<Author>" + self.file_author + "</Author>")
                 f.write(self.file_content.get("1.0", "end-1c"))
     
-    def push(self):
-        # TODO: add the push.py file API
-        pass
-    
-    def pull(self):
-        pass
-    
     def update_gui(self):
         # TODO: add the update.py class
         yes = messagebox.askyesno("Update", "Do you want to update the programm?")
         if yes:
-            os.system("update_gui.bat")
+            update.update_gui()
             exit(0)
         else:
             messagebox.showinfo("Update", "The programm will not be updated")
@@ -99,7 +92,7 @@ class gui:
     def update_spike(self):
         yes = messagebox.askyesno("Update", "Do you want to update the Spike Operating System?")
         if yes:
-            os.system("update_spike.bat")
+            update.update_spike()
         else:
             messagebox.showinfo("Update", "The Spike Operating System will not be updated")
     
@@ -147,55 +140,71 @@ class gui:
     def toolbar(self, mode=None):
         self.left_frame = CTkFrame(self.app)
         self.left_frame.pack(side="left", fill="y")
-        CTkButton(self.left_frame, text="Push", command=self.push, height=7, width=20).pack()
-        CTkButton(self.left_frame, text="Update", command=self.update_spike, height=7, width=20).pack()
-        CTkButton(self.left_frame, text="help", command=self.help_web, height=7, width=20).pack()
-        CTkButton(self.left_frame, text="Exit", command=self.on_closing, height=7, width=20).pack()
+        CTkButton(self.left_frame, text="Push", command=tools.push, height=100, width=150, border_width=1).pack()
+        CTkButton(self.left_frame, text="Update", command=update.update_spike, height=100, width=150, border_width=1).pack()
+        CTkButton(self.left_frame, text="help", command=self.help_web, height=100, width=150, border_width=1).pack()
+        CTkButton(self.left_frame, text="Exit", command=self.on_closing, height=100, width=150, border_width=1).pack()
         
     def debug(self):
         messagebox.showinfo("Debug", "Debugging is not available in this version this will be added in a later version.")    
         #TODO: add the debug system with the API of the Spike Custom Programming
 
+    def select_port(self):
+        self.app1 = CTk()
+        self.app1.title("Spike Prime Custom System Programming") # File extension .scsp
+        self.app1.geometry("800x600")
+        self.app1.resizable(True, True)
+        self.app1.iconbitmap("icon.ico")
+        self.port = tk.StringVar()
+        CTkLabel(self.app1, text="Select the port of the Spike Prime", font=("Arial", 20)).pack()
+        CTkComboBox(self.app1, values=["COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "COM10"], variable=self.port, font=("Arial", 20)).pack()
+        CTkButton(self.app1, text="Submit", command=self.submit_port, font=("Arial", 20)).pack()
+        self.mainloop()
+    
+    def submit_port(self):
+        self.port = self.port.get()
+        self.app1.destroy()
+
     #TODO: Make Custom Menu
     def menu_top(self):
-        pass
-        #self.menu = tk.Menu(self.app)
-        #self.app.config(menu=self.menu)
-        #self.file = tk.Menu(self.menu, tearoff=0)
-        #self.menu.add_cascade(label="File", menu=self.file)
-        #self.file.add_command(label="Open", command=self.open)
-        #self.file.add_command(label="Save", command=lambda: self.save())
-        #self.file.add_command(label="Save as", command=self.save)
-        #self.file.add_command(label="Rename Author", command=self.name_author)
-        #
-        #self.tools = tk.Menu(self.menu, tearoff=0)
-        #self.menu.add_cascade(label="Tools", menu=self.tools)
-        #self.menu.add_command(label="Debug", command=self.debug)
-        #self.tools.add_command(label="Compile", command=self.compile)
-        #self.tools.add_command(label="Pull", command=self.pull)
-        #
-        #self.spike = tk.Menu(self.menu, tearoff=0)
-        #self.menu.add_cascade(label="Spike", menu=self.spike)
-        #self.spike.add_command(label="Run", command=self.open)
-        #self.spike.add_command(label="Push", command=self.push)
-        #self.spike.add_command(label="Pull", command=self.pull)
-        #self.spike.add_command(label="Update", command=self.update_spike)
-        #
-        #self.usb = tk.Menu(self.menu, tearoff=0)
-        #self.wireless = tk.Menu
-        #self.menu.add_cascade(label="Connect", menu=self.usb)
-        #self.usb.add_command(label="USB", command=self.usb_connection)
-        #self.usb.add_command(label="Wireless", command=self.usb_connection)
-        #
-        #
-        #self.help = tk.Menu(self.menu, tearoff=0)
-        #self.menu.add_cascade(label="Help", menu=self.help)
-        #self.help.add_command(label="Credit", command=self.credit)
-        #self.help.add_command(label="License", command=self.licence)
-        #self.help.add_command(label="About", command=self.about)
-        #self.help.add_command(label="GitHub", command=self.github)
-        #self.help.add_command(label="Help/Dokumentation", command=self.help_web)
-        #self.help.add_command(label="Update", command=self.update_gui)
+        self.menu = tk.Menu(self.app)
+        self.app.config(menu=self.menu)
+        self.file = tk.Menu(self.menu, tearoff=0)
+        self.menu.add_cascade(label="File", menu=self.file)
+        self.file.add_command(label="Open", command=self.open)
+        self.file.add_command(label="Save", command=lambda: self.save())
+        self.file.add_command(label="Save as", command=self.save)
+        self.file.add_command(label="Rename Author", command=self.name_author)
+        
+        self.tools = tk.Menu(self.menu, tearoff=0)
+        self.menu.add_cascade(label="Tools", menu=self.tools)
+        self.tools.add_command(label="Debug", command=compiler.debug)
+        self.tools.add_command(label="Compile", command=compiler.compile)
+        self.tools.add_command(label="Pull", command=tools.pull)
+        
+        self.spike = tk.Menu(self.menu, tearoff=0)
+        self.menu.add_cascade(label="Spike", menu=self.spike)
+        self.spike.add_command(label="Run", command=self.open)
+        self.spike.add_command(label="Push", command=tools.push)
+        self.spike.add_command(label="Pull", command=tools.pull)
+        self.spike.add_command(label="Update", command=update.update_spike)
+        
+        self.usb = tk.Menu(self.menu, tearoff=0)
+        self.wireless = tk.Menu
+        self.menu.add_cascade(label="Connect", menu=self.usb)
+        self.usb.add_command(label="USB", command=connect.usb_connection)
+        self.usb.add_command(label="Wireless", command=connect.wireless_connection)
+        self.usb.add_command(label="Select Port", command=self.select_port)
+        
+        
+        self.help = tk.Menu(self.menu, tearoff=0)
+        self.menu.add_cascade(label="Help", menu=self.help)
+        self.help.add_command(label="Credit", command=self.credit)
+        self.help.add_command(label="License", command=self.licence)
+        self.help.add_command(label="About", command=self.about)
+        self.help.add_command(label="GitHub", command=self.github)
+        self.help.add_command(label="Help/Dokumentation", command=self.help_web)
+        self.help.add_command(label="Update", command=update.update_gui)
         
     def name_author(self):
         self.author = tk.Tk()
@@ -231,55 +240,49 @@ class gui:
     def reset(self):
         for widget in self.winfo_children():
             widget.destroy()
-    
-    def compile(self): # TODO: add the compiler install and run command
+
+
+class update:
+    def __init__():
         pass
     
-    def usb_connection(self): #TODO: add the usb_connection system
+    def update_gui():
+        pass
+    
+    def update_spike():
         pass
 
 
-class update(mode):
-    def __init__(self):
+class connect:
+    def __init__():
         pass
     
-    def update_gui(self):
+    def usb_connection():
         pass
     
-    def update_spike(self):
+    def wireless_connection():
         pass
 
 
-class connect(mode):
-    def __init__(self):
+class compiler:
+    def __init__():
         pass
     
-    def usb_connection(self):
+    def compile():
         pass
     
-    def wireless_connection(self):
-        pass
-
-
-class compiler(mode):
-    def __init__(self):
-        pass
-    
-    def compile(self):
-        pass
-    
-    def debug(self):
+    def debug():
         pass
     
     
-class tools(mode, projekt):
-    def __init__(self):
+class tools:
+    def __init__():
         pass
     
-    def pull(self):
+    def pull():
         pass
     
-    def push(self):
+    def push():
         pass
 
 
