@@ -8,6 +8,7 @@ import os
 import sys
 import shutil
 import webbrowser as website
+import usb.core #TODO: add the usb connection functiuonallity
 
 #TODO: remove global variables
 global file_name
