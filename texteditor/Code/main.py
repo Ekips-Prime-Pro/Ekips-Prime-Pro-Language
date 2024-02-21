@@ -207,6 +207,14 @@ class gui:
         self.help.add_command(label="Help/Dokumentation", command=self.help_web)
         self.help.add_command(label="Update", command=update.update_gui)
         
+        self.gui_mode = tk.Menu(self.menu, tearoff=0) #TODO:  add the difrent modes and settings
+        self.menu.add_cascade(label="Mode", menu=self.gui_mode)
+        self.gui_mode.add_command(label="Light Mode", command=lambda: self.reset())
+        self.gui_mode.add_command(label="Dark Mode", command=lambda: self.reset())
+        self.gui_mode.add_separator()
+        self.gui_mode.add_checkbutton(label="custom spike", command=lambda: self.reset())
+        self.gui_mode.add_checkbutton(label="custom python llsp3", command=lambda: self.reset())
+        
     def name_author(self):
         self.author = tk.Tk()
         self.author.title("Rename Author")
