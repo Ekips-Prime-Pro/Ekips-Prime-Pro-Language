@@ -131,7 +131,7 @@ class gui:
         self.file_label.place(x=150, y=0)
         self.file_author.place(x=220, y=0)
         self.file_content = tk.Text(self.app)
-        self.file_content.place(x=150, y=20, relwidth=1, relheight=1)
+        self.file_content.place(x=150, y=40, relwidth=1, relheight=1)
         self.menu_top()
         self.toolbar()
 
@@ -146,11 +146,8 @@ class gui:
         CTkButton(self.left_frame, text="help", command=self.help_web, height=100, width=150, border_width=1).pack()
         CTkButton(self.left_frame, text="Exit", command=self.on_closing, height=100, width=150, border_width=1).pack()
         
-    def debug(self):
-        messagebox.showinfo("Debug", "Debugging is not available in this version this will be added in a later version.")    
-        #TODO: add the debug system with the API of the Spike Custom Programming
-
     def select_port(self):
+        ports = usb.core.find(find_all=True)
         self.app1 = CTk()
         self.app1.title("Spike Prime Custom System Programming") # File extension .scsp
         self.app1.geometry("800x600")
@@ -158,9 +155,9 @@ class gui:
         self.app1.iconbitmap("icon.ico")
         self.port = tk.StringVar()
         CTkLabel(self.app1, text="Select the port of the Spike Prime", font=("Arial", 20)).pack()
-        CTkComboBox(self.app1, values=["COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "COM10"], variable=self.port, font=("Arial", 20)).pack()
+        CTkComboBox(self.app1, values=ports, variable=self.port, font=("Arial", 20)).pack()
         CTkButton(self.app1, text="Submit", command=self.submit_port, font=("Arial", 20)).pack()
-        self.mainloop()
+        self.app1.mainloop()
     
     def submit_port(self):
         self.port = self.port.get()
@@ -257,7 +254,35 @@ class update:
 class connect:
     def __init__():
         pass
+     
+    def usb_connection():
+        pass
+     
+    def wireless_connection():
+        pass
+    
+    
+class tools:
+    def __init__():
+        pass
+    
+    def pull():
+        pass
+    
+    def push():
+        pass
+     
         
+class compiler:
+    def __init__():
+        pass
+    
+    def debug():
+        pass
+    
+    def compile():
+        pass
+
 
 if __name__ == "__main__":
     gui()
