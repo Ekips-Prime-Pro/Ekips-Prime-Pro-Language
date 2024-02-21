@@ -212,7 +212,7 @@ class gui:
         self.gui_mode.add_command(label="Light Mode")
         self.gui_mode.add_command(label="Dark Mode")
         self.gui_mode.add_separator()
-        self.gui_mode.add_checkbutton(label="custom python llsp3")
+        self.gui_mode.add_checkbutton(label="custom python llsp3 compiler")
         
     def name_author(self):
         self.author = tk.Tk()
