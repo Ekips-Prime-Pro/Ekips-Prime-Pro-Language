@@ -8,7 +8,8 @@ import os
 import sys
 import shutil
 import webbrowser as website
-import usb.core #TODO: add the usb connection functiuonallity
+import usb.core 
+import serial.tools.list_ports
 
 #TODO: remove global variables
 global file_name
@@ -147,7 +148,8 @@ class gui:
         CTkButton(self.left_frame, text="Exit", command=self.on_closing, height=100, width=150, border_width=1).pack()
         
     def select_port(self):
-        ports = usb.core.find(find_all=True)
+        ports = serial.tools.list_ports.comports()
+        port_names = [port.device for port in ports]  # Get device names
         self.app1 = CTk()
         self.app1.title("Spike Prime Custom System Programming") # File extension .scsp
         self.app1.geometry("800x600")
@@ -155,7 +157,7 @@ class gui:
         self.app1.iconbitmap("icon.ico")
         self.port = tk.StringVar()
         CTkLabel(self.app1, text="Select the port of the Spike Prime", font=("Arial", 20)).pack()
-        CTkComboBox(self.app1, values=ports, variable=self.port, font=("Arial", 20)).pack()
+        CTkComboBox(self.app1, values=port_names, variable=self.port, font=("Arial", 20)).pack()  # Use port_names
         CTkButton(self.app1, text="Submit", command=self.submit_port, font=("Arial", 20)).pack()
         self.app1.mainloop()
     
