@@ -234,16 +234,12 @@ class gui:
     def compile(self): # TODO: add the compiler install and run command
         pass
     
-    def usb_connection(self): #TODO: add the usb_connection system
-        pass
-
-
-
-class logik():
+        
+class connect(mode, search_port):
     def __init__(self):
         pass
-        
-
+    def usb_connection(self): #TODO: add the usb_connection system
+        pass
 
 if __name__ == "__main__":
     gui()

@@ -20,12 +20,23 @@ The Charging Station for Robot is designed to provide a convenient and efficient
 
 ## Specifications
 
+### Elektroniks
+
 - Input Voltage: [Specify input voltage range]
 - Output Voltage: [Specify output voltage]
 - Charging Ports: [Specify number of charging ports]
 - Dimensions: [Specify dimensions]
 - Weight: [Specify weight]
 - Material: [Specify material]
+
+### Case
+
+- Widht_normal: 39,70 mm
+- Widht_clip: 54,00 mm
+- Height_normal: 71,20 mm
+- Height_chargport: 72,30 mm
+- Real_height_normal: 20,00 mm
+- Real_height_chargport: 21,00 mm
 
 ## Installation
 
