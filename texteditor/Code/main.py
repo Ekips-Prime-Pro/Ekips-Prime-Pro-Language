@@ -286,7 +286,26 @@ class compiler:
     def compile():
         pass
     
-    def compile_to_llsp():
+    def compile_to_llsp(): # TODO: Compile to micro Python with the list
+        file_reihenfolge = []
+        for element in file_reihenfolge:
+            match element:
+                case "ai.supervised":
+                    pass
+                case "ai.unsupervised":
+                    pass
+                case "ai.reinforcement":
+                    pass
+                case "motor":
+                    pass
+                case "sensor":
+                    pass
+                case "display":
+                    pass
+                case "module":
+                    pass
+    
+    def file_reader():
         pass
 
 
