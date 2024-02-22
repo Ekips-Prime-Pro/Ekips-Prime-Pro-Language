@@ -181,7 +181,7 @@ class gui:
         self.tools.add_command(label="Debug", command=compiler.debug)
         self.tools.add_command(label="Compile", command=compiler.compile)
         self.tools.add_command(label="Pull", command=tools.pull)
-        self.tools.add_command(label="compile to micro Python", command=compiler.compile_to_llsp)
+        self.tools.add_command(label="compile to llsp3 file", command=compiler.compile_to_llsp)
         
         self.spike = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Spike", menu=self.spike)
@@ -293,7 +293,7 @@ class compiler:
     def compile():
         pass
     
-    def compile_to_llsp(): # TODO: Compile to micro Python with the list
+    def compile_to_llsp3(): # TODO: Compile to llsp3 with the list
         file_reihenfolge = []
         for element in file_reihenfolge:
             match element:
