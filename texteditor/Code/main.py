@@ -10,6 +10,7 @@ import shutil
 import webbrowser as website
 import usb.core 
 import serial.tools.list_ports
+from serial.tools import list_ports
 
 #TODO: remove global variables
 global file_name
@@ -148,8 +149,10 @@ class gui:
         CTkButton(self.left_frame, text="Exit", command=self.on_closing, height=100, width=150, border_width=1).pack()
         
     def select_port(self):
-        ports = serial.tools.list_ports.comports()
-        port_names = [port.device for port in ports]  # Get device names
+        port = list(list_ports.comports())
+        port_names = [p.device for p in port]
+        for p in port:
+            print(p.device)
         self.app1 = CTk()
         self.app1.title("Spike Prime Custom System Programming") # File extension .scsp
         self.app1.geometry("800x600")
@@ -181,7 +184,7 @@ class gui:
         self.tools.add_command(label="Debug", command=compiler.debug)
         self.tools.add_command(label="Compile", command=compiler.compile)
         self.tools.add_command(label="Pull", command=tools.pull)
-        self.tools.add_command(label="compile to llsp3 file", command=compiler.compile_to_llsp)
+        self.tools.add_command(label="compile to llsp3 file", command=compiler.compile_to_llsp3)
         
         self.spike = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="Spike", menu=self.spike)
