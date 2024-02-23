@@ -150,12 +150,12 @@ class gui:
         
     def select_port(self):
         port = list(list_ports.comports())
-        port_names = [p.device for p in port]
+        port_names = port
         for p in port:
             print(p.device)
         self.app1 = CTk()
         self.app1.title("Spike Prime Custom System Programming") # File extension .scsp
-        self.app1.geometry("800x600")
+        self.app1.geometry("300x200")
         self.app1.resizable(True, True)
         self.app1.iconbitmap("icon.ico")
         self.port = tk.StringVar()
