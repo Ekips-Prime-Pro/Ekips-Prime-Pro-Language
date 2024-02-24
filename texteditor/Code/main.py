@@ -9,8 +9,7 @@ import sys
 import shutil
 import webbrowser as website
 import usb.core 
-import serial.tools.list_ports
-from serial.tools import list_ports
+import serial.tools.list_ports as list_ports
 
 #TODO: remove global variables
 global file_name
