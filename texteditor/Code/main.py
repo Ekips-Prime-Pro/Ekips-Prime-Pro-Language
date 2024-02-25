@@ -150,7 +150,7 @@ class gui:
         
     def select_port(self):
         port = list(list_ports.comports())
-        port_names = port
+        port_names = [p.device for p in port]
         for p in port:
             print(p.device)
         self.app1 = CTk()
