@@ -67,6 +67,8 @@ The best way to learn the language you have to remeber the syntax and the functi
 
 ## Compiler
 
+<b>Disclaimer: If you use the llsp3 compiler mode you can't use the function `parallel()` !!!</b>
+
 ### How to best and most efficiently use the compiler
 
 ### Some things that will be added in the future
