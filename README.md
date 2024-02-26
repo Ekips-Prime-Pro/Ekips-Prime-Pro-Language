@@ -73,6 +73,10 @@ The best way to learn the language you have to remeber the syntax and the functi
 
 ### Some things that will be added in the future
 
+## Operating system
+
+The OS is a custom build <b>ARM32</b> based system for the Spike Prime. It is build for the Spike Custom System Programming Language and the Spike Custom System Programming Language Compiler. The Operating system is build for the best use of the Spike Prime and the Spike Custom System Programming Language. The Spike Custom System Programming Language and the Spike Custom System Programming Language Compiler <b>is a part</b> of the Operating system. [More information](https://github.com/)
+
 ## Recap
 
 ## Further informtion
