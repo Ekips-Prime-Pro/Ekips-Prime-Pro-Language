@@ -1,2 +1,0 @@
-(librepcb_erc
-)
