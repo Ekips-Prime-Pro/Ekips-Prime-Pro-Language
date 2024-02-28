@@ -12,13 +12,14 @@ content_compile = []
 
 # Functions
 def compile(file):
+    click.echo(f"Compiling {file}...")
     if file.endswith(".scsp"):
         with open(file, "r") as f:
             content = f.readlines()
             for line in content:
                 content_compile.append(line)
     else:
-        print("Error: File not supported")
+        click.echo(f"Error: The file {file} is not a valid file type.", err=True)
         sys.exit(1)
 
 def get_active_function(line):
@@ -28,24 +29,27 @@ def get_active_function(line):
     variable = variable.replace(")","")
     return function, variable
     
-def write_function(function,value): # implement match case
-    if function == "print":
-        print(f"print('{value}')")
-    elif function == "sleep":
-        print(f"time.sleep('{value}')")
-    else:
-        print(f"Compile Error {function} not valid")
+def write_function(function,value,file):
+    click.echo(f"Writing {function} function...")
+    file_name = file.split(".")
+    file_name = file_name[0]
+    with open(f"{file_name}.py", "w") as f:
+        match function:
+            case "print":
+                f.write(f"print('{value}')")
+            case "sleep":
+                f.write(f"time.sleep('{value}')")
         
 def main():
     for line in content_compile:
         function, value = get_active_function(line)
-        write_function(function, value)
+        write_function(function, value, file)
     
     
 # main
 @click.command()
 @click.argument("file", type=click.Path(exists=True), help="File to compile")
-@click.version_option("1.0", "--version", "-v", message="Version %(version)s", help="Show version", prog_name="Spike Custom Programming Language Compiler")
+@click.version_option("1.0", "--version", "-v", message="Version 0.1", help="Show version", prog_name="Spike Custom Programming Language Compiler")
 def cli(file):
     try:
         if not os.path.isfile(file):
@@ -53,8 +57,9 @@ def cli(file):
             sys.exit(1)
 
         compile(file)
-        main()
+        main(file)
         click.echo(f"Successfully compiled {file}.")
 
     except Exception as e:
         click.echo(f"Error: An error occurred during compilation. {str(e)}", err=True)
+        sys.exit(1)
