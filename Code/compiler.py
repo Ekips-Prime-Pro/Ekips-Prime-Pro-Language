@@ -48,8 +48,9 @@ def main():
     
 # main
 @click.command()
-@click.argument("file", type=click.Path(exists=True), help="File to compile")
+@click.argument("file", type=click.Path(exists=True))
 @click.version_option("1.0", "--version", "-v", message="Version 0.1", help="Show version", prog_name="Spike Custom Programming Language Compiler")
+@click.help_option("--help", "-h", help="Show this help message and exit")
 def cli(file):
     try:
         if not os.path.isfile(file):
