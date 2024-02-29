@@ -1,0 +1,30 @@
+#Drive function
+async def drive(distance=0, multiplier=14, speed=1000, acceleration=1000):
+    if (distance > 0):
+        degrees = multiplier*(distance - calibration)
+        await motor_pair.move_for_degrees(pair, degrees, 0, velocity=speed, acceleration=acceleration)
+    elif (distance < 0):
+        degrees = multiplier*(distance + calibration)
+        await motor_pair.move_for_degrees(pair, degrees, 0, velocity=speed, acceleration=acceleration)
+    elif (distance == 0):
+        print("Bist du dumm?")
+
+#Tank function
+async def tank(degrees=0, left_speed=1000, right_speed=1000, acceleration=1000):
+    #180 degrees = 90 Grad
+    if (degrees > 0):
+        await motor_pair.move_tank_for_degrees(pair, -degrees, left_speed, -right_speed, acceleration=acceleration)
+    elif (degrees < 0):
+        await motor_pair.move_tank_for_degrees(pair, degrees, -left_speed, right_speed, acceleration=acceleration)
+    elif (degrees == 0):
+        print("Bist du dumm?")
+
+#Obstacle function
+async def obstacle(distance=0, speed=1000, acceleration=1000):
+    if (distance > 0):
+        while distance_sensor.distance(port.C) > distance:
+            await drive(2, 14, speed, acceleration)
+        print("Obstacle detected!")
+        #print(distance_sensor.distance(port.C))
+    elif (distance <= 0):
+        print("Bist du dumm?")

@@ -55,6 +55,31 @@ def write_function(function,file,value=False):
                     ai_content = r.readlines()
                     for line in ai_content:
                         f.write(line)
+            case "module.init":
+                with open("module.fll", "r") as r:
+                    ai_content = r.readlines()
+                    for line in ai_content:
+                        f.write(line)
+            case "motor.init":
+                with open("motor.fll", "r") as r:
+                    ai_content = r.readlines()
+                    for line in ai_content:
+                        f.write(line)
+            case "sensor.init":
+                with open("sensor.fll", "r") as r:
+                    ai_content = r.readlines()
+                    for line in ai_content:
+                        f.write(line)
+            case "calibration.init":
+                with open("calibration.fll", "r") as r:
+                    ai_content = r.readlines()
+                    for line in ai_content:
+                        f.write(line)
+            case "variables.init":
+                with open("variables.fll", "r") as r:
+                    ai_content = r.readlines()
+                    for line in ai_content:
+                        f.write(line)
         
 def main(file):
     file_name = file.split(".")

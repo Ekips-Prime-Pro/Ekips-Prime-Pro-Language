@@ -1,3 +1,0 @@
-init()
-ai.init()
-ai.chose(supervised)
