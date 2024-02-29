@@ -30,7 +30,7 @@ def get_active_function(line):
     variable = variable.replace("\n","")
     return function, variable
     
-def write_function(function,value,file):
+def write_function(function,file,value=False):
     click.echo(f"Writing {function} function...")
     file_name = file.split(".")
     file_name = file_name[0]
@@ -42,11 +42,17 @@ def write_function(function,value,file):
             case "sleep":
                 sleep_out = f"time.sleep({str(value)})\n"
                 f.write(sleep_out)
+            case "init":
+                init_out = f"import force_sensor, distance_sensor, motor, motor_pair\nfrom hub import port\nimport time\nfrom app import linegraph as ln\nimport runloop\nfrom math import *\n"
+                f.write(init_out)
         
 def main(file):
-    for line in content_compile:
-        function, value = get_active_function(line)
-        write_function(function, value, file)
+    try:
+        for line in content_compile:
+            function, value = get_active_function(line)
+            write_function(function, file, value)
+    except:
+        pass
     
     
 # main

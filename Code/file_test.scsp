@@ -1,3 +1,4 @@
+init
 sleep(6)
 print(Hello World)
 sleep(10)
