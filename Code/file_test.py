@@ -16,3 +16,9 @@ times = 1
 times1 = 1
 average_calibration = []
 average_obs = []
+ai_data = []
+
+def write_ai_data(file):
+    with open("{file}", "w") as f:
+        for line in ai_data:
+            f.write(line)

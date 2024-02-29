@@ -25,8 +25,8 @@ def compile(file):
 def get_active_function(line):
     content_line = line
     function, variable = content_line.split("(")
-    variable = variable.replace("(","")
-    variable = variable.replace(")","")
+    variable = variable.replace("{","")
+    variable = variable.replace("}","")
     variable = variable.replace("\n","")
     return function, variable
     
@@ -80,6 +80,27 @@ def write_function(function,file,value=False):
                     ai_content = r.readlines()
                     for line in ai_content:
                         f.write(line)
+            case "drive":
+                f.write(f"  await drive({value})\n")
+            case "tank":
+                f.write(f"  await tank({value})\n")
+            case "obstacle":
+                f.write(f"  await obstacle({value})\n")
+            case "ai.sensor":
+                # add the sensor to the ai input
+                f.write(f"ai_sensor.append('{value}\n')")
+            case "module":
+                f.write(f"  await module({value})\n")
+            case "calibrate":
+                f.write("   await calibrate()\n")
+            case "ai.data_save":
+                f.write(f"  write_ai_data('{value}')\n")
+            case "ai.data_load":
+                for line in value:
+                    f.write(f"ai_data.append({line})\n")
+            case "main.init":
+                f.write("runloop.run(main())\n")
+                f.write("async def main():\n")
         
 def main(file):
     file_name = file.split(".")
@@ -87,6 +108,7 @@ def main(file):
     with open(f"{file_name}.py", "w") as f:
         f.write("")
     for line in content_compile:
+        # Komentare herausfiltern
         function, value = get_active_function(line)
         write_function(function, file, value)
     
@@ -97,8 +119,15 @@ def main(file):
 @click.version_option("1.0", "--version", "-v", message="Version 0.1", help="Show version", prog_name="Spike Custom Programming Language Compiler")
 @click.option("--format", "-f", type=click.Choice([".py", ".c"]), help="The format to compile to. Default is llsp3.")
 @click.option("--update", "-u", is_flag=True, help="Check for updates.")
+@click.option("--syntax", "-s", is_flag=True, help="Show the syntax of the language.")
 @click.help_option("--help", "-h", help="Show this help message and exit")
-def cli(file, format, update):
+def cli(file, format, update, syntax):
+    if syntax:
+        website.open("https://github.com/Spike-Prime-Pro/Spike-Custom-Programming-Language-and-Compiler/blob/main/README.md")
+    elif update:
+        click.echo("Checking for updates...")
+    elif format:
+        click.echo("Compiling to .py...")
     try:
         if not os.path.isfile(file):
             click.echo(f"Error: The file {file} does not exist.", err=True)
