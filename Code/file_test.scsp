@@ -1,5 +1,3 @@
-init
-sleep(6)
-print(Hello World)
-sleep(10)
-print(Good Bye)
+init()
+ai.init()
+ai.chose(supervised)

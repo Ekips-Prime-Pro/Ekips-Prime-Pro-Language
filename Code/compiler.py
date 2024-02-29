@@ -36,23 +36,34 @@ def write_function(function,file,value=False):
     file_name = file_name[0]
     with open(f"{file_name}.py", "a") as f:
         match function:
-            case "print":
+            case "log":
                 print_out = f"print('{str(value)}')\n"
                 f.write(print_out)
             case "sleep":
                 sleep_out = f"time.sleep({str(value)})\n"
                 f.write(sleep_out)
             case "init":
-                init_out = f"import force_sensor, distance_sensor, motor, motor_pair\nfrom hub import port\nimport time\nfrom app import linegraph as ln\nimport runloop\nfrom math import *\n"
+                init_out = f"import force_sensor, distance_sensor, motor, motor_pair\nfrom hub import port\nimport time\nfrom app import linegraph as ln\nimport runloop\nfrom math import *\nimport random\n"
                 f.write(init_out)
+            case "ai.chose":
+                ai_chose_out = f"ai_chose = '{str(value)}'\n"
+                f.write(ai_chose_out)
+            case "ai.init":
+                ai_init_out = f"ai = runloop.AI()\n"
+                f.write(ai_init_out)
+                with open("ai.fll", "r") as r:
+                    ai_content = r.readlines()
+                    for line in ai_content:
+                        f.write(line)
         
 def main(file):
-    try:
-        for line in content_compile:
-            function, value = get_active_function(line)
-            write_function(function, file, value)
-    except:
-        pass
+    file_name = file.split(".")
+    file_name = file_name[0]
+    with open(f"{file_name}.py", "w") as f:
+        f.write("")
+    for line in content_compile:
+        function, value = get_active_function(line)
+        write_function(function, file, value)
     
     
 # main
