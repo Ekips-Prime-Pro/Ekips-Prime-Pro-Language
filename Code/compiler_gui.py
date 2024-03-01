@@ -142,5 +142,19 @@ def cli(file, format, update, syntax):
         click.echo(f"Error: An error occurred during compilation. {str(e)}", err=True)
         sys.exit(1)
    
+class app:
+    def __init__(self):
+        self.root = tk.CTk()
+        self.root.title("Spike Custom Programming Language Compiler")
+        self.root.geometry("400x400")
+        self.root.resizable(False, False)
+        #self.root.iconbitmap("icon.ico")
+        self.main_frame()
+        self.root.mainloop()  
+
+    def main_frame(self):
+        tk.CTkLabel(self.root, text="Spike Custom Programming Language Compiler", font="Arial 20 bold").pack(pady=10)
+        tk.CTkButton(self.root, text="select file", command=self.select_file).pack(pady=10)
+
 if __name__ == "__main__":
-    cli()
+    gui()
