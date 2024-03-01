@@ -118,7 +118,7 @@ class app:
     def __init__(self):
         self.root = tk.CTk()
         self.root.title("Spike Custom Programming Language Compiler")
-        self.root.geometry("400x400")
+        self.root.geometry("400x450")
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.iconbitmap("icon.ico")
         self.main_frame()
