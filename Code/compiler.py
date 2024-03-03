@@ -25,12 +25,54 @@ def compile(file):
 
 def get_active_function(line):
     content_line = line
-    function, variable = content_line.split("(")
+    function, variable = content_line.split("{")
     variable = variable.replace("{","")
     variable = variable.replace("}","")
     variable = variable.replace("\n","")
     return function, variable
-    
+
+def debug_function(function,value=False):
+    click.echo(f"Debuging {function} function...")
+    match function:
+        case "log":
+            pass
+        case "sleep":
+            pass
+        case "init":
+            pass
+        case "ai.chose":
+            pass
+        case "ai.init":
+            pass
+        case "module.init":
+            pass
+        case "motor.init":
+            pass
+        case "sensor.init":
+            pass
+        case "calibration.init":
+            pass
+        case "variable.init":
+            pass
+        case "drive":
+            pass
+        case "tank":
+            pass
+        case "obstacle":
+            pass
+        case "ai.sensor":
+            pass
+        case "module":
+            pass
+        case "calibrate":
+            pass
+        case "ai.data_save":
+            pass
+        case "ai.data_load":
+            pass
+        case "main.init":
+            pass
+
 def write_function(function,file,value=False):
     click.echo(f"Writing {function} function...")
     file_name = file.split(".")
@@ -112,6 +154,12 @@ def main(file):
         # Komentare herausfiltern
         function, value = get_active_function(line)
         write_function(function, file, value)
+        
+def main_debug(file):
+    for line in content_compile:
+        # Komentare herausfiltern
+        function, value = get_active_function(line)
+        debug_function(function, value)
     
     
 # main
@@ -119,16 +167,30 @@ def main(file):
 @click.argument("file", type=click.Path(exists=True))
 @click.version_option("1.0", "--version", "-v", message="Version 0.1", help="Show version", prog_name="Spike Custom Programming Language Compiler")
 @click.option("--format", "-f", type=click.Choice([".py", ".c"]), help="The format to compile to. Default is llsp3.")
+@click.option("--debug", "-d", help="This will debug the Code that you have written.")
 @click.option("--update", "-u", is_flag=True, help="Check for updates.")
 @click.option("--syntax", "-s", is_flag=True, help="Show the syntax of the language.")
 @click.help_option("--help", "-h", help="Show this help message and exit")
-def cli(file, format, update, syntax):
+def cli(file, format, update, syntax, debug):
     if syntax:
         website.open("https://github.com/Spike-Prime-Pro/Spike-Custom-Programming-Language-and-Compiler/blob/main/README.md")
     elif update:
         click.echo("Checking for updates...")
     elif format:
         click.echo("Compiling to .py...")
+    elif debug:
+        try:
+            if not os.path.isfile(file):
+                click.echo(f"Error: The file {file} does not exist.", err=True)
+                sys.exit(1)
+
+            compile(file)
+            main_debug(file)
+            click.echo(f"Successfully compiled {file}.")
+
+        except Exception as e:
+            click.echo(f"Error: An error occurred during compilation. {str(e)}", err=True)
+            sys.exit(1)
     try:
         if not os.path.isfile(file):
             click.echo(f"Error: The file {file} does not exist.", err=True)
