@@ -15,9 +15,10 @@ Welcome to the documentation for Spike Custom System Programming! This guide wil
 
 To use the Spike Custom System Programming LAnguage, you need to install the compiler and runtime environment. Follow the instructions below to get started:
 
-1. Download the latest version of the Spike Custom System Programming Language compiler from the official website.
+1. Download the latest version of the Spike Custom System Programming Language compiler from the official website or from the github repository.
 2. Install the compiler on your system by running the installer.
-3. Verify the installation by opening a terminal and running the programm in cli mode command.
+3. Verify the installation by opening a terminal and running the programm.
+4. If there is any Problem please send a Email to <Iron.ai.dev@gmail.com> for bug fixing.
 
 ## Syntax
 
