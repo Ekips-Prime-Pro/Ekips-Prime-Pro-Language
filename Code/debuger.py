@@ -37,11 +37,21 @@ def debug_function(function,value=False):
         case "log":
             pass
         case "sleep":
-            pass
+            check_for_format("int", value)
         case "init":
             pass
         case "ai.chose":
-            pass
+            value = f"{value}"
+            match value:
+                case "supervised":
+                    pass
+                case "unsupervised":
+                    pass
+                case "deep_learning":
+                    pass
+                case _:
+                    click.echo(f"Error: The AI {value} does not exist.", err=True)
+                    exit(1)
         case "ai.init":
             pass
         case "module.init":
@@ -55,15 +65,27 @@ def debug_function(function,value=False):
         case "variable.init":
             pass
         case "drive":
-            pass
+            check_for_format("int", value)
         case "tank":
-            pass
+            check_for_format("int", value)
         case "obstacle":
-            pass
+            check_for_format("int", value)
         case "ai.sensor":
-            pass
+            value = f"{value}"
+            match value:
+                case "force":
+                    pass
+                case "distance":
+                    pass
+                case "color":
+                    pass
+                case "gyro":
+                    pass
+                case _:
+                    click.echo(f"Error: The sensor {value} does not exist.", err=True)
+                    exit(1)
         case "module":
-            pass
+            check_for_format("int", value)
         case "calibrate":
             pass
         case "ai.data_save":
@@ -81,7 +103,15 @@ def main_debug(file):
         # Komentare herausfiltern
         function, value = get_active_function(line)
         debug_function(function, value)
-        
+
+def check_for_format(requestet, value):
+    if requestet == "int":
+        try:
+            int(value)
+        except:
+            click.echo(f"Error: The value {value} is not a valid integer.", err=True)
+            sys.exit(1)
+ 
 # main
 @click.command()
 @click.argument("file", type=click.Path(exists=True))
@@ -101,7 +131,7 @@ def cli(file, update, syntax):
 
         compile(file)
         main_debug(file)
-        click.echo(f"Successfully compiled {file}.")
+        click.echo(f"Successfully debug without error {file}.")
 
     except Exception as e:
         click.echo(f"Error: An error occurred during compilation. {str(e)}", err=True)
