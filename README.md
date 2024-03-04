@@ -5,6 +5,7 @@
 ## Introduction
 
 Welcome to the documentation for Spike Custom System Programming! This guide will provide you with all the information you need to get started with programming in Spike Custom System Programming.
+This programm is programmd to implement the Spike Prime Hub software with a easy and straight forward Programming Language that compiles in a .py file that you can put in the [Official Spike Prime Software](https://education.lego.com/de-de/downloads/spike-app/software/), this will be integratet in the Spike Prime Pro Compiler -> v2.0, also the full ai functionalities will be added in v3.0
 
 ## Table of Contents
 
@@ -15,9 +16,9 @@ Welcome to the documentation for Spike Custom System Programming! This guide wil
 
 ## Installation
 
-To use the Spike Custom System Programming LAnguage, you need to install the compiler and runtime environment. Follow the instructions below to get started:
+To use the Spike Custom System Programming Language, you need to install the compiler and Debuger. Follow the instructions below to get started:
 
-1. Download the latest version of the Spike Custom System Programming Language compiler from the official website or from the github repository.
+1. Download the latest version of the Spike Custom System Programming Language compiler from the official website or from the [github repository](https://github.com/Spike-Prime-Pro/Spike-Custom-Programming-Language-and-Compiler/releases).
 2. Install the compiler on your system by running the installer.
 3. Verify the installation by opening a terminal and running the programm.
 4. If there is any Problem please send a Email to <Iron.ai.dev@gmail.com> for bug fixing.
@@ -26,8 +27,8 @@ To use the Spike Custom System Programming LAnguage, you need to install the com
 
 The Spike Custom System Programming Language has a simple and intuitive syntax that is easy to read and write. Here are some key features of the syntax:
 
+- The functions are the key part of the Programm like `sleep{10}` (`sleep`).
 - The curly brackets define function uneque variables like `wait{1}` (`{}`).
-- Comments can be added using the `//` or `/* */` syntax.
 
 ## Functions
 
@@ -47,8 +48,8 @@ There are four build in functions.
 
 The best way to learn the language you have to remeber the syntax and the functions but then you have to practice. The following code examples will show you how to begin after you have try'd it you can open the Examples.md file and learn more about the Spike Custom System Programming Language.
 
-1. `drive{10}` or `ai.drive{10}`
-2. `module{100}` or `ai.module{100}`
+1. `drive{10}`
+2. `module{100}`
 3. `sensor{color}`
 4. `ai_train_data_save{data_file}` or `ai_train_data_load{data_file}` or `ai_model_chose{supervised_learning}`
 5. `log{Hello World}`
@@ -64,7 +65,8 @@ Thank you for choosing Spike Custom System Programming! We hope you enjoy using 
 
 [Apache License](http://www.apache.org/licenses/)
 Version 2.0, January 2004
-Maximilian Gründinger
+
+Maximilian Gründinger, 04.03.2024 
 
 ## Contact
 
