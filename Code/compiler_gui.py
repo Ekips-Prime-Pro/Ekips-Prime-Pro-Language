@@ -26,7 +26,7 @@ def compile(file):
 
 def get_active_function(line):
     content_line = line
-    function, variable = content_line.split("(")
+    function, variable = content_line.split("{")
     variable = variable.replace("{","")
     variable = variable.replace("}","")
     variable = variable.replace("\n","")
@@ -103,7 +103,80 @@ def write_function(function,file,value=False):
             case "main.init":
                 f.write("runloop.run(main())\n")
                 f.write("async def main():\n")
-        
+
+def debug_function(function,value=False):
+    print(f"Debuging {function} function...")
+    match function:
+        case "log":
+            pass
+        case "sleep":
+            check_for_format("int", value)
+        case "init":
+            pass
+        case "ai.chose":
+            value = f"{value}"
+            match value:
+                case "supervised":
+                    pass
+                case "unsupervised":
+                    pass
+                case "deep_learning":
+                    pass
+                case _:
+                    messagebox.askokcancel(f"Error: The AI {value} does not exist.", err=True)
+                    exit(1)
+        case "ai.init":
+            pass
+        case "module.init":
+            pass
+        case "motor.init":
+            pass
+        case "sensor.init":
+            pass
+        case "calibration.init":
+            pass
+        case "variable.init":
+            pass
+        case "drive":
+            check_for_format("int", value)
+        case "tank":
+            check_for_format("int", value)
+        case "obstacle":
+            check_for_format("int", value)
+        case "ai.sensor":
+            value = f"{value}"
+            match value:
+                case "force":
+                    pass
+                case "distance":
+                    pass
+                case "color":
+                    pass
+                case "gyro":
+                    pass
+                case _:
+                    messagebox.askokcancel(f"Error: The sensor {value} does not exist.", err=True)
+                    exit(1)
+        case "module":
+            check_for_format("int", value)
+        case "calibrate":
+            pass
+        case "ai.data_save":
+            pass
+        case "ai.data_load":
+            pass
+        case "main.init":
+            pass
+        case _:
+            messagebox.askokcancel(f"Error: The function {function} does not exist.")
+            exit(1)
+            
+def main_debug(file):
+    for line in content_compile:
+        # Komentare herausfiltern
+        function, value = get_active_function(line)
+        debug_function(function, value)
+
 def main(file):
     file_name = file.split(".")
     file_name = file_name[0]
@@ -113,6 +186,14 @@ def main(file):
         # Komentare herausfiltern
         function, value = get_active_function(line)
         write_function(function, file, value)
+   
+def check_for_format(requestet, value):
+    if requestet == "int":
+        try:
+            int(value)
+        except:
+            messagebox.askokcancel(f"Error: The value {value} is not a valid integer.", err=True)
+            sys.exit(1)
    
 class app:
     def __init__(self):
@@ -129,6 +210,7 @@ class app:
         wighf = 120
         tk.CTkLabel(self.root, text="Spike Custom Programming Language Compiler", text_color="Blue").pack(pady=10)
         tk.CTkButton(self.root, text="select and compile file", command=self.select_file, corner_radius=32, width=wighf, height=heief).pack(pady=10)
+        tk.CTkButton(self.root, text="select and debug file", command=self.select_file_deb, corner_radius=32).pack(pady=10)
         tk.CTkButton(self.root, text="License", command=self.licence, corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkButton(self.root, text="About", command=self.about, corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkButton(self.root, text="GitHub", command=self.github, corner_radius=32, width=wighf, height=heief).pack(pady=10)
@@ -150,6 +232,13 @@ class app:
             self.file = file
             compile(file)
             main(file)
+            
+    def select_file_deb(self):
+        file = filedialog.askopenfilename(filetypes=[("Spike Custom System Programming", "*.scsp")])
+        if file:
+            self.file = file
+            compile(file)
+            main_debug(file)
             
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
