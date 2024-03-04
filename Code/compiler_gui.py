@@ -187,6 +187,14 @@ def main(file):
         function, value = get_active_function(line)
         write_function(function, file, value)
    
+def check_for_format(requestet, value):
+    if requestet == "int":
+        try:
+            int(value)
+        except:
+            click.echo(f"Error: The value {value} is not a valid integer.", err=True)
+            sys.exit(1)
+   
 class app:
     def __init__(self):
         self.root = tk.CTk()
