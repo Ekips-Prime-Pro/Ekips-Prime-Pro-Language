@@ -21,4 +21,5 @@ ai_data = []
 def write_ai_data(file):
     with open("{file}", "w") as f:
         for line in ai_data:
-            f.write(line)print('initialise the Content of the file')
+            f.write(line)
+print('initialise the Content of the file')
