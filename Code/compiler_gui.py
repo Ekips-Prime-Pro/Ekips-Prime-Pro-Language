@@ -192,7 +192,7 @@ def check_for_format(requestet, value):
         try:
             int(value)
         except:
-            click.echo(f"Error: The value {value} is not a valid integer.", err=True)
+            messagebox.askokcancel(f"Error: The value {value} is not a valid integer.", err=True)
             sys.exit(1)
    
 class app:
