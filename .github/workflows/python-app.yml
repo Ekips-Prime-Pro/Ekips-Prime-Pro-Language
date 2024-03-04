@@ -36,5 +36,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest /Code/compiler.py
-        ortest /Code/Compiler_gui.py
+        pytest /home/runner/work/Spike-Custom-Programming-Language-and-Compiler/Spike-Custom-Programming-Language-and-Compiler/Code/compiler.py
+        pytest /home/runner/work/Spike-Custom-Programming-Language-and-Compiler/Spike-Custom-Programming-Language-and-Compiler/Code/Compiler_gui.py
+
+
