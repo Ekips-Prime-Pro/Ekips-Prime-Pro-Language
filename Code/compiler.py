@@ -14,7 +14,7 @@ content_compile = []
 # Functions
 def compile(file):
     click.echo(f"Compiling {file}...")
-    if file.endswith(".scsp"):
+    if file.endswith(".ssp"):
         with open(file, "r") as f:
             content = f.readlines()
             for line in content:
@@ -117,14 +117,14 @@ def main(file):
 # main
 @click.command()
 @click.argument("file", type=click.Path(exists=True))
-@click.version_option("1.0", "--version", "-v", message="Version 0.1", help="Show version", prog_name="Spike Custom Programming Language Compiler")
+@click.version_option("1.0", "--version", "-v", message="Version 0.1", help="Show version", prog_name="Ekips Programming Language Compiler")
 @click.option("--format", "-f", type=click.Choice([".py", ".c"]), help="The format to compile to. Default is llsp3.")
 @click.option("--update", "-u", is_flag=True, help="Check for updates.")
 @click.option("--syntax", "-s", is_flag=True, help="Show the syntax of the language.")
 @click.help_option("--help", "-h", help="Show this help message and exit")
 def cli(file, format, update, syntax):
     if syntax:
-        website.open("https://github.com/Spike-Prime-Pro/Spike-Custom-Programming-Language-and-Compiler/blob/main/README.md")
+        website.open("https://github.com/Ekips-Prime-Pro/Ekips-Programming-Language")
     elif update:
         click.echo("Checking for updates...")
     elif format:
