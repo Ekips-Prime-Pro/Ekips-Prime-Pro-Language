@@ -102,6 +102,9 @@ def write_function(function,file,value=False):
             case "main.init":
                 f.write("runloop.run(main())\n")
                 f.write("async def main():\n")
+            case _:
+                click.echo(f"Error: The function {function} does not exist.", err=True)
+                sys.exit(1)
         
 def main(file):
     file_name = file.split(".")
