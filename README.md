@@ -71,9 +71,10 @@ This will show you how to work with the python cli version:
 5. Now you can write a new programm change things.
 
 This will show you how to work with the .exe GUI version:
-1. First you have to run the programm then you see a menu with a few options: 
-![alt text](image-4.png)
-![alt text](image-5.png)
+1. First you have to run the programm then you see a menu with a few options:
+
+![alt text](image-4.png)  ![alt text](image-5.png)
+
 2. if you click on the both buttons that are pointet at you will come to the following menu that will let you chose the file that you want to compile or debug:
 ![alt text](image-6.png)
 3. If you have chosen you`re file that will automaticly debug or compile the Programm, like in the cli version if you let it compile you're programm you get an .py file that you can copy in the offical [Spike Prime Software](https://spike.legoeducation.com/) and upload to you're Spike Prime.
