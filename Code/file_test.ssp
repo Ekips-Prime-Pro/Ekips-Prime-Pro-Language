@@ -1,4 +1,6 @@
 init{}
-variable.init{}
+variables.init{}
 log{initialise the Content of the file}
 sleep{sdf}
+main.init{}
+drive{10}

@@ -62,7 +62,7 @@ def debug_function(function,value=False):
             pass
         case "calibration.init":
             pass
-        case "variable.init":
+        case "variables.init":
             pass
         case "drive":
             check_for_format("int", value)
