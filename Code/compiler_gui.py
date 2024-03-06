@@ -1,7 +1,4 @@
 # Imports
-import os
-import sys
-import shutil
 import webbrowser as website
 import customtkinter as tk
 from tkinter import filedialog
@@ -22,7 +19,6 @@ def compile(file):
                 content_compile.append(line)
     else:
         print(f"Error: The file {file} is not a valid file type.", err=True)
-        sys.exit(1)
 
 def get_active_function(line):
     content_line = line
@@ -192,8 +188,7 @@ def check_for_format(requestet, value):
         try:
             int(value)
         except:
-            messagebox.askokcancel(f"Error: The value {value} is not a valid integer.", err=True)
-            sys.exit(1)
+            messagebox.askokcancel(f"Error: The value {value} is not a valid integer.")
    
 class app:
     def __init__(self):
