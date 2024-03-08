@@ -97,8 +97,9 @@ def write_function(function,file,value=False):
                 for line in value:
                     f.write(f"ai_data.append({line})\n")
             case "main.init":
-                f.write("runloop.run(main())\n")
                 f.write("async def main():\n")
+            case "main.run":
+                f.write("runloop.run(main())\n")
 
 def debug_function(function,value=False):
     print(f"Debuging {function} function...")
@@ -163,6 +164,8 @@ def debug_function(function,value=False):
             pass
         case "main.init":
             pass
+        case "main.run":
+            pass
         case _:
             messagebox.askokcancel(f"Error: The function {function} does not exist.")
             exit(1)
@@ -194,7 +197,7 @@ class app:
     def __init__(self):
         self.root = tk.CTk()
         self.root.title("Ekips Programming Language Compiler")
-        self.root.geometry("410x450")
+        self.root.geometry("410x490")
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.iconbitmap("icon.ico")
         self.main_frame()
@@ -205,7 +208,7 @@ class app:
         wighf = 120
         tk.CTkLabel(self.root, text="Ekips Programming Language Compiler", text_color="Blue", font=("Arial", 20)).pack(pady=10)
         tk.CTkButton(self.root, text="select and compile file", command=self.select_file, corner_radius=32, width=wighf, height=heief).pack(pady=10)
-        tk.CTkButton(self.root, text="select and debug file", command=self.select_file_deb, corner_radius=32).pack(pady=10)
+        tk.CTkButton(self.root, text="select and debug file", command=self.select_file_deb, corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkButton(self.root, text="License", command=self.licence, corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkButton(self.root, text="About", command=self.about, corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkButton(self.root, text="GitHub", command=self.github, corner_radius=32, width=wighf, height=heief).pack(pady=10)
@@ -244,7 +247,7 @@ class app:
         messagebox.showinfo("Credit", "Maximilian Gründinger\nFirst Lego League Team PaRaMeRoS")
         
     def about(self):
-        messagebox.showinfo("About", "Ekips System Programming\nVersion 0.0.1\nMaximilian Gründinger\nFirst Lego League Team PaRaMeRoS")
+        messagebox.showinfo("About", "Ekips System Programming\nVersion 1.1.0.0\nMaximilian Gründinger\nFirst Lego League Team PaRaMeRoS")
     
     def github(self):
         website.open("https://github.com/Ekips-Prime-Pro/Ekips-Programming-Language")

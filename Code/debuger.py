@@ -94,6 +94,8 @@ def debug_function(function,value=False):
             pass
         case "main.init":
             pass
+        case "main.run":
+            pass
         case _:
             click.echo(f"Error: The function {function} does not exist.", err=True)
             exit(1)

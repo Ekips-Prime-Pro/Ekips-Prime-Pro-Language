@@ -97,8 +97,9 @@ def write_function(function,file,value=False):
                 for line in value:
                     f.write(f"ai_data.append({line})\n")
             case "main.init":
-                f.write("runloop.run(main())\n")
                 f.write("async def main():\n")
+            case "main.run":
+                f.write("runloop.run(main())\n")
 
 def debug_function(function,value=False):
     print(f"Debuging {function} function...")
@@ -162,6 +163,8 @@ def debug_function(function,value=False):
         case "ai.data_load":
             pass
         case "main.init":
+            pass
+        case "main.run":
             pass
         case _:
             messagebox.askokcancel(f"Error: The function {function} does not exist.")
