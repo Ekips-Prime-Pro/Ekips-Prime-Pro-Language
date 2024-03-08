@@ -4,3 +4,4 @@ log{initialise the Content of the file}
 sleep{1}
 main.init{}
 drive{10}
+main.run{}

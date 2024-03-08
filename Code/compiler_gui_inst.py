@@ -197,7 +197,7 @@ class app:
     def __init__(self):
         self.root = tk.CTk()
         self.root.title("Ekips Programming Language Compiler")
-        self.root.geometry("410x450")
+        self.root.geometry("410x500")
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.main_frame()
         self.root.mainloop()  
