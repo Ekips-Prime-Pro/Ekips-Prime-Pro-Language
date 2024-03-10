@@ -11,6 +11,12 @@ content_compile = []
 
 # Functions
 def compile(file):
+    """
+    Compiles the given file if it has a valid extension (.scsp).
+    
+    Parameters:
+        file (str): The path of the file to compile.
+    """
     print(f"Compiling {file}...")
     if file.endswith(".scsp"):
         with open(file, "r") as f:
@@ -21,6 +27,15 @@ def compile(file):
         print(f"Error: The file {file} is not a valid file type.", err=True)
 
 def get_active_function(line):
+    """
+    Extracts the active function and its value from a line.
+    
+    Parameters:
+        line (str): The line to extract the function from.
+    
+    Returns:
+        tuple: A tuple containing the function and its value.
+    """
     content_line = line
     function, variable = content_line.split("{")
     variable = variable.replace("{","")
@@ -29,6 +44,14 @@ def get_active_function(line):
     return function, variable
     
 def write_function(function,file,value=False):
+    """
+    Writes the specified function and its value to a Python file.
+    
+    Parameters:
+        function (str): The function to write.
+        file (str): The name of the file to write to.
+        value (str, optional): The value associated with the function. Defaults to False.
+    """
     print(f"Writing {function} function...")
     file_name = file.split(".")
     file_name = file_name[0]
@@ -102,6 +125,13 @@ def write_function(function,file,value=False):
                 f.write("runloop.run(main())\n")
 
 def debug_function(function,value=False):
+    """
+    Debugs the specified function.
+    
+    Parameters:
+        function (str): The function to debug.
+        value (str, optional): The value associated with the function. Defaults to False.
+    """
     print(f"Debuging {function} function...")
     match function:
         case "log":
@@ -171,12 +201,24 @@ def debug_function(function,value=False):
             exit(1)
             
 def main_debug(file):
+    """
+    Main function for debugging the compiled file.
+    
+    Parameters:
+        file (str): The name of the file to debug.
+    """
     for line in content_compile:
         # Komentare herausfiltern
         function, value = get_active_function(line)
         debug_function(function, value)
 
 def main(file):
+    """
+    Main function for compiling the file.
+    
+    Parameters:
+        file (str): The name of the file to compile.
+    """
     file_name = file.split(".")
     file_name = file_name[0]
     with open(f"{file_name}.py", "w") as f:
@@ -187,6 +229,13 @@ def main(file):
         write_function(function, file, value)
    
 def check_for_format(requestet, value):
+    """
+    Checks if the value matches the requested format.
+    
+    Parameters:
+        requestet (str): The requested format.
+        value (str): The value to check.
+    """
     if requestet == "int":
         try:
             int(value)
@@ -194,7 +243,13 @@ def check_for_format(requestet, value):
             messagebox.askokcancel(f"Error: The value {value} is not a valid integer.")
    
 class app:
+    """
+    Main application class.
+    """
     def __init__(self):
+        """
+        Initializes the application.
+        """
         self.root = tk.CTk()
         self.root.title("Ekips Programming Language Compiler")
         self.root.geometry("410x500")
@@ -204,6 +259,9 @@ class app:
         self.root.mainloop()  
 
     def main_frame(self):
+        """
+        Constructs the main application frame.
+        """
         heief = 40
         wighf = 120
         tk.CTkLabel(self.root, text="Ekips Programming Language Compiler", text_color="Blue", font=("Arial", 20)).pack(pady=10)
