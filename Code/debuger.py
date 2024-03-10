@@ -3,7 +3,7 @@ import os
 import sys
 import shutil
 import webbrowser as website
-import click
+import click 
 import customtkinter as tk
 
 
@@ -13,6 +13,12 @@ content_compile = []
 
 # Functions
 def compile(file):
+    """
+    Compiles the given file if it has a valid extension (.ssp).
+    
+    Parameters:
+        file (str): The path of the file to compile.
+    """
     click.echo(f"Compiling {file}...")
     if file.endswith(".ssp"):
         with open(file, "r") as f:
@@ -24,6 +30,15 @@ def compile(file):
         sys.exit(1)
 
 def get_active_function(line):
+    """
+    Extracts the active function and its value from a line.
+    
+    Parameters:
+        line (str): The line to extract the function from.
+    
+    Returns:
+        tuple: A tuple containing the function and its value.
+    """
     content_line = line
     function, variable = content_line.split("{")
     variable = variable.replace("{","")
@@ -32,6 +47,13 @@ def get_active_function(line):
     return function, variable
 
 def debug_function(function,value=False):
+    """
+    Debugs the specified function.
+    
+    Parameters:
+        function (str): The function to debug.
+        value (str, optional): The value associated with the function. Defaults to False.
+    """
     click.echo(f"Debuging {function} function...")
     match function:
         case "log":
@@ -101,12 +123,25 @@ def debug_function(function,value=False):
             exit(1)
             
 def main_debug(file):
+    """
+    Main function for debugging the compiled file.
+    
+    Parameters:
+        file (str): The name of the file to debug.
+    """
     for line in content_compile:
         # Komentare herausfiltern
         function, value = get_active_function(line)
         debug_function(function, value)
 
 def check_for_format(requestet, value):
+    """
+    Checks if the value matches the requested format.
+    
+    Parameters:
+        requestet (str): The requested format.
+        value (str): The value to check.
+    """
     if requestet == "int":
         try:
             int(value)
@@ -122,6 +157,14 @@ def check_for_format(requestet, value):
 @click.option("--syntax", "-s", is_flag=True, help="Show the syntax of the language.")
 @click.help_option("--help", "-h", help="Show this help message and exit")
 def cli(file, update, syntax):
+    """
+    Command-line interface for the Ekips Programming Language Debugger.
+    
+    Parameters:
+        file (str): The path of the file to debug.
+        update (bool): Flag to check for updates.
+        syntax (bool): Flag to show the syntax of the language.
+    """
     if syntax:
         website.open("https://github.com/Ekips-Prime-Pro/Ekips-Programming-Language")
     elif update:

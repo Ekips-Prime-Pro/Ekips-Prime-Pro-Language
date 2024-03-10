@@ -13,6 +13,12 @@ content_compile = []
 
 # Functions
 def compile(file):
+    """
+    Compiles the given file if it has a valid extension (.ssp).
+    
+    Parameters:
+        file (str): The path of the file to compile.
+    """
     click.echo(f"Compiling {file}...")
     if file.endswith(".ssp"):
         with open(file, "r") as f:
@@ -24,6 +30,15 @@ def compile(file):
         sys.exit(1)
 
 def get_active_function(line):
+    """
+    Extracts the active function and its value from a line.
+    
+    Parameters:
+        line (str): The line to extract the function from.
+    
+    Returns:
+        tuple: A tuple containing the function and its value.
+    """
     content_line = line
     function, variable = content_line.split("{")
     variable = variable.replace("{","")
@@ -32,6 +47,14 @@ def get_active_function(line):
     return function, variable
 
 def write_function(function,file,value=False):
+    """
+    Writes the specified function and its value to a Python file.
+    
+    Parameters:
+        function (str): The function to write.
+        file (str): The name of the file to write to.
+        value (str, optional): The value associated with the function. Defaults to False.
+    """
     click.echo(f"Writing {function} function...")
     file_name = file.split(".")
     file_name = file_name[0]
@@ -108,6 +131,12 @@ def write_function(function,file,value=False):
                 sys.exit(1)
         
 def main(file):
+    """
+    Main function for compiling the file.
+    
+    Parameters:
+        file (str): The name of the file to compile.
+    """
     file_name = file.split(".")
     file_name = file_name[0]
     with open(f"{file_name}.py", "w") as f:
@@ -127,6 +156,15 @@ def main(file):
 @click.option("--syntax", "-s", is_flag=True, help="Show the syntax of the language.")
 @click.help_option("--help", "-h", help="Show this help message and exit")
 def cli(file, format, update, syntax):
+    """
+    Command-line interface for the Ekips Programming Language Compiler.
+    
+    Parameters:
+        file (str): The path of the file to compile.
+        format (str): The format to compile to. Default is .py.
+        update (bool): Flag to check for updates.
+        syntax (bool): Flag to show the syntax of the language.
+    """
     if syntax:
         website.open("https://github.com/Ekips-Prime-Pro/Ekips-Programming-Language")
     elif update:
