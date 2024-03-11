@@ -7,7 +7,10 @@ from tkinter import messagebox
 
 # Variables
 content_compile = []
+__version__ = "0.0.0.0"
 
+with open("version", "r") as f:
+    __version__ = f.read()
 
 # Functions
 def compile(file):
@@ -52,7 +55,7 @@ def write_function(function,file,value=False):
         file (str): The name of the file to write to.
         value (str, optional): The value associated with the function. Defaults to False.
     """
-    print(f"Writing {function} function...")
+    click.echo(f"Writing {function} function...")
     file_name = file.split(".")
     file_name = file_name[0]
     with open(f"{file_name}.py", "a") as f:
@@ -123,6 +126,14 @@ def write_function(function,file,value=False):
                 f.write("async def main():\n")
             case "main.run":
                 f.write("runloop.run(main())\n")
+            case _:
+                if function == "//":
+                    f.write(f"# {value}")
+                elif function == "#":
+                    f.write(f"# {value}")
+                else:
+                    click.echo(f"Error: The function {function} does not exist.", err=True)
+                    sys.exit(1)
 
 def debug_function(function,value=False):
     """
@@ -197,8 +208,13 @@ def debug_function(function,value=False):
         case "main.run":
             pass
         case _:
-            messagebox.askokcancel(f"Error: The function {function} does not exist.")
-            exit(1)
+            if function == "//":
+                pass
+            elif function == "#":
+                pass
+            else:
+                click.echo(f"Error: The function {function} does not exist.", err=True)
+                sys.exit(1)
             
 def main_debug(file):
     """
@@ -272,7 +288,7 @@ class app:
         tk.CTkButton(self.root, text="GitHub", command=self.github, corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkButton(self.root, text="Help", command=self.help_web, corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkLabel(self.root, text="Maximilian Gründinger\nFirst Lego League Team PaRaMeRoS", text_color="Blue",font=("Arial", 9)).pack(pady=10)
-        tk.CTkLabel(self.root, text="Version 1.1", text_color="Blue").pack(pady=10)
+        tk.CTkLabel(self.root, text=f"Version {__version__}", text_color="Blue").pack(pady=10)
 
     def licence(self):
         messagebox.showinfo("License", f"Ekips System Programming License Agreement\nThis License Agreement (the 'Agreement') is entered into by and between Maximilian Gründinger ('Licensor') and the First Lego League Team known as PaRaMeRoS ('Licensee').\n1. License Grant.\nLicensor hereby grants Licensee a non-exclusive, non-transferable license to use and modify the software program known as Ekips System Programming (the 'Program') solely for educational and non-commercial purposes. This license is granted exclusively to the members of the First Lego League Team identified as PaRaMeRoS.\n2. Restrictions.\nLicensee shall not, and shall not permit others to:\na. Use the Program for any purpose other than educational and non-commercial activities within the First Lego League Team.\nb. Allow non-members of the First Lego League Team to use or access the Program.\nc. Commercialize or distribute the Program for financial gain.\nd. Remove or alter any copyright, trademark, or other proprietary notices contained in the Program.\n3. Security.\nLicensor makes no warranties regarding the security of the Program. Licensee acknowledges and agrees that any use of the Program is at their own risk. Licensor shall not be responsible for any security bugs or issues that may arise in connection with the Program.\n4. Term and Termination.\nThis Agreement shall remain in effect until terminated by either party. Licensor reserves the right to terminate this Agreement immediately if Licensee breaches any of its terms. Upon termination, Licensee shall cease all use of the Program and destroy all copies in their possession.\n5. Disclaimer of Warranty.\nTHE PROGRAM IS PROVIDED 'AS IS' WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. LICENSOR DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.\n6. Limitation of Liability.\nIN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY SPECIAL, INCIDENTAL, INDIRECT, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.\n7. Governing Law.\nThis Agreement shall be governed by and construed in accordance with the laws of Germany, Bavaria, Munic.\n8. Entire Agreement.\nThis Agreement constitutes the entire agreement between the parties and supersedes all prior agreements, whether oral or written, with respect to the Program.\nIN WITNESS WHEREOF, the parties hereto have executed this License Agreement as of the effective date.\nLicensor:\nMaximilian Gründinger\nLicensee:\nPaRaMeRoS\nDate: 1.1.2024")
@@ -305,13 +321,12 @@ class app:
         messagebox.showinfo("Credit", "Maximilian Gründinger\nFirst Lego League Team PaRaMeRoS")
         
     def about(self):
-        messagebox.showinfo("About", "Ekips System Programming\nVersion 1.1.0.0\nMaximilian Gründinger\nFirst Lego League Team PaRaMeRoS")
+        messagebox.showinfo("About", f"Ekips System Programming\nVersion {__version__}\nMaximilian Gründinger\nFirst Lego League Team PaRaMeRoS")
     
     def github(self):
         website.open("https://github.com/Ekips-Prime-Pro/Ekips-Programming-Language")
         
     def help_web(self):
-        messagebox.showinfo("Help", "For help and documentation please visit the GitHub page of the project")
         website.open("https://parameros.net/pro")
      
         

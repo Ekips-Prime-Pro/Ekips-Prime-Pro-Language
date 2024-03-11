@@ -9,7 +9,10 @@ import customtkinter as tk
 
 # Variables
 content_compile = []
+__version__ = "0.0.0.0"
 
+with open("version", "r") as f:
+    __version__ = f.read()
 
 # Functions
 def compile(file):
@@ -155,7 +158,7 @@ def main(file):
 # main
 @click.command()
 @click.argument("file", type=click.Path(exists=True))
-@click.version_option("1.0", "--version", "-v", message="Version 0.1", help="Show version", prog_name="Ekips Programming Language Compiler")
+@click.version_option("1.0", "--version", "-v", message=f"Version {__version__}", help="Show version", prog_name="Ekips Programming Language Compiler")
 @click.option("--format", "-f", type=click.Choice([".py", ".c"]), help="The format to compile to. Default is llsp3.")
 @click.option("--update", "-u", is_flag=True, help="Check for updates.")
 @click.option("--syntax", "-s", is_flag=True, help="Show the syntax of the language.")
