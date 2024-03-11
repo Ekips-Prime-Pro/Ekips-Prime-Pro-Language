@@ -67,7 +67,9 @@ hier wird eine ganze Dokumentation zu finden sein
 This will show you how to work with the python cli version:
 
 1. You have to create an .ssp  file, you can use for that any texteditor or our own [Ekips Texteditor](https://github.com/Ekips-Prime-Pro/Ekips-Prime-Pro-Editor) that is optimised for this. In my case I have written a little test progamm, please follow the systax rules and use only the functions that are show in [Functions](#functions).
+   
  ![alt text](image.png)
+ 
 2. If you want to check for any errors befor you compile the file use the debuger.py like the following picture shows.
  ![alt text](image-1.png)
 3. Next you can compile the .ssp file into an .py file that you can just paste in the offical [Spike Prime Software](https://spike.legoeducation.com/). But first we have to run the compiler, you can write `-h` for help. But we will convert it with the following command:
