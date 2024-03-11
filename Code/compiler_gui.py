@@ -27,7 +27,7 @@ def compile(file):
             for line in content:
                 content_compile.append(line)
     else:
-        print(f"Error: The file {file} is not a valid file type.", err=True)
+        print(f"Error: The file {file} is not a valid file type.")
 
 def get_active_function(line):
     """
@@ -55,7 +55,7 @@ def write_function(function,file,value=False):
         file (str): The name of the file to write to.
         value (str, optional): The value associated with the function. Defaults to False.
     """
-    click.echo(f"Writing {function} function...")
+    print(f"Writing {function} function...")
     file_name = file.split(".")
     file_name = file_name[0]
     with open(f"{file_name}.py", "a") as f:
@@ -132,7 +132,7 @@ def write_function(function,file,value=False):
                 elif function == "#":
                     f.write(f"# {value}")
                 else:
-                    click.echo(f"Error: The function {function} does not exist.", err=True)
+                    print(f"Error: The function {function} does not exist.")
                     sys.exit(1)
 
 def debug_function(function,value=False):
@@ -161,7 +161,7 @@ def debug_function(function,value=False):
                 case "deep_learning":
                     pass
                 case _:
-                    messagebox.askokcancel(f"Error: The AI {value} does not exist.", err=True)
+                    messagebox.askokcancel(f"Error: The AI {value} does not exist.")
                     exit(1)
         case "ai.init":
             pass
@@ -193,7 +193,7 @@ def debug_function(function,value=False):
                 case "gyro":
                     pass
                 case _:
-                    messagebox.askokcancel(f"Error: The sensor {value} does not exist.", err=True)
+                    messagebox.askokcancel(f"Error: The sensor {value} does not exist.")
                     exit(1)
         case "module":
             check_for_format("int", value)
@@ -213,7 +213,7 @@ def debug_function(function,value=False):
             elif function == "#":
                 pass
             else:
-                click.echo(f"Error: The function {function} does not exist.", err=True)
+                print(f"Error: The function {function} does not exist.")
                 sys.exit(1)
             
 def main_debug(file):
