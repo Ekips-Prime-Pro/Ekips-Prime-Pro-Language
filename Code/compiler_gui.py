@@ -3,7 +3,7 @@ import webbrowser as website
 import customtkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
-
+import sys
 
 # Variables
 content_compile = []
