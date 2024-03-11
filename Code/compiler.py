@@ -127,8 +127,13 @@ def write_function(function,file,value=False):
             case "main.run":
                 f.write("runloop.run(main())\n")
             case _:
-                click.echo(f"Error: The function {function} does not exist.", err=True)
-                sys.exit(1)
+                if function == "//":
+                    f.write(f"# {value}")
+                elif function == "#":
+                    f.write(f"# {value}")
+                else:
+                    click.echo(f"Error: The function {function} does not exist.", err=True)
+                    sys.exit(1)
         
 def main(file):
     """

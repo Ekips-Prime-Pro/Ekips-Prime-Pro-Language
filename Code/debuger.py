@@ -119,8 +119,13 @@ def debug_function(function,value=False):
         case "main.run":
             pass
         case _:
-            click.echo(f"Error: The function {function} does not exist.", err=True)
-            exit(1)
+            if function == "//":
+                pass
+            elif function == "#":
+                pass
+            else:
+                click.echo(f"Error: The function {function} does not exist.", err=True)
+                exit(1)
             
 def main_debug(file):
     """

@@ -30,6 +30,7 @@ The Spike Custom System Programming Language has a simple and intuitive syntax t
 
 - The functions are the key part of the Programm like `sleep{10}` (`sleep`).
 - The curly brackets define function uneque variables like `wait{1}` (`{}`).
+- Coments have to be after an `//` or an `#` also the content has to be enclosed in curly brackets, like that `//{you coment}`
 
 ## Functions
 
