@@ -1,7 +1,14 @@
+//{This is a simple example of a Spike Custom System Programming Language program.}
 init{}
 variables.init{}
-log{initialise the Content of the file}
-sleep{1}
+ai.init{}
+module.init{}
+motor.init{}
+sensor.init{}
+calibration.init{}
 main.init{}
+log{Running main Function}
+drive{10}
+tank{30}
 drive{10}
 main.run{}
