@@ -63,7 +63,7 @@ The best way to learn the language you have to remeber the syntax and the functi
 
 At the beginning you have to initialize the functions with the `init{}`, `variables.init{}`, `ai.init{}`, `module.init{}`, `motor.init{}`, `sensor.init{}` and `calibration.init{}` functions. After that you have to start the main loop with the `main{}` function. In the main loop you can use the functions that are shown in [Functions](#functions). The following example shows a simple program that drives the robot forward, turns left, and then drives forward again.
 
-```text
+```c
 //{This is a simple example of a Spike Custom System Programming Language program.}
 init{}
 variables.init{}
