@@ -100,6 +100,7 @@ This will show you how to work with the python cli version:
  ![alt text](image-2.png)
 
 4. Now you can open the .py file in the text editor and copy the content into youre offical [Spike Prime Software](https://spike.legoeducation.com/):
+
  ![alt text](image-3.png)
 
 5. Now you can write a new programm change things.
