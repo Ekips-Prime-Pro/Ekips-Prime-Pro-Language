@@ -71,11 +71,17 @@ This will show you how to work with the python cli version:
  ![alt text](image.png)
  
 2. If you want to check for any errors befor you compile the file use the debuger.py like the following picture shows.
+
  ![alt text](image-1.png)
+
 3. Next you can compile the .ssp file into an .py file that you can just paste in the offical [Spike Prime Software](https://spike.legoeducation.com/). But first we have to run the compiler, you can write `-h` for help. But we will convert it with the following command:
+
  ![alt text](image-2.png)
+
 4. Now you can open the .py file in the text editor and copy the content into youre offical [Spike Prime Software](https://spike.legoeducation.com/):
+
  ![alt text](image-3.png)
+
 5. Now you can write a new programm change things.
 
 This will show you how to work with the .exe GUI version:
@@ -83,8 +89,11 @@ This will show you how to work with the .exe GUI version:
 1. First you have to run the programm then you see a menu with a few options:
 
 ![alt text](image-4.png)  ![alt text](image-5.png)
+
 2. if you click on the both buttons that are pointet at you will come to the following menu that will let you chose the file that you want to compile or debug:
+
 ![alt text](image-6.png)
+
 3. If you have chosen you`re file that will automaticly debug or compile the Programm, like in the cli version if you let it compile you're programm you get an .py file that you can copy in the offical [Spike Prime Software](https://spike.legoeducation.com/) and upload to you're Spike Prime.
 
 ## Conclusion
