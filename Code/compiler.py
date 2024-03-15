@@ -129,14 +129,13 @@ def write_function(function,file,value=False):
                 f.write("async def main():\n")
             case "main.run":
                 f.write("runloop.run(main())\n")
+            case "//":
+                f.write(f"# {value}\n")
+            case "#":
+                f.write(f"# {value}\n")
             case _:
-                if function == "//":
-                    f.write(f"# {value}")
-                elif function == "#":
-                    f.write(f"# {value}")
-                else:
-                    click.echo(f"Error: The function {function} does not exist.", err=True)
-                    sys.exit(1)
+                click.echo(f"Error: The function {function} does not exist.", err=True)
+                sys.exit(1)
         
 def main(file):
     """
@@ -176,7 +175,7 @@ def cli(file, format, update, syntax):
     if syntax:
         website.open("https://github.com/Ekips-Prime-Pro/Ekips-Programming-Language")
     elif update:
-        click.echo("Checking for updates...")
+        click.progressbar("Checking for updates...")
     elif format:
         click.echo("Compiling to .py...")
     try:

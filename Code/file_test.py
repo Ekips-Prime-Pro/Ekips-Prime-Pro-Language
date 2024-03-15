@@ -24,6 +24,6 @@ def write_ai_data(file):
             f.write(line)
 print('initialise the Content of the file')
 time.sleep(1)
-runloop.run(main())
 async def main():
   await drive(10)
+runloop.run(main())
