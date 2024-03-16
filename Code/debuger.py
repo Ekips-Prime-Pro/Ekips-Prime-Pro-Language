@@ -42,11 +42,14 @@ def get_active_function(line):
     Returns:
         tuple: A tuple containing the function and its value.
     """
-    content_line = line
-    function, variable = content_line.split("{")
-    variable = variable.replace("{","")
-    variable = variable.replace("}","")
-    variable = variable.replace("\n","")
+    if line == "":
+        return None, None
+    else:
+        content_line = line
+        function, variable = content_line.split("{")
+        variable = variable.replace("{","")
+        variable = variable.replace("}","")
+        variable = variable.replace("\n","")
     return function, variable
 
 def debug_function(function,value=False):
@@ -59,6 +62,8 @@ def debug_function(function,value=False):
     """
     click.echo(f"Debuging {function} function...")
     match function:
+        case None:
+            pass
         case "log":
             pass
         case "sleep":
@@ -121,14 +126,13 @@ def debug_function(function,value=False):
             pass
         case "main.run":
             pass
+        case "//":
+            pass
+        case "#":
+            pass
         case _:
-            if function == "//":
-                pass
-            elif function == "#":
-                pass
-            else:
-                click.echo(f"Error: The function {function} does not exist.", err=True)
-                exit(1)
+            click.echo(f"Error: The function {function} does not exist.", err=True)
+            exit(1)
             
 def main_debug(file):
     """

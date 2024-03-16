@@ -42,11 +42,14 @@ def get_active_function(line):
     Returns:
         tuple: A tuple containing the function and its value.
     """
-    content_line = line
-    function, variable = content_line.split("{")
-    variable = variable.replace("{","")
-    variable = variable.replace("}","")
-    variable = variable.replace("\n","")
+    if line == "":
+        return None, None
+    else:
+        content_line = line
+        function, variable = content_line.split("{")
+        variable = variable.replace("{","")
+        variable = variable.replace("}","")
+        variable = variable.replace("\n","")
     return function, variable
 
 def write_function(function,file,value=False):
@@ -63,6 +66,8 @@ def write_function(function,file,value=False):
     file_name = file_name[0]
     with open(f"{file_name}.py", "a") as f:
         match function:
+            case None:
+                pass
             case "log":
                 print_out = f"print('{str(value)}')\n"
                 f.write(print_out)
