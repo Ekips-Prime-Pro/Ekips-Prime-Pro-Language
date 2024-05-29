@@ -7,6 +7,7 @@ import sys
 
 # Variables
 content_compile = []
+file_name = ""
 __version__ = "0.0.0.0"
 
 with open("version", "r") as f:
@@ -215,7 +216,34 @@ def debug_function(function,value=False):
             else:
                 print(f"Error: The function {function} does not exist.")
                 sys.exit(1)
-            
+
+def compile_llsp3(file):
+    """
+    This function compiles the file to a llsp3 file.
+    
+    Parameters:
+        file (str): The name of the file to compile.
+    """
+    file_name, file_ending = file.split(".")
+    
+    with open(file, "r") as f:
+        content = f.read()
+        
+    with open("llsp3.fll", "rb") as f:
+        currentline = 0
+        content = f.readlines()
+        contentout = ""
+        for line in content:
+            if currentline != 4:
+                contentout.append(line)
+            else:
+                contentout.append(content)
+            currentline += 1
+        
+    with open(f"{file}.llsp3", "wb") as f:
+        f.write(contentout)
+        
+
 def main_debug(file):
     """
     Main function for debugging the compiled file.
@@ -299,7 +327,9 @@ class app:
             exit(0)
             
     def select_file(self):
+        global file_name
         file = filedialog.askopenfilename(filetypes=[("Ekips System Programming", "*.ssp")])
+        file_name = file
         if file:
             self.file = file
             compile(file)
