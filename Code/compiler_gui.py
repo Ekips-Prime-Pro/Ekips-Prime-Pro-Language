@@ -4,11 +4,16 @@ import customtkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
 import sys
+import zipfile
+import json
+import os
 
 # Variables
 content_compile = []
 file_name = ""
 __version__ = "0.0.0.0"
+llsp3_file_path = 'Projekt.llsp3'
+extracted_folder = llsp3_file_path + 'projectbody.json'
 
 with open("version", "r") as f:
     __version__ = f.read()
@@ -224,24 +229,7 @@ def compile_llsp3(file):
     Parameters:
         file (str): The name of the file to compile.
     """
-    file_name, file_ending = file.split(".")
-
-    with open(file, "r") as f:
-        content = f.read()
-
-    with open("llsp3.fll", "rb") as f:
-        currentline = 0
-        content = f.readlines()
-        contentout = ""
-        for line in content:
-            if currentline != 4:
-                contentout.append(line)
-            else:
-                contentout.append(content)
-            currentline += 1
-
-    with open(f"{file}.llsp3", "wb") as f:
-        f.write(contentout)
+    print(f"Compiling {file}...")
 
 
 def main_debug(file):
