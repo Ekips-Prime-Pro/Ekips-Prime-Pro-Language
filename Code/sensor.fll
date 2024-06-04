@@ -1,4 +1,3 @@
-#Switch function
 async def switch(switch=False):
     while switch == False:
         if (force_sensor.force(force_module) >= 50):

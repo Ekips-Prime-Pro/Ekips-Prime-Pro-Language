@@ -1,4 +1,3 @@
-#Calibrate function
 async def calibrate(speed=1000, acceleration=1000):
         if (distance_sensor.distance(port.C) < 110):
             print("Calibration not possible! | Distance to small!")

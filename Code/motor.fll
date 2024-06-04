@@ -1,4 +1,3 @@
-#Drive function
 async def drive(distance=0, multiplier=14, speed=1000, acceleration=1000):
     if (distance > 0):
         degrees = multiplier*(distance - calibration)
@@ -9,7 +8,6 @@ async def drive(distance=0, multiplier=14, speed=1000, acceleration=1000):
     elif (distance == 0):
         print("Null Value Error")
 
-#Tank function
 async def tank(degrees=0, left_speed=1000, right_speed=1000, acceleration=1000):
     #180 degrees = 90 Grad
     if (degrees > 0):
@@ -19,7 +17,6 @@ async def tank(degrees=0, left_speed=1000, right_speed=1000, acceleration=1000):
     elif (degrees == 0):
         print("Null Value Error")
 
-#Obstacle function
 async def obstacle(distance=0, speed=1000, acceleration=1000):
     if (distance > 0):
         while distance_sensor.distance(port.C) > distance:
