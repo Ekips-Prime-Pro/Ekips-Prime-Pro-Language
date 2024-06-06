@@ -80,7 +80,6 @@ def create_project(directory, project_id, project_name):
 
     return llsp3_file_path
 
-# Beispielaufruf der Funktion zum Erstellen des Projekts
 create_project('/mnt/data/example_project', '3hf83l3sq3KS', 'Projekt')
 
 def read_and_modify_projectbody(file_path, new_content):
@@ -90,7 +89,6 @@ def read_and_modify_projectbody(file_path, new_content):
     with open(file_path, 'w') as file:
         json.dump(data, file)
 
-    # Aktualisieren der manifest.json nach der Bearbeitung
     directory = os.path.dirname(file_path)
     projectbody_size = calculate_file_size(file_path)
     icon_svg_size = calculate_file_size(os.path.join(directory, 'icon.svg'))
@@ -106,7 +104,6 @@ def read_and_modify_projectbody(file_path, new_content):
     with open(manifest_path, 'w') as file:
         json.dump(manifest_data, file)
 
-    # Erstellen des ZIP-Archivs erneut nach der Bearbeitung
     llsp3_file_path = os.path.join(directory, 'Projekt.llsp3')
     with zipfile.ZipFile(llsp3_file_path, 'w') as zip_ref:
         for foldername, subfolders, filenames in os.walk(directory):
@@ -115,9 +112,7 @@ def read_and_modify_projectbody(file_path, new_content):
                 arcname = os.path.relpath(file_path, directory)
                 zip_ref.write(file_path, arcname)
 
-    # Ausgabe der Dateigröße des Archivs erneut nach der Bearbeitung
     llsp3_file_size = os.path.getsize(llsp3_file_path)
     print(f"Die Größe der aktualisierten .llsp3-Datei beträgt: {llsp3_file_size} Bytes")
 
-# Beispielaufruf der Funktion zum Lesen und Bearbeiten
 read_and_modify_projectbody('/mnt/data/example_project/projectbody.json', '# asedsewf\nprint("Hello world")')
