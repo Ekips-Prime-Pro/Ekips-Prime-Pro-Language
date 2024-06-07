@@ -10,7 +10,7 @@ def create_project(directory, project_id, project_name):
     os.makedirs(directory, exist_ok=True)
 
     projectbody_data = {
-        "main": "#"
+        "main": ""
     }
     projectbody_path = os.path.join(directory, 'projectbody.json')
     with open(projectbody_path, 'w') as file:
@@ -80,8 +80,6 @@ def create_project(directory, project_id, project_name):
 
     return llsp3_file_path
 
-create_project('/mnt/data/example_project', '3hf83l3sq3KS', 'Projekt')
-
 def read_and_modify_projectbody(file_path, new_content):
     with open(file_path, 'r') as file:
         data = json.load(file)
@@ -114,5 +112,3 @@ def read_and_modify_projectbody(file_path, new_content):
 
     llsp3_file_size = os.path.getsize(llsp3_file_path)
     print(f"Die Größe der aktualisierten .llsp3-Datei beträgt: {llsp3_file_size} Bytes")
-
-read_and_modify_projectbody('/mnt/data/example_project/projectbody.json', '# asedsewf\nprint("Hello world")')
