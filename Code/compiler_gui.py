@@ -11,10 +11,21 @@ import os
 # Variables
 content_compile = []
 file_name = ""
+conf_file = "conf.json"
 __version__ = "0.0.0.0"
 llsp3_file_path = 'Projekt.llsp3'
 extracted_folder = llsp3_file_path + 'projectbody.json'
 
+with open(conf_file, "r") as file:
+    content = json.load(file)
+    calibrate = content("calibrate")
+    __version__ = content("version")
+    module = content("module")
+    motor = content("motor")
+    sensor = content("sensor")
+    variables = content("variables")
+    
+    
 with open("version", "r") as f:
     __version__ = f.read()
 
