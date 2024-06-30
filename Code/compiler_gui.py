@@ -1,4 +1,3 @@
-# Imports
 import webbrowser as website
 import customtkinter as tk
 from tkinter import filedialog
