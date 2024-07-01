@@ -25,10 +25,6 @@ with open(conf_file, "r") as file:
     sensor = content["sensor"]
     variables = content["variables"]
 
-
-with open("version", "r") as f:
-    __version__ = f.read()
-
 # Functions
 def compile(file):
     """
@@ -97,25 +93,21 @@ def write_function(function,file,value=False):
                     for line in ai_content:
                         f.write(line)
             case "module.init":
-                with open("module.fll", "r") as r:
-                    ai_content = r.readlines()
-                    for line in ai_content:
-                        f.write(line)
+                ai_content = module
+                for line in ai_content:
+                    f.write(line)
             case "motor.init":
-                with open("motor.fll", "r") as r:
-                    ai_content = r.readlines()
-                    for line in ai_content:
-                        f.write(line)
+                ai_content = motor
+                for line in ai_content:
+                    f.write(line)
             case "sensor.init":
-                with open("sensor.fll", "r") as r:
-                    ai_content = r.readlines()
-                    for line in ai_content:
-                        f.write(line)
+                ai_content = sensor
+                for line in ai_content:
+                    f.write(line)
             case "calibration.init":
-                with open("calibration.fll", "r") as r:
-                    ai_content = r.readlines()
-                    for line in ai_content:
-                        f.write(line)
+                ai_content = calibrate
+                for line in ai_content:
+                   f.write(line)
             case "variables.init":
                 with open("variables.fll", "r") as r:
                     ai_content = r.readlines()
@@ -429,7 +421,7 @@ class app:
 
     def select_file(self):
         global file_name
-        file = filedialog.askopenfilename(filetypes=[("Ekips System Programming", "*.ssp")])
+        file = filedialog.askopenfilename(filetypes=[("Ekips System Programming", "*.scsp")])
         file_name = file
         if file:
             self.file = file
@@ -437,7 +429,7 @@ class app:
             main(file)
 
     def select_file_deb(self):
-        file = filedialog.askopenfilename(filetypes=[("Ekips System Programming", "*.ssp")])
+        file = filedialog.askopenfilename(filetypes=[("Ekips System Programming", "*.scsp")])
         if file:
             self.file = file
             compile(file)
