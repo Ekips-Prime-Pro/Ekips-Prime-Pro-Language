@@ -1,7 +1,0 @@
-async def module(degrees=0, speed=1110, acceleration=10000):
-    if (degrees > 0):
-        await motor.run_for_degrees(motor_module, degrees, speed, acceleration=acceleration)
-    elif (degrees < 0):
-        await motor.run_for_degrees(motor_module, degrees, speed, acceleration=acceleration)
-    elif (degrees == 0):
-        print("Error")
