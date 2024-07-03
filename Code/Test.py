@@ -20,11 +20,11 @@ def compile_llsp3(file, directory, project_name):
         </g>
     </svg>
     """
+    projectbody_path = os.path.join(directory, 'projectbody.json')
     with open(file, 'r') as file:
         projectbody_data['main'] = file.read()
     with open(projectbody_path, 'w') as file:
         json.dump(projectbody_data, file)
-    projectbody_path = os.path.join(directory, 'projectbody.json')
     icon_svg_path = os.path.join(directory, 'icon.svg')
     with open(icon_svg_path, 'w') as file:
         file.write(icon_svg_content)
