@@ -4,8 +4,6 @@ import zipfile
 from datetime import datetime
 
 def compile_llsp3(file, directory, project_name):
-    def calculate_file_size(file_path):
-        return os.path.getsize(file_path)
     os.makedirs(directory, exist_ok=True)
     projectbody_data = {
         "main": ""
@@ -31,9 +29,6 @@ def compile_llsp3(file, directory, project_name):
     icon_svg_path = os.path.join(directory, 'icon.svg')
     with open(icon_svg_path, 'w') as file:
         file.write(icon_svg_content)
-    projectbody_size = calculate_file_size(projectbody_path)
-    icon_svg_size = calculate_file_size(icon_svg_path)
-    total_size = projectbody_size + icon_svg_size
     current_datetime = datetime.utcnow().isoformat() + 'Z'
     manifest_data = {
         "type": "python",
@@ -42,7 +37,7 @@ def compile_llsp3(file, directory, project_name):
         "created": current_datetime,
         "id": "wJI4suuRFvcs",
         "lastsaved": current_datetime,
-        "size": total_size,
+        "size": 1004,
         "name": project_name,
         "slotIndex": 0,
         "workspaceX": 120,
@@ -68,4 +63,3 @@ def compile_llsp3(file, directory, project_name):
                 file_path = os.path.join(foldername, filename)
                 arcname = os.path.relpath(file_path, directory)
                 zip_ref.write(file_path, arcname)
-    llsp3_file_size = os.path.getsize(llsp3_file_path)
