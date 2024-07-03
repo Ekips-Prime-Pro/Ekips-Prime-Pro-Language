@@ -108,7 +108,7 @@ def write_function(function,file,value=False):
                 ai_content = calibrate
                 for line in ai_content:
                    f.write(line)
-            case "variables.init":
+            case "variable.init":
                 ai_content = variables
                 for line in ai_content:
                     f.write(line)
@@ -269,7 +269,7 @@ def compile_llsp3(file):
             "created": current_datetime,
             "id": project_id,
             "lastsaved": current_datetime,
-            "size": total_size, 
+            "size": total_size,
             "name": project_name,
             "slotIndex": 0,
             "workspaceX": 120,
@@ -347,6 +347,7 @@ def main_debug(file):
         # Komentare herausfiltern
         function, value = get_active_function(line)
         debug_function(function, value)
+    
 
 def main(file):
     """

@@ -1,11 +1,9 @@
 //{This is a simple example of a Spike Custom System Programming Language program. Without ai.}
 init{}
-variables.init{}
-
+variable.init{}
 module.init{}
 motor.init{}
 sensor.init{}
-
 calibration.init{}
 log{Running main Function}
 main.init{}
