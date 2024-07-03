@@ -74,19 +74,19 @@ def write_function(function,file,value=False):
     with open(f"{file_name}.py", "a") as f:
         match function:
             case "log":
-                print_out = f"print('{str(value)}')\n"
+                print_out = f"\nprint('{str(value)}')"
                 f.write(print_out)
             case "sleep":
-                sleep_out = f"time.sleep({str(value)})\n"
+                sleep_out = f"\ntime.sleep({str(value)})"
                 f.write(sleep_out)
             case "init":
-                init_out = f"import force_sensor, distance_sensor, motor, motor_pair\nfrom hub import port\nimport time\nfrom app import linegraph as ln\nimport runloop\nfrom math import *\nimport random\n"
+                init_out = f"\nimport force_sensor, distance_sensor, motor, motor_pair\nfrom hub import port\nimport time\nfrom app import linegraph as ln\nimport runloop\nfrom math import *\nimport random\n"
                 f.write(init_out)
             case "ai.chose":
                 ai_chose_out = f"ai_chose = '{str(value)}'\n"
                 f.write(ai_chose_out)
             case "ai.init":
-                ai_init_out = f"ai = runloop.AI()\n"
+                ai_init_out = f"\nai = runloop.AI()\n"
                 f.write(ai_init_out)
                 with open("ai.fll", "r") as r:
                     ai_content = r.readlines()
@@ -113,27 +113,27 @@ def write_function(function,file,value=False):
                 for line in ai_content:
                     f.write(line)
             case "drive":
-                f.write(f"  await drive({value})\n")
+                f.write(f"\n  await drive({value})\n")
             case "tank":
-                f.write(f"  await tank({value})\n")
+                f.write(f"\n  await tank({value})\n")
             case "obstacle":
-                f.write(f"  await obstacle({value})\n")
+                f.write(f"\n  await obstacle({value})\n")
             case "ai.sensor":
                 # add the sensor to the ai input
-                f.write(f"ai_sensor.append('{value}\n')")
+                f.write(f"\nai_sensor.append('{value}\n')")
             case "module":
-                f.write(f"  await module({value})\n")
+                f.write(f"\nawait module({value})\n")
             case "calibrate":
-                f.write("   await calibrate()\n")
+                f.write("\n   await calibrate()\n")
             case "ai.data_save":
-                f.write(f"  write_ai_data('{value}')\n")
+                f.write(f"\n  write_ai_data('{value}')\n")
             case "ai.data_load":
                 for line in value:
-                    f.write(f"ai_data.append({line})\n")
+                    f.write(f"\nai_data.append({line})\n")
             case "main.init":
-                f.write("async def main():\n")
+                f.write("\nasync def main():")
             case "main.run":
-                f.write("runloop.run(main())\n")
+                f.write("\nrunloop.run(main())")
             case _:
                 if function == "//":
                     f.write(f"# {value}")

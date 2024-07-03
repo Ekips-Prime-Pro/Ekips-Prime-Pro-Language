@@ -1,4 +1,5 @@
-# This is a simple example of a Spike Custom System Programming Language program. Without ai.import force_sensor, distance_sensor, motor, motor_pair
+# This is a simple example of a Spike Custom System Programming Language program. Without ai.
+import force_sensor, distance_sensor, motor, motor_pair
 from hub import port
 import time
 from app import linegraph as ln
@@ -77,9 +78,13 @@ async def calibrate(speed=1000, acceleration=1000):
             print(calibration)
             wait(0.5)
         except:
-            print('Calibration not possible! | Error!')print('Running main Function')
+            print('Calibration not possible! | Error!')
+print('Running main Function')
 async def main():
   await drive(10)
+
   await tank(30)
+
   await drive(10)
+
 runloop.run(main())
