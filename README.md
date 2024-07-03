@@ -180,11 +180,11 @@ The .llsp3 file you can put in the [Spike Prime Software](https://spike.legoeduc
 
 This will show you how to work with the python cli version:
 
-1. You have to create an .scsp  file, you can use for that any texteditor or our own [Ekips Texteditor](https://github.com/Ekips-Prime-Pro/Ekips-Prime-Pro-Editor) that is optimised for this. In my case I have written a little test progamm, please follow the systax rules and use only the functions that are show in [Functions](#functions).
+1. You have to create an .scsp  file, you can use for that any texteditor or our own [Ekips Texteditor](https://github.com/Ekips-Prime-Pro/Ekips-Prime-Pro-Editor) that is optimised for this. In my case I have written a little gui to help you with the programm.
    
 ![alt text](image.png)
  
-2. If you want to check for any errors befor you compile the file use the debuger.py like the following picture shows.
+2. If you want to check for any errors in the programm that you have written you can just run the Debugger it will give you an allert if something is not wright.
 
  ![alt text](image-1.png)
 
