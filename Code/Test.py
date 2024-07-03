@@ -18,9 +18,10 @@ def compile_llsp3(file, directory, project_name):
         </g>
     </svg>
     """
-    manifest_path = os.path.join(directory, 'manifest.json')
-    with open(manifest_path, 'w') as file:
-        json.dump(manifest_data, file)
+    with open(file, 'r') as file:
+        projectbody_data['main'] = file.read()
+    with open(projectbody_path, 'w') as file:
+        json.dump(projectbody_data, file)
     projectbody_path = os.path.join(directory, 'projectbody.json')
     icon_svg_path = os.path.join(directory, 'icon.svg')
     with open(icon_svg_path, 'w') as file:
@@ -34,7 +35,7 @@ def compile_llsp3(file, directory, project_name):
         "appType": "llsp3",
         "autoDelete": False,
         "created": current_datetime,
-        "id": "wJI4suuRZvcs",
+        "id": "wJI4suuRFvcs",
         "lastsaved": current_datetime,
         "size": total_size,
         "name": project_name,
@@ -52,9 +53,10 @@ def compile_llsp3(file, directory, project_name):
         },
         "extraFiles": []
     }
-    with open(projectbody_path, 'w') as file:
-        json.dump(projectbody_data, file)
-    llsp3_file_path = os.path.join(directory, 'Projekt.llsp3')
+    manifest_path = os.path.join(directory, 'manifest.json')
+    with open(manifest_path, 'w') as file:
+        json.dump(manifest_data, file)
+    llsp3_file_path = os.path.join(directory, project_name + '.llsp3')
     with zipfile.ZipFile(llsp3_file_path, 'w') as zip_ref:
         for foldername, subfolders, filenames in os.walk(directory):
             for filename in filenames:
