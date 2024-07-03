@@ -1,3 +1,5 @@
+import os
+
 def compile_llsp3(file, directory, project_name):
     def calculate_file_size(file_path):
         return os.path.getsize(file_path)
