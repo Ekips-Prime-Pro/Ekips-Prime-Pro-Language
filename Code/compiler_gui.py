@@ -109,10 +109,9 @@ def write_function(function,file,value=False):
                 for line in ai_content:
                    f.write(line)
             case "variables.init":
-                with open("variables.fll", "r") as r:
-                    ai_content = r.readlines()
-                    for line in ai_content:
-                        f.write(line)
+                ai_content = variables
+                for line in ai_content:
+                    f.write(line)
             case "drive":
                 f.write(f"  await drive({value})\n")
             case "tank":
