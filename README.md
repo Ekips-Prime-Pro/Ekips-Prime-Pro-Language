@@ -15,6 +15,7 @@ This programm is programmd to implement the Spike Prime Hub software with a easy
 - [Examples](#examples)
 - [Full example with explaination](#full-example-with-explaination)
 - [Guide](#guide)
+- [Robot Recomondations](#robot-recomondations)
 
 ## Installation
 
@@ -187,6 +188,14 @@ The .llsp3 file you can put in the [Spike Prime Software](https://spike.legoeduc
 ![alt text](image-6.png)
 
 3. If you have chosen you`re file that will automaticly debug or compile the Programm, like in the cli version if you let it compile you're programm you get an .py file that you can copy in the offical [Spike Prime Software](https://spike.legoeducation.com/) and upload to you're Spike Prime.
+
+## Robot Recomondations
+
+This is important for the functionality of your robot:
+
+1. please use the Spike Prime Hub.
+2. You have to use the following Ports for your motors: Motorpair: F and B, Module Motor: E; A, Force Sensor: D, Distance Sensor: C.
+3. You have to use the official [Spike Prime Software](https://spike.legoeducation.com/) for the Spike Prime Hub.
 
 ## Conclusion
 
