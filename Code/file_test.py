@@ -43,14 +43,14 @@ async def drive(distance=0, multiplier=14, speed=1000, acceleration=1000):
 
 
 async def tank(degrees=0, left_speed=1000, right_speed=1000, acceleration=1000):
-    #180 degrees = 90 Grad
+    # 180 degrees = 90 Grad
     if (degrees > 0):
         await motor_pair.move_tank_for_degrees(pair, -degrees, left_speed, -right_speed, acceleration=acceleration)
     elif (degrees < 0):
         await motor_pair.move_tank_for_degrees(pair, degrees, -left_speed, right_speed, acceleration=acceleration)
     elif (degrees == 0):
         print('Null Value Error')
-        
+
 
 async def obstacle(distance=0, speed=1000, acceleration=1000):
     if (distance > 0):
