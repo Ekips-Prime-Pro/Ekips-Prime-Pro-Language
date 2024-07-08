@@ -178,28 +178,6 @@ The .llsp3 file you can put in the [Spike Prime Software](https://spike.legoeduc
 
 ## Guide
 
-This will show you how to work with the python cli version:
-
-1. You have to create an .scsp  file, you can use for that any texteditor or our own [Ekips Texteditor](https://github.com/Ekips-Prime-Pro/Ekips-Prime-Pro-Editor) that is optimised for this. In my case I have written a little gui to help you with the programm.
-   
-![alt text](image.png)
- 
-2. If you want to check for any errors in the programm that you have written you can just run the Debugger it will give you an allert if something is not wright.
-
- ![alt text](image-1.png)
-
-3. Next you can compile the .ssp file into an .py and .llsp3 file that you can just paste in the offical [Spike Prime Software](https://spike.legoeducation.com/). But we will convert it with the following command:
-
- ![alt text](image-2.png)
-
-4. Now you can open the .py file in the text editor and copy the content into youre offical [Spike Prime Software](https://spike.legoeducation.com/):
-
- ![alt text](image-3.png)
-
-5. Now you can write a new programm change things.
-
-This will show you how to work with the .exe GUI version:
-
 1. First you have to run the programm then you see a menu with a few options:
 
 ![alt text](image-4.png)  ![alt text](image-5.png)
