@@ -81,6 +81,7 @@ main.run{}
 ```
 
 Out of that you become some Code in a .py file that will be also available.
+
 ```python
 # This is a simple example of a Spike Custom System Programming Language program. Without ai.
 import force_sensor, distance_sensor, motor, motor_pair
