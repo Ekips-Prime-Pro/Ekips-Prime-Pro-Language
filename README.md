@@ -196,11 +196,11 @@ This is important for the functionality of your robot:
 
 1. please use the Spike Prime Hub.
 2. You have to use the following Ports for your motors: Motorpair: F and B, Module Motor: E; A, Force Sensor: D, Distance Sensor: C.
-3. You have to use the official [Spike Prime Software](https://spike.legoeducation.com/) for the Spike Prime Hub.
+3. You have to use the official [Spike Prime Software](https://spike.legoeducation.com/) for the deployment for the Spike Prime Hub.
 
 ## Conclusion
 
-This guide has provided you with all the information you need to get started with programming in Spike Custom System Programming. If you have any questions or need further assistance, please refer to the official documentation or contact the support team.
+This guide has provided you with all the information you need to get started with programming in Spike Custom System Programming. If you have any questions or need further assistance, please refer to the official documentation or contact me.
 Thank you for choosing Spike Custom System Programming! We hope you enjoy using our programming language and look forward to seeing what you create.
 
 ## License
