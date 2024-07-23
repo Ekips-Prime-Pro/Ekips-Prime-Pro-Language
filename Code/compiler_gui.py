@@ -7,6 +7,7 @@ import zipfile
 import json
 import os
 from datetime import datetime
+import threading
 
 # Variables
 content_compile = []
@@ -293,6 +294,11 @@ def compile_llsp3(file, directory, project_name):
         os.rmdir(directory)
         os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
+def threaded_debug(function, value=False):
+    debug_thread = threading.Thread(target=debug_function, args=(function, value))
+    debug_thread.start()
+    debug_thread.join()
+
 def main_debug(file):
     """
     Main function for debugging the compiled file.
@@ -303,7 +309,7 @@ def main_debug(file):
     for line in content_compile:
         # Komentare herausfiltern
         function, value = get_active_function(line)
-        debug_function(function, value)
+        threaded_debug(function, value)
 
 def main(file):
     """
