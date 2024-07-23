@@ -284,7 +284,14 @@ def compile_llsp3(file, directory, project_name):
             for filename in filenames:
                 file_path = os.path.join(foldername, filename)
                 arcname = os.path.relpath(file_path, directory)
-                zip_ref.write(file_path, arcname)
+                zip_ref.write(file_path, arcname)            
+    
+    if os.path.exists(llsp3_file_path):
+        os.remove(manifest_path)
+        os.remove(icon_svg_path)
+        os.remove(projectbody_path)
+        os.rmdir(directory)
+        os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
 def main_debug(file):
     """
@@ -378,6 +385,7 @@ class app:
             self.file = file
             compile(file)
             main(file)
+            messagebox.showinfo("Compile", "The file has been successfully compiled.")
 
     def select_file_deb(self):
         file = filedialog.askopenfilename(filetypes=[("Ekips System Programming", "*.scsp")])
@@ -385,6 +393,7 @@ class app:
             self.file = file
             compile(file)
             main_debug(file)
+            messagebox.showinfo("Debug", "The file has been successfully debugged.")
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
