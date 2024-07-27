@@ -123,7 +123,9 @@ def write_function(function,file,value=False):
             case "main.run":
                 f.write("\nrunloop.run(main())")
             case "ai.run":
-                f.write(f"\nai_run({value})")
+                f.write(f"\nnew_data_point = {value}") # 'Kalibrierung': 0.84, 'Batterieladestand': 85, 'Reifennutzung': 0.95
+                f.write("\npredicted_mul = knn_predict(data, new_data_point, k=3)")
+                f.write("\nprint(f'Vorhergesagte Multiplikation: {predicted_mul}')")
             case _:
                 if function == "//":
                     f.write(f"# {value}")

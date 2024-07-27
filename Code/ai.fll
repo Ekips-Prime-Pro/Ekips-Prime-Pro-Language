@@ -33,7 +33,3 @@ def knn_predict(data, new_data_point, k=3):
 
     return predicted_distance
 
-# Beispielhafte Vorhersage
-new_data_point = {'Kalibrierung': 0.84, 'Batterieladestand': 85, 'Reifennutzung': 0.95}
-predicted_distance = knn_predict(data, new_data_point, k=3)
-print(f'Vorhergesagte Multiplikation: {predicted_distance}')
