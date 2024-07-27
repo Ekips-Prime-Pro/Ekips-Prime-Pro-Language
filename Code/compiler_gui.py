@@ -81,7 +81,7 @@ def write_function(function,file,value=False):
                 sleep_out = f"\ntime.sleep({str(value)})"
                 f.write(sleep_out)
             case "init":
-                init_out = f"\nimport force_sensor, distance_sensor, motor, motor_pair\nfrom hub import port\nimport time\nfrom app import linegraph as ln\nimport runloop\nfrom math import *\nimport random\n"
+                init_out = f"\nimport force_sensor, distance_sensor, motor, motor_pair\nfrom hub import port\nimport time\nfrom app import linegraph as ln\nimport runloop\nfrom math import *\nimport random\nimport math\n"
                 f.write(init_out)
             case "ai.chose":
                 ai_chose_out = f"ai_chose = '{str(value)}'\n"
@@ -285,8 +285,8 @@ def compile_llsp3(file, directory, project_name):
             for filename in filenames:
                 file_path = os.path.join(foldername, filename)
                 arcname = os.path.relpath(file_path, directory)
-                zip_ref.write(file_path, arcname)            
-    
+                zip_ref.write(file_path, arcname)
+
     if os.path.exists(llsp3_file_path):
         os.remove(manifest_path)
         os.remove(icon_svg_path)
