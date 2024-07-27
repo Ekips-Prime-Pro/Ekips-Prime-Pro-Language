@@ -83,12 +83,7 @@ def write_function(function,file,value=False):
             case "init":
                 init_out = f"\nimport force_sensor, distance_sensor, motor, motor_pair\nfrom hub import port\nimport time\nfrom app import linegraph as ln\nimport runloop\nfrom math import *\nimport random\nimport math\n"
                 f.write(init_out)
-            case "ai.chose":
-                ai_chose_out = f"ai_chose = '{str(value)}'\n"
-                f.write(ai_chose_out)
             case "ai.init":
-                ai_init_out = f"\nai = runloop.AI()\n"
-                f.write(ai_init_out)
                 with open("ai.fll", "r") as r:
                     ai_content = r.readlines()
                     for line in ai_content:
