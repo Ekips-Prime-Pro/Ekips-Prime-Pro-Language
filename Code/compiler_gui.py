@@ -114,22 +114,16 @@ def write_function(function,file,value=False):
                 f.write(f"\n  await tank({value})\n")
             case "obstacle":
                 f.write(f"\n  await obstacle({value})\n")
-            case "ai.sensor":
-                # add the sensor to the ai input
-                f.write(f"\nai_sensor.append('{value}\n')")
             case "module":
                 f.write(f"\nawait module({value})\n")
             case "calibrate":
                 f.write("\n   await calibrate()\n")
-            case "ai.data_save":
-                f.write(f"\n  write_ai_data('{value}')\n")
-            case "ai.data_load":
-                for line in value:
-                    f.write(f"\nai_data.append({line})\n")
             case "main.init":
                 f.write("\nasync def main():")
             case "main.run":
                 f.write("\nrunloop.run(main())")
+            case "ai.run":
+                f.write(f"\nai_run({value})")
             case _:
                 if function == "//":
                     f.write(f"# {value}")
