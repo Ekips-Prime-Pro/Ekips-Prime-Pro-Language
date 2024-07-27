@@ -73,6 +73,7 @@ motor.init{}
 sensor.init{}
 calibration.init{}
 log{Running main Function}
+ai.run{'Kalibrierung': 0.84, 'Batterieladestand': 85, 'Reifennutzung': 0.95}
 main.init{}
 drive{10}
 tank{30}
