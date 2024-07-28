@@ -13,7 +13,7 @@ import threading
 content_compile = []
 file_name = ""
 conf_file = "conf.json"
-__version__ = "0.0.0.0"
+__version__ = "0.0.0"
 llsp3_file_path = 'Projekt.llsp3'
 extracted_folder = llsp3_file_path + 'projectbody.json'
 
@@ -252,7 +252,7 @@ def compile_llsp3(file, directory, project_name):
         os.remove(icon_svg_path)
         os.remove(projectbody_path)
         os.rmdir(directory)
-        #os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
+        os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
 def threaded_debug(function, value=False):
     debug_thread = threading.Thread(target=debug_function, args=(function, value))
@@ -267,7 +267,6 @@ def main_debug(file):
         file (str): The name of the file to debug.
     """
     for line in content_compile:
-        # Komentare herausfiltern
         function, value = get_active_function(line)
         threaded_debug(function, value)
 
@@ -284,7 +283,6 @@ def main(file):
     with open(f"{file_name}.py", "w") as f:
         f.write("")
     for line in content_compile:
-        # Komentare herausfiltern
         function, value = get_active_function(line)
         write_function(function, file, value)
     compile_llsp3(file_name + ".py", file_dir, file_name)
