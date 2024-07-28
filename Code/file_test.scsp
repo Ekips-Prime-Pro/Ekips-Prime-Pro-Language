@@ -1,15 +1,16 @@
-//{This is a simple example of a Spike Custom System Programming Language program. Without ai.}
-init{}
-variable.init{}
-module.init{}
-motor.init{}
-sensor.init{}
-calibration.init{}
-ai.init{}
-log{Running main Function}
-ai.run{'Kalibrierung': 0.84, 'Batterieladestand': 85, 'Reifennutzung': 0.95}
-main.init{}
-drive{10}
-tank{30}
-drive{10}
-main.run{}
+//(This is a simple example of a Spike Custom System Programming Language program. Without ai.)
+init()
+variable.init()
+module.init()
+motor.init()
+sensor.init()
+calibration.init()
+ai.init()
+log(Running main Function)
+main.init()
+calibrate()
+ai.run({'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95})
+drive(10)
+tank(30)
+drive(10)
+main.run()

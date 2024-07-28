@@ -1,36 +1,30 @@
 
-# Bsp: Datensatz (Bitte bearbeiten für die von Ihnen gemessene Werte)
-# Für die kalibrierung bitte einfach die eingebaute Funktion calibrate aus und lassen sie sich das Ergebnis ausgeben.
-# Die Reifennutzung verändert sich für jeden Run um -0.05
-# Der Batterieladestand muss jedesmal gesondert abgelesen werden
-# Wenn sie diese Schritte einhalten kann die KI / das KNN richtig funktionieren
 data = [
-    {'Kalibrierung': 1.0, 'Batterieladestand': 100, 'Reifennutzung': 1.0, 'Multiplikation': 1.00},
-    {'Kalibrierung': 1.0, 'Batterieladestand': 90, 'Reifennutzung': 0.9, 'Multiplikation': 1.10},
-    {'Kalibrierung': 1.0, 'Batterieladestand': 80, 'Reifennutzung': 0.8, 'Multiplikation': 1.25},
-    {'Kalibrierung': 0.9, 'Batterieladestand': 100, 'Reifennutzung': 1.0, 'Multiplikation': 1.10},
-    {'Kalibrierung': 1.1, 'Batterieladestand': 100, 'Reifennutzung': 1.0, 'Multiplikation': 0.95}
+    {'Calibration': 1.0, 'Akku': 100, 'Wheelusage': 1.0, 'Multiplication': 1.00},
+    {'Calibration': 1.0, 'Akku': 900, 'Wheelusage': 0.9, 'Multiplication': 1.10},
+    {'Calibration': 1.0, 'Akku': 800, 'Wheelusage': 0.8, 'Multiplication': 1.25},
+    {'Calibration': 0.9, 'Akku': 100, 'Wheelusage': 1.0, 'Multiplication': 1.10},
+    {'Calibration': 1.1, 'Akku': 100, 'Wheelusage': 1.0, 'Multiplication': 0.95}
 ]
 
 def euclidean_distance(point1, point2):
-    distance = 0.0
+    multiplication = 0.0
     for key in point1:
-        if key != 'Multiplikation':
-            distance += (point1[key] - point2[key]) ** 2
-    return math.sqrt(distance)
+        if key != 'Multiplication':
+            multiplication += (point1[key] - point2[key]) ** 2
+    return math.sqrt(multiplication)
 
 def knn_predict(data, new_data_point, k=3):
-    # Berechne die Distanz zwischen dem neuen Punkt und allen anderen Punkten
-    distances = []
+    multiplication = []
     for item in data:
         dist = euclidean_distance(new_data_point, item)
-        distances.append((dist, item['Multiplikation']))
+        multiplication.append((dist, item['Multiplication']))
 
-    distances.sort(key=lambda x: x[0])
-    neighbors = distances[:k]
+    multiplication.sort(key=lambda x: x[0])
+    neighbors = multiplication[:k]
 
-    total_distance = sum(neighbor[1] for neighbor in neighbors)
-    predicted_distance = total_distance / k
+    total_multiplication = sum(neighbor[1] for neighbor in neighbors)
+    predicted_multiplication = total_multiplication / k
 
-    return predicted_distance
+    return predicted_multiplication
 

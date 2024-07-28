@@ -54,9 +54,9 @@ def get_active_function(line):
         tuple: A tuple containing the function and its value.
     """
     content_line = line
-    function, variable = content_line.split("{")
-    variable = variable.replace("{","")
-    variable = variable.replace("}","")
+    function, variable = content_line.split("(")
+    variable = variable.replace("(","")
+    variable = variable.replace(")","")
     variable = variable.replace("\n","")
     return function, variable
 
@@ -115,17 +115,17 @@ def write_function(function,file,value=False):
             case "obstacle":
                 f.write(f"\n  await obstacle({value})\n")
             case "module":
-                f.write(f"\nawait module({value})\n")
+                f.write(f"\n  await module({value})\n")
             case "calibrate":
-                f.write("\n   await calibrate()\n")
+                f.write("\n  await calibrate()\n")
             case "main.init":
                 f.write("\nasync def main():")
             case "main.run":
                 f.write("\nrunloop.run(main())")
             case "ai.run":
-                f.write(f"\nnew_data_point = {value}") # 'Kalibrierung': 0.84, 'Batterieladestand': 85, 'Reifennutzung': 0.95
-                f.write("\npredicted_mul = knn_predict(data, new_data_point, k=3)")
-                f.write("\nprint(f'Vorhergesagte Multiplikation: {predicted_mul}')")
+                f.write(f"\n  new_data_point = {value}") # 'Kalibrierung': calibration, 'Batterieladestand': 85, 'Reifennutzung': 0.95
+                f.write("\n  calibration = knn_predict(data, new_data_point, k=3)")
+                f.write("\n  print(f'Vorhergesagte Multiplikation: {calibration}')")
             case _:
                 if function == "//":
                     f.write(f"# {value}")

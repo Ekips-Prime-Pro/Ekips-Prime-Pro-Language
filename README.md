@@ -12,6 +12,7 @@ This programm is programmd to implement the Spike Prime Hub software with a easy
 - [Installation](#installation)
 - [Syntax](#syntax)
 - [Functions](#functions)
+- [Artificial Neural Network](#Artificial-Neural-Network)
 - [Examples](#examples)
 - [Full example with explaination](#full-example-with-explaination)
 - [Guide](#guide)
@@ -30,13 +31,13 @@ To use the Spike Custom System Programming Language, you need to install the com
 
 The Spike Custom System Programming Language has a simple and intuitive syntax that is easy to read and write. Here are some key features of the syntax:
 
-- The functions are the key part of the Programm like `sleep{10}` (`sleep`).
-- The curly brackets define function uneque variables like `wait{1}` (`{}`).
-- Coments have to be after an `//` or an `#` also the content has to be enclosed in curly brackets, like that `//{you coment}`
+- The functions are the key part of the Programm like `sleep(10)` (`sleep`).
+- The brackets define function uneque variables like `wait(1)` (`()`).
+- Coments have to be after an `//` or an `#` also the content has to be enclosed in curly brackets, like that `//(you coment)`
 
 ## Functions
 
-The main functions of the Spike Custom System Programming Language are for the basic use of the Spike Prime Custom Operating System and programming with ai enforced functions. To use the functions you have to first initialize the functions with the `init{}`, `drive.init{}`, `module.init{}`, `ai.init{}`, `calibration.init{}`, `variables.init{}` and `sensor.init{}` functions.
+The main functions of the Spike Custom System Programming Language are for the basic use of the Spike Prime Custom Operating System and programming with ai enforced functions. To use the functions you have to first initialize the functions with the `init()`, `drive.init()`, `module.init()`, `ai.init()`, `calibration.init()`, `variables.init()` and `sensor.init()` functions.
 There are four build in functions.
 
 - The `drive` function is for driving a motorpair forward and backward.
@@ -48,37 +49,85 @@ There are four build in functions.
 - The `sleep` function will hold the programm for a few moments.
 - The `log` function will print any value you give it.
 
+## Artificial Neural Network
+
+This AI is build in a way that integrates very good with the Spike Prime Enviroment.
+For this AI I build a extra function so that you dont have to import any thing else accept the math lib.
+First you have to initialise the Data_set in the Data list, secondly I defined the functions.
+Please use the ai.run after youre `calibrate` function and give the values with `{"Calibration":calibration, "Akku":100%, "Wheelusage":0.95}`.
+
+### Data Rules
+
+Please get the values for the data List for your Robot for your self and dont use the example Data set.
+For the calibration you can use the build in function `calibrate` thoese values will be printet please put them in youre Dataset.
+You have to consider that the wheels degrade with every run about -0.05 Value.
+The batterie loading Point has to be carefully read of the the Official Spike Prime App before the run.
+If you do this min. 15 times you get a good value evaluation, the more Data you feed the AI the better.
+
+```python
+data = [
+    {'Calibration': 1.0, 'Akku': 100, 'Wheelusage': 1.0, 'Multiplication': 1.00},
+    {'Calibration': 1.0, 'Akku': 900, 'Wheelusage': 0.9, 'Multiplication': 1.10},
+    {'Calibration': 1.0, 'Akku': 800, 'Wheelusage': 0.8, 'Multiplication': 1.25},
+    {'Calibration': 0.9, 'Akku': 100, 'Wheelusage': 1.0, 'Multiplication': 1.10},
+    {'Calibration': 1.1, 'Akku': 100, 'Wheelusage': 1.0, 'Multiplication': 0.95}
+]
+
+def euclidean_distance(point1, point2):
+    multiplication = 0.0
+    for key in point1:
+        if key != 'Multiplication':
+            multiplication += (point1[key] - point2[key]) ** 2
+    return math.sqrt(multiplication)
+
+def knn_predict(data, new_data_point, k=3):
+    multiplication = []
+    for item in data:
+        dist = euclidean_distance(new_data_point, item)
+        multiplication.append((dist, item['Multiplication']))
+
+    multiplication.sort(key=lambda x: x[0])
+    neighbors = multiplication[:k]
+
+    total_multiplication = sum(neighbor[1] for neighbor in neighbors)
+    predicted_multiplication = total_multiplication / k
+
+    return predicted_multiplication
+```
+
 ## Examples
 
 The best way to learn the language you have to remeber the syntax and the functions but then you have to practice. The following code examples will show you how to begin after you have try'd it you can open the Examples.md file and learn more about the Spike Custom System Programming Language.
 
-1. `drive{10}`
-2. `module{100}`
-3. `sensor{color}`
-4. `ai.run{Data_values}`
-5. `log{Hello World}`
-6. `calibrate{}`
-7. `tank{30}`
+1. `drive(10)`
+2. `module(100)`
+3. `sensor(color)`
+4. `ai.run(Data_values)`
+5. `log(Hello World)`
+6. `calibrate()`
+7. `tank(30)`
 
 ## Full example with explaination
 
-At the beginning you have to initialize the functions with the `init{}`, `variables.init{}`, `ai.init{}`, `module.init{}`, `motor.init{}`, `sensor.init{}` and `calibration.init{}` functions. After that you have to start the main loop with the `main{}` function. In the main loop you can use the functions that are shown in [Functions](#functions). The following example shows a simple program that drives the robot forward, turns left, and then drives forward again.
+At the beginning you have to initialize the functions with the `init()`, `variables.init()`, `ai.init()`, `module.init()`, `motor.init()`, `sensor.init()` and `calibration.init()` functions. After that you have to start the main loop with the `main()` function. In the main loop you can use the functions that are shown in [Functions](#functions). The following example shows a simple program that drives the robot forward, turns left, and then drives forward again.
 
 ```c
-//{This is a simple example of a Spike Custom System Programming Language program. Without ai.}
-init{}
-variables.init{}
-module.init{}
-motor.init{}
-sensor.init{}
-calibration.init{}
-log{Running main Function}
-ai.run{'Kalibrierung': 0.84, 'Batterieladestand': 85, 'Reifennutzung': 0.95}
-main.init{}
-drive{10}
-tank{30}
-drive{10}
-main.run{}
+//(This is a simple example of a Spike Custom System Programming Language program. Without ai.)
+init()
+variable.init()
+module.init()
+motor.init()
+sensor.init()
+calibration.init()
+ai.init()
+log(Running main Function)
+main.init()
+calibrate()
+ai.run({'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95})
+drive(10)
+tank(30)
+drive(10)
+main.run()
 ```
 
 Out of that you become some Code in a .py file that will be also available.
@@ -166,44 +215,38 @@ async def calibrate(speed=1000, acceleration=1000):
             wait(0.5)
         except:
             print('Calibration not possible! | Error!')
-# Bsp: Datensatz (Bitte bearbeiten fÃ¼r die von Ihnen gemessene Werte)
-# FÃ¼r die kalibrierung bitte einfach die eingebaute Funktion calibrate aus und lassen sie sich das Ergebnis ausgeben.
-# Die Reifennutzung verÃ¤ndert sich fÃ¼r jeden Run um -0.05
-# Der Batterieladestand muss jedesmal gesondert abgelesen werden
-# Wenn sie diese Schritte einhalten kann die KI / das KNN richtig funktionieren
 data = [
-    {'Kalibrierung': 1.0, 'Batterieladestand': 100, 'Reifennutzung': 1.0, 'Multiplikation': 1.00},
-    {'Kalibrierung': 1.0, 'Batterieladestand': 90, 'Reifennutzung': 0.9, 'Multiplikation': 1.10},
-    {'Kalibrierung': 1.0, 'Batterieladestand': 80, 'Reifennutzung': 0.8, 'Multiplikation': 1.25},
-    {'Kalibrierung': 0.9, 'Batterieladestand': 100, 'Reifennutzung': 1.0, 'Multiplikation': 1.10},
-    {'Kalibrierung': 1.1, 'Batterieladestand': 100, 'Reifennutzung': 1.0, 'Multiplikation': 0.95}
+    {'Calibration': 1.0, 'Akku': 100, 'Wheelusage': 1.0, 'Multiplication': 1.00},
+    {'Calibration': 1.0, 'Akku': 900, 'Wheelusage': 0.9, 'Multiplication': 1.10},
+    {'Calibration': 1.0, 'Akku': 800, 'Wheelusage': 0.8, 'Multiplication': 1.25},
+    {'Calibration': 0.9, 'Akku': 100, 'Wheelusage': 1.0, 'Multiplication': 1.10},
+    {'Calibration': 1.1, 'Akku': 100, 'Wheelusage': 1.0, 'Multiplication': 0.95}
 ]
 
 def euclidean_distance(point1, point2):
-    distance = 0.0
+    multiplication = 0.0
     for key in point1:
-        if key != 'Multiplikation':
-            distance += (point1[key] - point2[key]) ** 2
-    return math.sqrt(distance)
+        if key != 'Multiplication':
+            multiplication += (point1[key] - point2[key]) ** 2
+    return math.sqrt(multiplication)
 
 def knn_predict(data, new_data_point, k=3):
-    # Berechne die Distanz zwischen dem neuen Punkt und allen anderen Punkten
-    distances = []
+    multiplication = []
     for item in data:
         dist = euclidean_distance(new_data_point, item)
-        distances.append((dist, item['Multiplikation']))
+        multiplication.append((dist, item['Multiplication']))
 
-    distances.sort(key=lambda x: x[0])
-    neighbors = distances[:k]
+    multiplication.sort(key=lambda x: x[0])
+    neighbors = multiplication[:k]
 
-    total_distance = sum(neighbor[1] for neighbor in neighbors)
-    predicted_distance = total_distance / k
+    total_multiplication = sum(neighbor[1] for neighbor in neighbors)
+    predicted_multiplication = total_multiplication / k
 
-    return predicted_distance
+    return predicted_multiplication
 
 
 print('Running main Function')
-new_data_point = {'Kalibrierung': 0.84, 'Batterieladestand': 85, 'Reifennutzung': 0.95}
+new_data_point = {'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95}
 predicted_mul = knn_predict(data, new_data_point, k=3)
 print(f'Vorhergesagte Multiplikation: {predicted_mul}')
 async def main():
