@@ -12,7 +12,7 @@ This programm is programmd to implement the Spike Prime Hub software with a easy
 - [Installation](#installation)
 - [Syntax](#syntax)
 - [Functions](#functions)
-- [Artificial Neural Network](#Artificial Neural Network)
+- [Artificial Neural Network](#Artificial-Neural-Network)
 - [Examples](#examples)
 - [Full example with explaination](#full-example-with-explaination)
 - [Guide](#guide)
