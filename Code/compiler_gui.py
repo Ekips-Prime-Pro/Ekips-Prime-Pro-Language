@@ -25,6 +25,7 @@ with open(conf_file, "r") as file:
     motor = content["motor"]
     sensor = content["sensor"]
     variables = content["variables"]
+    ai = content["ai"]
 
 # Functions
 def compile(file):
@@ -84,29 +85,23 @@ def write_function(function,file,value=False):
                 init_out = f"\nimport force_sensor, distance_sensor, motor, motor_pair\nfrom hub import port\nimport time\nfrom app import linegraph as ln\nimport runloop\nfrom math import *\nimport random\nimport math\n"
                 f.write(init_out)
             case "ai.init":
-                with open("ai.fll", "r") as r:
-                    ai_content = r.readlines()
-                    for line in ai_content:
-                        f.write(line)
-            case "module.init":
-                ai_content = module
+                ai_content = ai
                 for line in ai_content:
+                    f.write(line)
+            case "module.init":
+                for line in module:
                     f.write(line)
             case "motor.init":
-                ai_content = motor
-                for line in ai_content:
+                for line in motor:
                     f.write(line)
             case "sensor.init":
-                ai_content = sensor
-                for line in ai_content:
+                for line in sensor:
                     f.write(line)
             case "calibration.init":
-                ai_content = calibrate
-                for line in ai_content:
+                for line in calibrate:
                    f.write(line)
             case "variable.init":
-                ai_content = variables
-                for line in ai_content:
+                for line in variables:
                     f.write(line)
             case "drive":
                 f.write(f"\n  await drive({value})\n")
@@ -123,7 +118,7 @@ def write_function(function,file,value=False):
             case "main.run":
                 f.write("\nrunloop.run(main())")
             case "ai.run":
-                f.write(f"\n  new_data_point = {value}") # 'Kalibrierung': calibration, 'Batterieladestand': 85, 'Reifennutzung': 0.95
+                f.write(f"\n  new_data_point = {value}") # {'Kalibrierung': calibration, 'Batterieladestand': 85, 'Reifennutzung': 0.95}
                 f.write("\n  calibration = knn_predict(data, new_data_point, k=3)")
                 f.write("\n  print(f'Vorhergesagte Multiplikation: {calibration}')")
             case _:
