@@ -12,6 +12,7 @@ This programm is programmd to implement the Spike Prime Hub software with a easy
 - [Installation](#installation)
 - [Syntax](#syntax)
 - [Functions](#functions)
+- [Artificial Neural Network](#Artificial Neural Network)
 - [Examples](#examples)
 - [Full example with explaination](#full-example-with-explaination)
 - [Guide](#guide)
@@ -47,6 +48,10 @@ There are four build in functions.
 - The `sensor` function is for controling the Input for the artificial inteligence.
 - The `sleep` function will hold the programm for a few moments.
 - The `log` function will print any value you give it.
+
+## Artificial Neural Network
+
+This AI is build in a way that it integrates into the Spike Prime Environment
 
 ## Examples
 
