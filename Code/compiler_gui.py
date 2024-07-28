@@ -252,7 +252,7 @@ def compile_llsp3(file, directory, project_name):
         os.remove(icon_svg_path)
         os.remove(projectbody_path)
         os.rmdir(directory)
-        os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
+        #os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
 def threaded_debug(function, value=False):
     debug_thread = threading.Thread(target=debug_function, args=(function, value))
