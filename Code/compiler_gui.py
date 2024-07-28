@@ -11,7 +11,7 @@ import threading
 
 # Variables
 content_compile = []
-last_function = ""
+last_function = "Flase"
 file_name = ""
 conf_file = "conf.json"
 __version__ = "0.0.0"
@@ -72,6 +72,7 @@ def write_function(function,file,value=False):
         file (str): The name of the file to write to.
         value (str, optional): The value associated with the function. Defaults to False.
     """
+    global last_function
     print(f"Writing {function} function...")
     file_name = file.split(".")
     file_name = file_name[0]
@@ -113,35 +114,47 @@ def write_function(function,file,value=False):
                     f.write(f"\n  await drive({value})\n")
                 elif last_function == "switch":
                     f.write(f"\n    await drive({value})\n")
+                else:
+                    f.write(f"\n  await drive({value})\n")
             case "tank":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
                     f.write(f"\n  await tank({value})\n")
                 elif last_function == "switch":
                     f.write(f"\n    await tank({value})\n")
+                else:
+                    f.write(f"\n  await tank({value})\n")
             case "obstacle":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
                     f.write(f"\n  await obstacle({value})\n")
                 elif last_function == "switch":
                     f.write(f"\n    await obstacle({value})\n")
+                else:
+                    f.write(f"\n  await obstacle({value})\n")
             case "module":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
                     f.write(f"\n  await module({value})\n")
                 elif last_function == "switch":
                     f.write(f"\n    await module({value})\n")
+                else:
+                    f.write(f"\n  await module({value})\n")
             case "calibrate":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
                     f.write("\n  await calibrate()\n")
                 elif last_function == "switch":
                     f.write("\n    await calibrate()\n")
+                else:
+                    f.write("\n  await calibrate()\n")
             case "main.init":
                 f.write("\nasync def main():")
             case "main.run":
                 f.write("\nrunloop.run(main())")
             case "switch":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
-                    f.write("  if await switch():")
+                    f.write("\n  if await switch():\n")
                 elif last_function == "switch":
                     pass
+                else:
+                    f.write("  if await switch():")
             case "call":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
                     f.write(f"\n  await{value}()")
@@ -167,6 +180,7 @@ def write_function(function,file,value=False):
                     print(f"Error: The function {function} does not exist.")
                     sys.exit(1)
         last_function = function
+        print(f"{last_function} function written...")
 
 def debug_function(function,value=False):
     """
@@ -223,6 +237,7 @@ def debug_function(function,value=False):
                 print(f"Error: The function {function} does not exist.")
                 sys.exit(1)
     last_function = function
+    print(f"Debugging {function} function...")
 
 
 def compile_llsp3(file, directory, project_name):
