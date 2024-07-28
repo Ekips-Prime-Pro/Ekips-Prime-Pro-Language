@@ -151,18 +151,8 @@ def debug_function(function,value=False):
             check_for_format("int", value)
         case "init":
             pass
-        case "ai.chose":
-            value = f"{value}"
-            match value:
-                case "supervised":
-                    pass
-                case "unsupervised":
-                    pass
-                case "deep_learning":
-                    pass
-                case _:
-                    messagebox.askokcancel(f"Error: The AI {value} does not exist.")
-                    exit(1)
+        case "ai.init":
+            pass
         case "ai.init":
             pass
         case "module.init":
@@ -181,27 +171,11 @@ def debug_function(function,value=False):
             check_for_format("int", value)
         case "obstacle":
             check_for_format("int", value)
-        case "ai.sensor":
-            value = f"{value}"
-            match value:
-                case "force":
-                    pass
-                case "distance":
-                    pass
-                case "color":
-                    pass
-                case "gyro":
-                    pass
-                case _:
-                    messagebox.askokcancel(f"Error: The sensor {value} does not exist.")
-                    exit(1)
+        case "ai.run":
+            pass
         case "module":
             check_for_format("int", value)
         case "calibrate":
-            pass
-        case "ai.data_save":
-            pass
-        case "ai.data_load":
             pass
         case "main.init":
             pass

@@ -43,7 +43,7 @@ There are four build in functions.
 - The `tank` function is for making turns.
 - The `module` function is for controling a single motor.
 - The `calibration` function is for calibrating the robot and it motors, it also enhances the ai's capabilities.
-- The `ai` function is for controling the artificial inteligence which is build in for every module if there are datasets to build from, for this there will be an extra Guide.
+- The `ai.run` function is for controling the artificial inteligence which is build in for every module if there are datasets to build from, for this there will be an extra Guide.
 - The `sensor` function is for controling the Input for the artificial inteligence.
 - The `sleep` function will hold the programm for a few moments.
 - The `log` function will print any value you give it.
@@ -55,7 +55,7 @@ The best way to learn the language you have to remeber the syntax and the functi
 1. `drive{10}`
 2. `module{100}`
 3. `sensor{color}`
-4. `ai_train_data_save{data_file}` or `ai_train_data_load{data_file}` or `ai_model_chose{supervised_learning}`
+4. `ai.run{Data_values}`
 5. `log{Hello World}`
 6. `calibrate{}`
 7. `tank{30}`
@@ -92,6 +92,8 @@ from app import linegraph as ln
 import runloop
 from math import *
 import random
+import math
+
 pair = motor_pair.PAIR_1
 motor_pair.pair(pair, port.F, port.B)
 motor_module = port.E
@@ -106,18 +108,16 @@ average_obs = []
 ai_data = []
 
 def write_ai_data(file):
-    with open("{file}", "w") as f:
+    with open('{file}', 'w') as f:
         for line in ai_data:
             f.write(line)
-#Module function
 async def module(degrees=0, speed=1110, acceleration=10000):
     if (degrees > 0):
         await motor.run_for_degrees(motor_module, degrees, speed, acceleration=acceleration)
     elif (degrees < 0):
         await motor.run_for_degrees(motor_module, degrees, speed, acceleration=acceleration)
     elif (degrees == 0):
-        print("Error")
-#Drive function
+        print('Error')
 async def drive(distance=0, multiplier=14, speed=1000, acceleration=1000):
     if (distance > 0):
         degrees = multiplier*(distance - calibration)
@@ -126,9 +126,9 @@ async def drive(distance=0, multiplier=14, speed=1000, acceleration=1000):
         degrees = multiplier*(distance + calibration)
         await motor_pair.move_for_degrees(pair, degrees, 0, velocity=speed, acceleration=acceleration)
     elif (distance == 0):
-        print("Null Value Error")
+        print('Null Value Error')
 
-#Tank function
+
 async def tank(degrees=0, left_speed=1000, right_speed=1000, acceleration=1000):
     #180 degrees = 90 Grad
     if (degrees > 0):
@@ -136,45 +136,84 @@ async def tank(degrees=0, left_speed=1000, right_speed=1000, acceleration=1000):
     elif (degrees < 0):
         await motor_pair.move_tank_for_degrees(pair, degrees, -left_speed, right_speed, acceleration=acceleration)
     elif (degrees == 0):
-        print("Null Value Error")
+        print('Null Value Error')
+        
 
-#Obstacle function
 async def obstacle(distance=0, speed=1000, acceleration=1000):
     if (distance > 0):
         while distance_sensor.distance(port.C) > distance:
             await drive(2, 14, speed, acceleration)
-        print("Obstacle detected!")
-        #print(distance_sensor.distance(port.C))
+        print('Obstacle detected!')
     elif (distance <= 0):
-        print("Null Value Error")#Switch function
+        print('Null Value Error')
 async def switch(switch=False):
     while switch == False:
         if (force_sensor.force(force_module) >= 50):
             switch = True
             return True
-#Calibrate function
 async def calibrate(speed=1000, acceleration=1000):
-        if (distance_sensor.distance(port.C) < 110):
-            print("Calibration not possible! | Distance to small!")
-        elif (distance_sensor.distance(port.C) > 110):
-            try:
-                await drive(-1, 14, speed, acceleration)
-                distance0 = distance_sensor.distance(port.C)
-                await drive(10, 14, speed, acceleration)
-                distance1 = distance_sensor.distance(port.C)
-                calibration = distance0 - distance1
-                #print("Calibration done!")
-                print(calibration)
-                wait(0.5)
-            except:
-                print("Calibration not possible! | Error!")
+    if (distance_sensor.distance(port.C) < 110):
+        print('Calibration not possible! | Distance to small!')
+    elif (distance_sensor.distance(port.C) > 110):
+        try:
+            await drive(-1, 14, speed, acceleration)
+            distance0 = distance_sensor.distance(port.C)
+            await drive(10, 14, speed, acceleration)
+            distance1 = distance_sensor.distance(port.C)
+            calibration = distance0 - distance1
+            #print('Calibration done!')
+            print(calibration)
+            wait(0.5)
+        except:
+            print('Calibration not possible! | Error!')
+# Bsp: Datensatz (Bitte bearbeiten fÃ¼r die von Ihnen gemessene Werte)
+# FÃ¼r die kalibrierung bitte einfach die eingebaute Funktion calibrate aus und lassen sie sich das Ergebnis ausgeben.
+# Die Reifennutzung verÃ¤ndert sich fÃ¼r jeden Run um -0.05
+# Der Batterieladestand muss jedesmal gesondert abgelesen werden
+# Wenn sie diese Schritte einhalten kann die KI / das KNN richtig funktionieren
+data = [
+    {'Kalibrierung': 1.0, 'Batterieladestand': 100, 'Reifennutzung': 1.0, 'Multiplikation': 1.00},
+    {'Kalibrierung': 1.0, 'Batterieladestand': 90, 'Reifennutzung': 0.9, 'Multiplikation': 1.10},
+    {'Kalibrierung': 1.0, 'Batterieladestand': 80, 'Reifennutzung': 0.8, 'Multiplikation': 1.25},
+    {'Kalibrierung': 0.9, 'Batterieladestand': 100, 'Reifennutzung': 1.0, 'Multiplikation': 1.10},
+    {'Kalibrierung': 1.1, 'Batterieladestand': 100, 'Reifennutzung': 1.0, 'Multiplikation': 0.95}
+]
+
+def euclidean_distance(point1, point2):
+    distance = 0.0
+    for key in point1:
+        if key != 'Multiplikation':
+            distance += (point1[key] - point2[key]) ** 2
+    return math.sqrt(distance)
+
+def knn_predict(data, new_data_point, k=3):
+    # Berechne die Distanz zwischen dem neuen Punkt und allen anderen Punkten
+    distances = []
+    for item in data:
+        dist = euclidean_distance(new_data_point, item)
+        distances.append((dist, item['Multiplikation']))
+
+    distances.sort(key=lambda x: x[0])
+    neighbors = distances[:k]
+
+    total_distance = sum(neighbor[1] for neighbor in neighbors)
+    predicted_distance = total_distance / k
+
+    return predicted_distance
+
+
 print('Running main Function')
+new_data_point = {'Kalibrierung': 0.84, 'Batterieladestand': 85, 'Reifennutzung': 0.95}
+predicted_mul = knn_predict(data, new_data_point, k=3)
+print(f'Vorhergesagte Multiplikation: {predicted_mul}')
 async def main():
   await drive(10)
-  await tank(30)
-  await drive(10)
-runloop.run(main())
 
+  await tank(30)
+
+  await drive(10)
+
+runloop.run(main())
 ```
 
 The .llsp3 file you can put in the [Spike Prime Software](https://spike.legoeducation.com/) and then load on you're Spike Prime.
