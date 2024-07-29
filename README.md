@@ -50,6 +50,7 @@ There are four build in functions.
 - The `log` function will print any value you give it.
 - The `switch` function will wait on a Signsl from the push sensor.
 - The `generate_ab` function will generate a function it self.
+- The `call` function will call the generatet function.
 
 ## Artificial Neural Network
 
@@ -123,11 +124,17 @@ sensor.init()
 calibration.init()
 ai.init()
 log(Running main Function)
+generate_ab(new_function)
+log(running the new_function)
 main.init()
+switch()
 calibrate()
 ai.run({'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95})
 drive(10)
+call(new_function)
+switch()
 tank(30)
+switch()
 drive(10)
 main.run()
 ```
@@ -171,10 +178,10 @@ async def module(degrees=0, speed=1110, acceleration=10000):
         print('Error')
 async def drive(distance=0, multiplier=14, speed=1000, acceleration=1000):
     if (distance > 0):
-        degrees = multiplier*(distance - calibration)
+        degrees = (distance * calibration)
         await motor_pair.move_for_degrees(pair, degrees, 0, velocity=speed, acceleration=acceleration)
     elif (distance < 0):
-        degrees = multiplier*(distance + calibration)
+        degrees = distance * calibration
         await motor_pair.move_for_degrees(pair, degrees, 0, velocity=speed, acceleration=acceleration)
     elif (distance == 0):
         print('Null Value Error')
@@ -217,6 +224,7 @@ async def calibrate(speed=1000, acceleration=1000):
             wait(0.5)
         except:
             print('Calibration not possible! | Error!')
+
 data = [
     {'Calibration': 1.0, 'Akku': 100, 'Wheelusage': 1.0, 'Multiplication': 1.00},
     {'Calibration': 1.0, 'Akku': 900, 'Wheelusage': 0.9, 'Multiplication': 1.10},
@@ -246,17 +254,26 @@ def knn_predict(data, new_data_point, k=3):
 
     return predicted_multiplication
 
-
 print('Running main Function')
-new_data_point = {'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95}
-predicted_mul = knn_predict(data, new_data_point, k=3)
-print(f'Vorhergesagte Multiplikation: {predicted_mul}')
+async def new_function():
+  print('running the new_function')
 async def main():
+  if await switch():
+
+    await calibrate()
+
+  new_data_point = {'Calibration': calibration, 'Akku': 85, 'Wheelusage': 0.95}
+  calibration = knn_predict(data, new_data_point, k=3)
+  print(f'Vorhergesagte Multiplikation: {calibration}')
   await drive(10)
 
-  await tank(30)
+  await new_function()
+  if await switch():
+    await tank(30)
 
-  await drive(10)
+  if await switch():
+
+    await drive(10)
 
 runloop.run(main())
 ```
