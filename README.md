@@ -48,6 +48,8 @@ There are four build in functions.
 - The `sensor` function is for controling the Input for the artificial inteligence.
 - The `sleep` function will hold the programm for a few moments.
 - The `log` function will print any value you give it.
+- The `switch` function will wait on a Signsl from the push sensor.
+- The `generate_ab` function will generate a function it self.
 
 ## Artificial Neural Network
 
