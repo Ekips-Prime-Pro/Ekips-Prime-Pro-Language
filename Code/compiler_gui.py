@@ -79,8 +79,12 @@ def write_function(function,file,value=False):
     with open(f"{file_name}.py", "a") as f:
         match function:
             case "log":
-                print_out = f"\nprint('{str(value)}')"
-                f.write(print_out)
+                if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
+                    f.write(f"\n  print('{str(value)}')")
+                elif last_function == "switch":
+                    f.write(f"\n    print('{str(value)}')")
+                else:
+                    f.write(f"\nprint('{str(value)}')")
             case "sleep":
                 sleep_out = f"\ntime.sleep({str(value)})"
                 f.write(sleep_out)
@@ -108,60 +112,61 @@ def write_function(function,file,value=False):
                     f.write(line)
             case "switch.init":
                 for line in switch:
+                    f.write("\n")
                     f.write(line)
             case "drive":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
-                    f.write(f"\n  await drive({value})\n")
+                    f.write(f"\n  await drive({value})")
                 elif last_function == "switch":
-                    f.write(f"\n    await drive({value})\n")
+                    f.write(f"\n    await drive({value})")
                 else:
-                    f.write(f"\n  await drive({value})\n")
+                    f.write(f"\n  await drive({value})")
             case "tank":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
-                    f.write(f"\n  await tank({value})\n")
+                    f.write(f"\n  await tank({value})")
                 elif last_function == "switch":
-                    f.write(f"\n    await tank({value})\n")
+                    f.write(f"\n    await tank({value})")
                 else:
-                    f.write(f"\n  await tank({value})\n")
+                    f.write(f"\n  await tank({value})")
             case "obstacle":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
-                    f.write(f"\n  await obstacle({value})\n")
+                    f.write(f"\n  await obstacle({value})")
                 elif last_function == "switch":
-                    f.write(f"\n    await obstacle({value})\n")
+                    f.write(f"\n    await obstacle({value})")
                 else:
-                    f.write(f"\n  await obstacle({value})\n")
+                    f.write(f"\n  await obstacle({value})")
             case "module":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
-                    f.write(f"\n  await module({value})\n")
+                    f.write(f"\n  await module({value})")
                 elif last_function == "switch":
-                    f.write(f"\n    await module({value})\n")
+                    f.write(f"\n    await module({value})")
                 else:
-                    f.write(f"\n  await module({value})\n")
+                    f.write(f"\n  await module({value})")
             case "calibrate":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
-                    f.write("\n  await calibrate()\n")
+                    f.write("\n  await calibrate()")
                 elif last_function == "switch":
-                    f.write("\n    await calibrate()\n")
+                    f.write("\n    await calibrate()")
                 else:
-                    f.write("\n  await calibrate()\n")
+                    f.write("\n  await calibrate()")
             case "main.init":
                 f.write("\nasync def main():")
             case "main.run":
                 f.write("\nrunloop.run(main())")
             case "switch":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
-                    f.write("\n  if await switch():\n")
+                    f.write("\n  if await switch():")
                 elif last_function == "switch":
                     pass
                 else:
-                    f.write("  if await switch():")
+                    f.write("\n  if await switch():")
             case "call":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
-                    f.write(f"\n  await{value}()")
+                    f.write(f"\n  await {value}()")
                 elif last_function == "switch":
-                    f.write(f"\n    await{value}()")
+                    f.write(f"\n    await {value}()")
             case "generate_ab":
-                f.write(f"\nasync def({value}):") # async dev (value) <- function_name()
+                f.write(f"\nasync def {value}():") # async dev (value) <- function_name()
             case "ai.run":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
                     f.write(f"\n  new_data_point = {value}") # {'Kalibrierung': calibration, 'Batterieladestand': 85, 'Reifennutzung': 0.95}
@@ -172,10 +177,8 @@ def write_function(function,file,value=False):
                     f.write("\n    calibration = knn_predict(data, new_data_point, k=3)")
                     f.write("\n    print(f'Vorhergesagte Multiplikation: {calibration}')")
             case _:
-                if function == "//":
-                    f.write(f"# {value}")
-                elif function == "#":
-                    f.write(f"# {value}")
+                if function == "//" or function == "#":
+                    f.write(f"\n# {value}")
                 else:
                     print(f"Error: The function {function} does not exist.")
                     sys.exit(1)
@@ -306,7 +309,7 @@ def compile_llsp3(file, directory, project_name):
         os.remove(icon_svg_path)
         os.remove(projectbody_path)
         os.rmdir(directory)
-        os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
+        #os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
 def threaded_debug(function, value=False):
     debug_thread = threading.Thread(target=debug_function, args=(function, value))
