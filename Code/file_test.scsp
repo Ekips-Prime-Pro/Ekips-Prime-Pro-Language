@@ -1,4 +1,4 @@
-//(This is a simple example of a Spike Custom System Programming Language program. Without ai.)
+//(This is a simple example of a Ekips Prime Pro Programming Language program.)
 init()
 variable.init()
 module.init()

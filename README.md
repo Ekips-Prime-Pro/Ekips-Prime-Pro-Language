@@ -1,6 +1,6 @@
-# Spike Custom Programming Language
+# Ekips Prime Pro Programming Language
 
-[![Application](https://github.com/Spike-Prime-Pro/Spike-Custom-Programming-Language-and-Compiler/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/Spike-Prime-Pro/Spike-Custom-Programming-Language-and-Compiler/actions/workflows/python-app.yml)
+[![Application](https://github.com/Ekips-Prime-Pro/Ekips-Prime-Pro-Language/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/Ekips-Prime-Pro/Ekips-Prime-Pro-Language/actions/workflows/python-app.yml)
 
 ## Introduction
 
@@ -20,16 +20,16 @@ This programm is programmd to implement the Spike Prime Hub software with a easy
 
 ## Installation
 
-To use the Spike Custom System Programming Language, you need to install the compiler and Debuger. Follow the instructions below to get started:
+To use the Ekips Prime Pro Programming Language, you need to install the compiler and Debuger. Follow the instructions below to get started:
 
-1. Download the latest version of the Spike Custom System Programming Language compiler from the official website or from the [github repository](https://github.com/Spike-Prime-Pro/Spike-Custom-Programming-Language-and-Compiler/releases).
+1. Download the latest version of the Ekips Prime Pro Programming Language compiler from the official website or from the [github repository](https://github.com/Ekips-Prime-Pro/Ekips-Prime-Pro-Language/releases).
 2. Install the compiler on your system by running the installer.
 3. Verify the installation by opening a terminal and running the programm.
 4. If there is any Problem please send a Email to <Iron.ai.dev@gmail.com> for bug fixing.
 
 ## Syntax
 
-The Spike Custom System Programming Language has a simple and intuitive syntax that is easy to read and write. Here are some key features of the syntax:
+The Ekips Prime Proe Programming Language has a simple and intuitive syntax that is easy to read and write. Here are some key features of the syntax:
 
 - The functions are the key part of the Programm like `sleep(10)` (`sleep`).
 - The brackets define function uneque variables like `wait(1)` (`()`).
@@ -37,7 +37,7 @@ The Spike Custom System Programming Language has a simple and intuitive syntax t
 
 ## Functions
 
-The main functions of the Spike Custom System Programming Language are for the basic use of the Spike Prime Custom Operating System and programming with ai enforced functions. To use the functions you have to first initialize the functions with the `init()`, `drive.init()`, `module.init()`, `ai.init()`, `calibration.init()`, `variables.init()` and `sensor.init()` functions.
+The main functions of the Ekips Prime Pro Programming Language are for the basic use of the Spike Prime Custom Operating System and programming with ai enforced functions. To use the functions you have to first initialize the functions with the `init()`, `drive.init()`, `module.init()`, `ai.init()`, `calibration.init()`, `variables.init()` and `sensor.init()` functions.
 There are four build in functions.
 
 - The `drive` function is for driving a motorpair forward and backward.
@@ -100,7 +100,7 @@ def knn_predict(data, new_data_point, k=3):
 
 ## Examples
 
-The best way to learn the language you have to remeber the syntax and the functions but then you have to practice. The following code examples will show you how to begin after you have try'd it you can open the Examples.md file and learn more about the Spike Custom System Programming Language.
+The best way to learn the language you have to remeber the syntax and the functions but then you have to practice. The following code examples will show you how to begin after you have try'd it you can open the Examples.md file and learn more about the Ekips Prime Pro Programming Language.
 
 1. `drive(10)`
 2. `module(100)`
@@ -119,7 +119,7 @@ The best way to learn the language you have to remeber the syntax and the functi
 At the beginning you have to initialize the functions with the `init()`, `variables.init()`, `ai.init()`, `module.init()`, `motor.init()`, `sensor.init()` and `calibration.init()` functions. After that you have to start the main loop with the `main()` function. In the main loop you can use the functions that are shown in [Functions](#functions). The following example shows a simple program that drives the robot forward, turns left, and then drives forward again.
 
 ```c
-//(This is a simple example of a Spike Custom System Programming Language program. Without ai.)
+//(This is a simple example of a Ekips Prime Pro Programming Language program. Without ai.)
 init()
 variable.init()
 module.init()
@@ -146,7 +146,7 @@ main.run()
 Out of that you become some Code in a .llsp3 file that you have to ether have to open with the official [desktop app](https://www.microsoft.com/store/productId/9NG9WXQ85LZM?ocid=pdpshare) from Lego or upload the file to the [Official Spike Prime Webapp](https://education.lego.com/de-de/downloads/spike-app/software/).
 
 ```python
-# This is a simple example of a Spike Custom System Programming Language program.
+# This is a simple example of a Ekips Prime Pro Programming Language program.
 import force_sensor, distance_sensor, motor, motor_pair
 from hub import port
 import time
@@ -304,8 +304,8 @@ This is important for the functionality of your robot:
 
 ## Conclusion
 
-This guide has provided you with all the information you need to get started with programming in Spike Custom System Programming. If you have any questions or need further assistance, please refer to the official documentation or contact me.
-Thank you for choosing Spike Custom System Programming! We hope you enjoy using our programming language and look forward to seeing what you create.
+This guide has provided you with all the information you need to get started with programming in Ekips Prime Pro Programming. If you have any questions or need further assistance, please refer to the official documentation or contact me.
+Thank you for choosing Ekips Prime Pro Programming! We hope you enjoy using our programming language and look forward to seeing what you create.
 
 ## License
 
