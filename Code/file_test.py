@@ -95,6 +95,7 @@ def knn_predict(data, new_data_point, k=3):
     neighbors = multiplication[:k]
     total_multiplication = sum(neighbor[1] for neighbor in neighbors)
     predicted_multiplication = total_multiplication / k
+    calibration = predicted_multiplication
     return predicted_multiplication
 
 print('Running main Function')
