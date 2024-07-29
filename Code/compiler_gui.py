@@ -11,7 +11,7 @@ import threading
 
 # Variables
 content_compile = []
-last_function = "Flase"
+last_function = "False"
 file_name = ""
 conf_file = "conf.json"
 __version__ = "0.0.0"
@@ -196,6 +196,7 @@ def debug_function(function,value=False):
         value (str, optional): The value associated with the function. Defaults to False.
     """
     print(f"Debuging {function} function...")
+    global last_function
     match function:
         case "log":
             pass
