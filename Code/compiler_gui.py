@@ -169,10 +169,12 @@ def write_function(function,file,value=False):
                 f.write(f"\nasync def {value}():") # async dev (value) <- function_name()
             case "ai.run":
                 if last_function == "main.init" or last_function == "generate_ab" or last_function == "module" or last_function == "drive" or last_function == "tank" or last_function == "obstacle" or last_function == "ai.run" or last_function == "calibrate" :
+                    f.write("\n  global calibration")
                     f.write(f"\n  new_data_point = {value}") # {'Kalibrierung': calibration, 'Batterieladestand': 85, 'Reifennutzung': 0.95}
                     f.write("\n  calibration = knn_predict(data, new_data_point, k=3)")
                     f.write("\n  print(f'Vorhergesagte Multiplikation: {calibration}')")
                 elif last_function == "switch":
+                    f.write("\n    global calibration")
                     f.write(f"\n    new_data_point = {value}") # {'Kalibrierung': calibration, 'Batterieladestand': 85, 'Reifennutzung': 0.95}
                     f.write("\n    calibration = knn_predict(data, new_data_point, k=3)")
                     f.write("\n    print(f'Vorhergesagte Multiplikation: {calibration}')")
@@ -309,7 +311,7 @@ def compile_llsp3(file, directory, project_name):
         os.remove(icon_svg_path)
         os.remove(projectbody_path)
         os.rmdir(directory)
-        #os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
+        os.remove(os.path.join(directory, project_name + '.py')) # Remove this File if you want to debug the app / if the .llsp3 file is not working
 
 def threaded_debug(function, value=False):
     debug_thread = threading.Thread(target=debug_function, args=(function, value))
