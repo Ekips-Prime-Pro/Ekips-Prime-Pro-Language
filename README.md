@@ -64,7 +64,7 @@ Please use the ai.run after youre `calibrate` function and give the values with 
 Please get the values for the data List for your Robot for your self and dont use the example Data set.
 For the calibration you can use the build in function `calibrate` thoese values will be printet please put them in youre Dataset.
 You have to consider that the wheels degrade with every run about -0.05 Value.
-The batterie loading Point has to be carefully read of the the Official Spike Prime App before the run.
+The batterie loading Point has to be carefully read of the the [Official Spike Prime Software](https://education.lego.com/de-de/downloads/spike-app/software/) before the run.
 If you do this min. 15 times you get a good value evaluation, the more Data you feed the AI the better.
 
 ```python
@@ -109,6 +109,10 @@ The best way to learn the language you have to remeber the syntax and the functi
 5. `log(Hello World)`
 6. `calibrate()`
 7. `tank(30)`
+8. `switch`
+9. `ai.run({"Calibration" : calibration, "Akku" : 90, "Wheelusage" : 0.95})`
+10. `generate_ab(new_function)`
+11. `call(new_function)`
 
 ## Full example with explaination
 
@@ -139,10 +143,10 @@ drive(10)
 main.run()
 ```
 
-Out of that you become some Code in a .py file that will be also available.
+Out of that you become some Code in a .llsp3 file that you have to ether have to open with the official [desktop app](https://www.microsoft.com/store/productId/9NG9WXQ85LZM?ocid=pdpshare) from Lego or upload the file to the [Official Spike Prime Webapp](https://education.lego.com/de-de/downloads/spike-app/software/).
 
 ```python
-# This is a simple example of a Spike Custom System Programming Language program. Without ai.
+# This is a simple example of a Spike Custom System Programming Language program.
 import force_sensor, distance_sensor, motor, motor_pair
 from hub import port
 import time
@@ -188,7 +192,6 @@ async def drive(distance=0, multiplier=14, speed=1000, acceleration=1000):
 
 
 async def tank(degrees=0, left_speed=1000, right_speed=1000, acceleration=1000):
-    #180 degrees = 90 Grad
     if (degrees > 0):
         await motor_pair.move_tank_for_degrees(pair, -degrees, left_speed, -right_speed, acceleration=acceleration)
     elif (degrees < 0):
@@ -219,7 +222,6 @@ async def calibrate(speed=1000, acceleration=1000):
             await drive(10, 14, speed, acceleration)
             distance1 = distance_sensor.distance(port.C)
             calibration = distance0 - distance1
-            #print('Calibration done!')
             print(calibration)
             wait(0.5)
         except:
@@ -310,8 +312,8 @@ Thank you for choosing Spike Custom System Programming! We hope you enjoy using 
 [Apache License](http://www.apache.org/licenses/)
 Version 2.0, January 2004
 
-Maximilian Gründinger, 04.03.2024
+Aiirondev, 04.03.2024
 
 ## Contact
 
-If you have any questions or need further assistance, please contact us at <iron.ai.dev@gmail.com>
+If you have any questions or need further assistance, please contact me at <iron.ai.dev@gmail.com>
