@@ -20,6 +20,15 @@ from bleak.backends.scanner import AdvertisementData
 
 TMessage = TypeVar("TMessage", bound="BaseMessage")
 
+# Variables
+content_compile = []
+last_function = "False"
+file_name = ""
+conf_file = "conf.json"
+__version__ = "0.0.0"
+llsp3_file_path = 'Projekt.llsp3'
+extracted_folder = llsp3_file_path + 'projectbody.json'
+
 SCAN_TIMEOUT = 10.0
 SERVICE = "0000fd02-0000-1000-8000-00805f9b34fb"
 RX_CHAR = "0000fd02-0001-1000-8000-00805f9b34fb"
@@ -542,7 +551,7 @@ class app:
         tk.CTkLabel(self.root, text="Ekips Programming Language Compiler", text_color="Blue", font=("Arial", 20)).pack(pady=10)
         tk.CTkButton(self.root, text="select and compile file", command=self.select_file, corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkButton(self.root, text="select and debug file", command=self.select_file_deb, corner_radius=32, width=wighf, height=heief).pack(pady=10)
-        tk.CTkButton(self.root, text="Upload to spike prime", command=self.run_upload(), corner_radius=32, width=wighf, height=heief).pack(pady=10)
+        tk.CTkButton(self.root, text="Upload to spike prime", command=lambda: self.run_upload(), corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkButton(self.root, text="About", command=self.about, corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkButton(self.root, text="GitHub", command=self.github, corner_radius=32, width=wighf, height=heief).pack(pady=10)
         tk.CTkButton(self.root, text="Help", command=self.help_web, corner_radius=32, width=wighf, height=heief).pack(pady=10)
