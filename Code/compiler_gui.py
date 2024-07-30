@@ -11,7 +11,6 @@ from datetime import datetime
 import threading
 import asyncio
 from typing import cast, TypeVar
-import cobs
 from bleak import BleakClient, BleakScanner
 from bleak.backends.characteristic import BleakGATTCharacteristic
 from bleak.backends.device import BLEDevice
@@ -37,6 +36,11 @@ RX_CHAR = "0000fd02-0001-1000-8000-00805f9b34fb"
 TX_CHAR = "0000fd02-0002-1000-8000-00805f9b34fb"
 DEVICE_NOTIFICATION_INTERVAL_MS = 5000
 EXAMPLE_SLOT = 0
+DELIMITER = 0x02
+NO_DELIMITER = 0xFF
+COBS_CODE_OFFSET = DELIMITER
+MAX_BLOCK_SIZE = 84
+XOR = 3
     
 
 with open(conf_file, "r") as file:
@@ -51,6 +55,103 @@ with open(conf_file, "r") as file:
     switch = content["switch"]
 
 # Functions
+def encode(data: bytes):
+    """
+    Encode data using COBS algorithm, such that no delimiters are present.
+    """
+    buffer = bytearray()
+    code_index = block = 0
+    def begin_block():
+        """Append code word to buffer and update code_index and block"""
+        nonlocal code_index, block
+        code_index = len(buffer)  # index of incomplete code word
+        buffer.append(NO_DELIMITER)  # updated later if delimiter is encountered
+        block = 1  # no. of bytes in block (incl. code word)
+
+    begin_block()
+    for byte in data:
+        if byte > DELIMITER:
+            # non-delimeter value, write as-is
+            buffer.append(byte)
+            block += 1
+
+        if byte <= DELIMITER or block > MAX_BLOCK_SIZE:
+            # block completed because size limit reached or delimiter found
+            if byte <= DELIMITER:
+                # reason for block completion is delimiter
+                # update code word to reflect block size
+                delimiter_base = byte * MAX_BLOCK_SIZE
+                block_offset = block + COBS_CODE_OFFSET
+                buffer[code_index] = delimiter_base + block_offset
+            # begin new block
+            begin_block()
+
+    # update final code word
+    buffer[code_index] = block + COBS_CODE_OFFSET
+
+    return buffer
+
+
+def decode(data: bytes):
+    """
+    Decode data using COBS algorithm.
+    """
+    buffer = bytearray()
+
+    def unescape(code: int):
+        """Decode code word, returning value and block size"""
+        if code == 0xFF:
+            # no delimiter in block
+            return None, MAX_BLOCK_SIZE + 1
+        value, block = divmod(code - COBS_CODE_OFFSET, MAX_BLOCK_SIZE)
+        if block == 0:
+            # maximum block size ending with delimiter
+            block = MAX_BLOCK_SIZE
+            value -= 1
+        return value, block
+
+    value, block = unescape(data[0])
+    for byte in data[1:]:  # first byte already processed
+        block -= 1
+        if block > 0:
+            buffer.append(byte)
+            continue
+
+        # block completed
+        if value is not None:
+            buffer.append(value)
+
+        value, block = unescape(byte)
+
+    return buffer
+
+
+def pack(data: bytes):
+    """
+    Encode and frame data for transmission.
+    """
+    buffer = encode(data)
+
+    # XOR buffer to remove problematic ctrl+C
+    for i in range(len(buffer)):
+        buffer[i] ^= XOR
+
+    # add delimiter
+    buffer.append(DELIMITER)
+    return bytes(buffer)
+
+
+def unpack(frame: bytes):
+    """
+    Unframe and decode frame.
+    """
+    start = 0
+    if frame[0] == 0x01:  # unused priority byte
+        start += 1
+    # unframe and XOR
+    unframed = bytes(map(lambda x: x ^ XOR, frame[start:-1]))
+    return bytes(decode(unframed))
+
 def crc(data: bytes, seed=0, align=4):
     """
     Calculate the CRC32 of data with an optional seed and alignment.
@@ -730,7 +831,7 @@ class app:
                 print(f"Received incomplete message:\n {un_xor}")
                 return
 
-            data = cobs.unpack(data)
+            data = unpack(data)
             try:
                 message = deserialize(data)
                 print(f"Received: {message}")
@@ -749,7 +850,7 @@ class app:
     async def send_message(self, message: BaseMessage) -> None:
         print(f"Sending: {message}")
         payload = message.serialize()
-        frame = cobs.pack(payload)
+        frame = pack(payload)
         packet_size = self.info_response.max_packet_size if self.info_response else len(frame)
 
         for i in range(0, len(frame), packet_size):
