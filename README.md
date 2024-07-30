@@ -286,7 +286,7 @@ The .llsp3 file you can put in the [Spike Prime Software](https://spike.legoeduc
 
 1. First you have to run the programm then you see a menu with a few options:
 
-![alt text](image-4.png)  ![alt text](image-5.png)
+![alt text](image-4.png)
 
 2. if you click on the three buttons that are pointet at you will come to the following menu that will let you chose the file that you want to compile or debug if you chose the Upload button the programm will try to upload the file:
 
