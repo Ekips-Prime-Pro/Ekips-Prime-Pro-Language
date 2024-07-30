@@ -587,23 +587,30 @@ class app:
     def run_upload(self):
         file_path = filedialog.askopenfilename(filetypes=[("Spike Prime", "*.llsp3"), ("Python file", "*.py"), ("All Files", "*.*")])
         file_path_be = file_path.split(".")
-        if file_path:
-            if file_path_be[-1] == ".llsp3":
-                with zipfile.ZipFile(file_path, "r") as file:
-                    file.extractall("temp")
-                with open("temp/projectbody.json", "r") as file:
-                    content = json.load(file)
-                    program_data = content["main"]
-                threading.Thread(target=self.upload, args=(program_data,)).start()
-            elif file_path_be[-1] == ".py":
-                with open(file_path, 'rb') as file:
-                    program_data = file.read()
-                threading.Thread(target=self.run_program, args=(program_data,)).start()
+        print(file_path_be)
+        print(file_path)
+        if file_path_be[-1] == "llsp3":
+            with zipfile.ZipFile(file_path, "r") as file:
+                file.extractall("temp")
+            with open("temp/projectbody.json", "r") as file:
+                content = json.load(file)
+                program_data = content["main"]
+                print(program_data)
+            os.remove("temp/projectbody.json")
+            os.remove("temp/icon.svg")
+            os.remove("temp/manifest.json")
+            os.removedirs("temp")
+            threading.Thread(target=self.upload, args=(program_data,)).start()
+        elif file_path_be[-1] == "py":
+            with open(file_path, 'rb') as file:
+                program_data = file.read()
+            print(program_data)
+            threading.Thread(target=self.upload, args=(program_data,)).start()
 
     def upload(self, program_data):
         try:
-            if asyncio.run(self.hub.scan_and_connect()):
-                self.hub.run(program_data)
+            if asyncio.run(self.SpikePrimeHub.scan_and_connect()):
+                self.SpikePrimeHub.run(program_data)
             else:
                 messagebox.showerror("Error", "Failed to connect to hub.")
         except Exception as e:
