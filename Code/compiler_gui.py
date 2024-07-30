@@ -35,143 +35,7 @@ RX_CHAR = "0000fd02-0001-1000-8000-00805f9b34fb"
 TX_CHAR = "0000fd02-0002-1000-8000-00805f9b34fb"
 DEVICE_NOTIFICATION_INTERVAL_MS = 5000
 EXAMPLE_SLOT = 0
-
-class SpikePrimeHub:
-    def __init__(self):
-        self.stop_event = asyncio.Event()
-        self.client = None
-        self.info_response = None
-
-    async def scan_and_connect(self):
-        def match_service_uuid(device: BLEDevice, adv: AdvertisementData) -> bool:
-            return SERVICE.lower() in adv.service_uuids
-
-        print(f"\nScanning for {SCAN_TIMEOUT} seconds, please wait...")
-        device = await BleakScanner.find_device_by_filter(
-            filterfunc=match_service_uuid, timeout=SCAN_TIMEOUT
-        )
-
-        if device is None:
-            print("No hubs detected. Ensure that a hub is within range, turned on, and awaiting connection.")
-            return False
-
-        device = cast(BLEDevice, device)
-        print(f"Hub detected! {device}")
-
-        def on_disconnect(client: BleakClient) -> None:
-            print("Connection lost.")
-            self.stop_event.set()
-
-        print("Connecting...")
-        self.client = BleakClient(device, disconnected_callback=on_disconnect)
-        await self.client.connect()
-        print("Connected!\n")
-        await self.setup_notifications()
-        return True
-
-    async def setup_notifications(self):
-        service = self.client.services.get_service(SERVICE)
-        rx_char = service.get_characteristic(RX_CHAR)
-        tx_char = service.get_characteristic(TX_CHAR)
-
-        # simple response tracking
-        self.pending_response = (-1, asyncio.Future())
-
-        # callback for when data is received from the hub
-        def on_data(_: BleakGATTCharacteristic, data: bytearray) -> None:
-            if data[-1] != 0x02:
-                # packet is not a complete message
-                un_xor = bytes(map(lambda x: x ^ 3, data))  # un-XOR for debugging
-                print(f"Received incomplete message:\n {un_xor}")
-                return
-
-            data = cobs.unpack(data)
-            try:
-                message = deserialize(data)
-                print(f"Received: {message}")
-                if message.ID == self.pending_response[0]:
-                    self.pending_response[1].set_result(message)
-                if isinstance(message, DeviceNotification):
-                    updates = list(message.messages)
-                    updates.sort(key=lambda x: x[1])
-                    lines = [f" - {x[0]:<10}: {x[1]}" for x in updates]
-                    print("\n".join(lines))
-            except ValueError as e:
-                print(f"Error: {e}")
-
-        await self.client.start_notify(tx_char, on_data)
-
-    async def send_message(self, message: BaseMessage) -> None:
-        print(f"Sending: {message}")
-        payload = message.serialize()
-        frame = cobs.pack(payload)
-        packet_size = self.info_response.max_packet_size if self.info_response else len(frame)
-
-        for i in range(0, len(frame), packet_size):
-            packet = frame[i : i + packet_size]
-            await self.client.write_gatt_char(RX_CHAR, packet, response=False)
-
-    async def send_request(self, message: BaseMessage, response_type: type[TMessage]) -> TMessage:
-        self.pending_response = (response_type.ID, asyncio.Future())
-        await self.send_message(message)
-        return await self.pending_response[1]
-
-    async def execute_program(self, program_data: bytes):
-        try:
-            self.info_response = await self.send_request(InfoRequest(), InfoResponse)
-            notification_response = await self.send_request(
-                DeviceNotificationRequest(DEVICE_NOTIFICATION_INTERVAL_MS),
-                DeviceNotificationResponse,
-            )
-            if not notification_response.success:
-                print("Error: failed to enable notifications")
-                return
-
-            clear_response = await self.send_request(
-                ClearSlotRequest(EXAMPLE_SLOT), ClearSlotResponse
-            )
-            if not clear_response.success:
-                print("ClearSlotRequest was not acknowledged. This could mean the slot was already empty, proceeding...")
-
-            program_crc = crc(program_data)
-            start_upload_response = await self.send_request(
-                StartFileUploadRequest("program.py", EXAMPLE_SLOT, program_crc),
-                StartFileUploadResponse,
-            )
-            if not start_upload_response.success:
-                print("Error: start file upload was not acknowledged")
-                return
-
-            running_crc = 0
-            for i in range(0, len(program_data), self.info_response.max_chunk_size):
-                chunk = program_data[i : i + self.info_response.max_chunk_size]
-                running_crc = crc(chunk, running_crc)
-                chunk_response = await self.send_request(
-                    TransferChunkRequest(running_crc, chunk), TransferChunkResponse
-                )
-                if not chunk_response.success:
-                    print(f"Error: failed to transfer chunk {i}")
-                    return
-
-            start_program_response = await self.send_request(
-                ProgramFlowRequest(stop=False, slot=EXAMPLE_SLOT), ProgramFlowResponse
-            )
-            if not start_program_response.success:
-                print("Error: failed to start program")
-                return
-
-            await self.stop_event.wait()
-
-        except KeyboardInterrupt:
-            print("Interrupted by user.")
-            self.stop_event.set()
-        finally:
-            if self.client:
-                await self.client.disconnect()
-
-    def run(self, program_data: bytes):
-        asyncio.run(self.execute_program(program_data))
-
+    
 
 with open(conf_file, "r") as file:
     content = json.load(file)
@@ -541,6 +405,139 @@ class app:
         self.root.iconbitmap("icon.ico")
         self.main_frame()
         self.root.mainloop()
+        self.stop_event = asyncio.Event()
+        self.client = None
+        self.info_response = None
+
+    async def scan_and_connect(self):
+        def match_service_uuid(device: BLEDevice, adv: AdvertisementData) -> bool:
+            return SERVICE.lower() in adv.service_uuids
+
+        print(f"\nScanning for {SCAN_TIMEOUT} seconds, please wait...")
+        device = await BleakScanner.find_device_by_filter(
+            filterfunc=match_service_uuid, timeout=SCAN_TIMEOUT
+        )
+
+        if device is None:
+            print("No hubs detected. Ensure that a hub is within range, turned on, and awaiting connection.")
+            return False
+
+        device = cast(BLEDevice, device)
+        print(f"Hub detected! {device}")
+
+        def on_disconnect(client: BleakClient) -> None:
+            print("Connection lost.")
+            self.stop_event.set()
+
+        print("Connecting...")
+        self.client = BleakClient(device, disconnected_callback=on_disconnect)
+        await self.client.connect()
+        print("Connected!\n")
+        await self.setup_notifications()
+        return True
+
+    async def setup_notifications(self):
+        service = self.client.services.get_service(SERVICE)
+        rx_char = service.get_characteristic(RX_CHAR)
+        tx_char = service.get_characteristic(TX_CHAR)
+
+        # simple response tracking
+        self.pending_response = (-1, asyncio.Future())
+
+        # callback for when data is received from the hub
+        def on_data(_: BleakGATTCharacteristic, data: bytearray) -> None:
+            if data[-1] != 0x02:
+                # packet is not a complete message
+                un_xor = bytes(map(lambda x: x ^ 3, data))  # un-XOR for debugging
+                print(f"Received incomplete message:\n {un_xor}")
+                return
+
+            data = cobs.unpack(data)
+            try:
+                message = deserialize(data)
+                print(f"Received: {message}")
+                if message.ID == self.pending_response[0]:
+                    self.pending_response[1].set_result(message)
+                if isinstance(message, DeviceNotification):
+                    updates = list(message.messages)
+                    updates.sort(key=lambda x: x[1])
+                    lines = [f" - {x[0]:<10}: {x[1]}" for x in updates]
+                    print("\n".join(lines))
+            except ValueError as e:
+                print(f"Error: {e}")
+
+        await self.client.start_notify(tx_char, on_data)
+
+    async def send_message(self, message: BaseMessage) -> None:
+        print(f"Sending: {message}")
+        payload = message.serialize()
+        frame = cobs.pack(payload)
+        packet_size = self.info_response.max_packet_size if self.info_response else len(frame)
+
+        for i in range(0, len(frame), packet_size):
+            packet = frame[i : i + packet_size]
+            await self.client.write_gatt_char(RX_CHAR, packet, response=False)
+
+    async def send_request(self, message: BaseMessage, response_type: type[TMessage]) -> TMessage:
+        self.pending_response = (response_type.ID, asyncio.Future())
+        await self.send_message(message)
+        return await self.pending_response[1]
+
+    async def execute_program(self, program_data: bytes):
+        try:
+            self.info_response = await self.send_request(InfoRequest(), InfoResponse)
+            notification_response = await self.send_request(
+                DeviceNotificationRequest(DEVICE_NOTIFICATION_INTERVAL_MS),
+                DeviceNotificationResponse,
+            )
+            if not notification_response.success:
+                print("Error: failed to enable notifications")
+                return
+
+            clear_response = await self.send_request(
+                ClearSlotRequest(EXAMPLE_SLOT), ClearSlotResponse
+            )
+            if not clear_response.success:
+                print("ClearSlotRequest was not acknowledged. This could mean the slot was already empty, proceeding...")
+
+            program_crc = crc(program_data)
+            start_upload_response = await self.send_request(
+                StartFileUploadRequest("program.py", EXAMPLE_SLOT, program_crc),
+                StartFileUploadResponse,
+            )
+            if not start_upload_response.success:
+                print("Error: start file upload was not acknowledged")
+                return
+
+            running_crc = 0
+            for i in range(0, len(program_data), self.info_response.max_chunk_size):
+                chunk = program_data[i : i + self.info_response.max_chunk_size]
+                running_crc = crc(chunk, running_crc)
+                chunk_response = await self.send_request(
+                    TransferChunkRequest(running_crc, chunk), TransferChunkResponse
+                )
+                if not chunk_response.success:
+                    print(f"Error: failed to transfer chunk {i}")
+                    return
+
+            start_program_response = await self.send_request(
+                ProgramFlowRequest(stop=False, slot=EXAMPLE_SLOT), ProgramFlowResponse
+            )
+            if not start_program_response.success:
+                print("Error: failed to start program")
+                return
+
+            await self.stop_event.wait()
+
+        except KeyboardInterrupt:
+            print("Interrupted by user.")
+            self.stop_event.set()
+        finally:
+            if self.client:
+                await self.client.disconnect()
+
+    def run(self, program_data: bytes):
+        asyncio.run(self.execute_program(program_data))
 
     def main_frame(self):
         """
@@ -609,8 +606,8 @@ class app:
 
     def upload(self, program_data):
         try:
-            if asyncio.run(self.SpikePrimeHub.scan_and_connect()):
-                self.SpikePrimeHub.run(program_data)
+            if asyncio.run(self.scan_and_connect()):
+                self.run(program_data)
             else:
                 messagebox.showerror("Error", "Failed to connect to hub.")
         except Exception as e:
