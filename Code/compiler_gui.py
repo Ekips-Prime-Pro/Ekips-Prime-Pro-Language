@@ -258,9 +258,7 @@ def debug_function(function,value=False):
         case "generate_ab":
             pass
         case _:
-            if function == "//":
-                pass
-            elif function == "#":
+            if function == "//" or function == "#":
                 pass
             else:
                 print(f"Error: The function {function} does not exist.")
