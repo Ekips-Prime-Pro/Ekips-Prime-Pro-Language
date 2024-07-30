@@ -206,8 +206,6 @@ def debug_function(function,value=False):
             pass
         case "ai.init":
             pass
-        case "ai.init":
-            pass
         case "module.init":
             pass
         case "motor.init":
@@ -234,6 +232,12 @@ def debug_function(function,value=False):
             pass
         case "main.run":
             pass
+        case "switch":
+            pass
+        case "call":
+            pass
+        case "generate_ab":
+            pass
         case _:
             if function == "//":
                 pass
@@ -241,6 +245,7 @@ def debug_function(function,value=False):
                 pass
             else:
                 print(f"Error: The function {function} does not exist.")
+                messagebox.info("Debugger", f"Error: The function{function} does not exist!")
                 sys.exit(1)
     last_function = function
     print(f"Debugging {function} function...")
@@ -360,6 +365,11 @@ def check_for_format(requestet, value):
             int(value)
         except:
             messagebox.askokcancel(f"Error: The value {value} is not a valid integer.")
+            
+class connect:
+    def main():
+        pass
+
 
 class app:
     """
@@ -394,7 +404,7 @@ class app:
         tk.CTkLabel(self.root, text=f"Version {__version__}", text_color="Blue").pack(pady=10)
 
     def licence(self):
-        messagebox.showinfo("License", f"Ekips System Programming License Agreement\nThis License Agreement (the 'Agreement') is entered into by and between Maximilian Gründinger ('Licensor') and the First Lego League Team known as PaRaMeRoS ('Licensee').\n1. License Grant.\nLicensor hereby grants Licensee a non-exclusive, non-transferable license to use and modify the software program known as Ekips System Programming (the 'Program') solely for educational and non-commercial purposes. This license is granted exclusively to the members of the First Lego League Team identified as PaRaMeRoS.\n2. Restrictions.\nLicensee shall not, and shall not permit others to:\na. Use the Program for any purpose other than educational and non-commercial activities within the First Lego League Team.\nb. Allow non-members of the First Lego League Team to use or access the Program.\nc. Commercialize or distribute the Program for financial gain.\nd. Remove or alter any copyright, trademark, or other proprietary notices contained in the Program.\n3. Security.\nLicensor makes no warranties regarding the security of the Program. Licensee acknowledges and agrees that any use of the Program is at their own risk. Licensor shall not be responsible for any security bugs or issues that may arise in connection with the Program.\n4. Term and Termination.\nThis Agreement shall remain in effect until terminated by either party. Licensor reserves the right to terminate this Agreement immediately if Licensee breaches any of its terms. Upon termination, Licensee shall cease all use of the Program and destroy all copies in their possession.\n5. Disclaimer of Warranty.\nTHE PROGRAM IS PROVIDED 'AS IS' WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. LICENSOR DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.\n6. Limitation of Liability.\nIN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY SPECIAL, INCIDENTAL, INDIRECT, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.\n7. Governing Law.\nThis Agreement shall be governed by and construed in accordance with the laws of Germany, Bavaria, Munich.\n8. Entire Agreement.\nThis Agreement constitutes the entire agreement between the parties and supersedes all prior agreements, whether oral or written, with respect to the Program.\nIN WITNESS WHEREOF, the parties hereto have executed this License Agreement as of the effective date.\nLicensor:\nMaximilian Gründinger\nLicensee:\nPaRaMeRoS\nDate: 1.1.2024")
+        messagebox.showinfo("License", f"MIT License")
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
