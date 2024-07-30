@@ -1,2 +1,6 @@
 customtkinter
 bleak
+struct
+abc
+binascii
+asyncio
