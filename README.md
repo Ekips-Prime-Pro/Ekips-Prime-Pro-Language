@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Welcome to the documentation for Spike Custom System Programming! This guide will provide you with all the information you need to get started with programming in Spike Custom System Programming.
+Welcome to the documentation for Ekips Custom System Programming! This guide will provide you with all the information you need to get started with programming in Ekips Custom System Programming.
 This programm is programmd to implement the Spike Prime Hub software with a easy and straight forward Programming Language that compiles in a .llsp3 file that you can put in the [Official Spike Prime Software](https://education.lego.com/de-de/downloads/spike-app/software/), this will be integratet in an future update, also the full ai functionalities will be added in v3.0
 
 ## Table of Contents
